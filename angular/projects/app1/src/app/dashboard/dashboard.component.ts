@@ -10,7 +10,8 @@ import { SENTENCES } from './sentences-mock';
 })
 export class DashboardComponent implements OnInit {
 
-  public sentences : Sentence[] = SENTENCES;
+  public sentences: Sentence[] = SENTENCES;
+  public instruction: string = 'Traduza a frase:';
 
   constructor() { console.log(this.sentences); }
 
