@@ -1,65 +1,23 @@
 "use strict";
-var Car = /** @class */ (function () {
-    function Car(model, doorNumber) {
-        this.speed = 0;
-        this.model = model;
-        this.doorNumber = doorNumber;
-    }
-    Car.prototype.speeUp = function () {
-        this.speed = this.speed + 10;
-    };
-    Car.prototype.stop = function () {
-        this.speed = 0;
-    };
-    Car.prototype.currentSpeed = function () {
-        return this.speed;
-    };
-    return Car;
-}());
-var Dealership = /** @class */ (function () {
-    function Dealership(address, carList) {
-        this.address = address;
-        this.carList = carList;
-    }
-    Dealership.prototype.giveAddress = function () {
-        return this.address;
-    };
-    Dealership.prototype.showCarList = function () {
-        return this.carList;
-    };
-    return Dealership;
-}());
-var Person = /** @class */ (function () {
-    function Person(name, favouriteCar) {
-        this.name = name;
-        this.favouriteCar = favouriteCar;
-    }
-    Person.prototype.sayName = function () {
-        return this.name;
-    };
-    Person.prototype.sayFavouriteCar = function () {
-        return this.favouriteCar;
-    };
-    Person.prototype.buyCar = function (car) {
-        this.car = car;
-    };
-    Person.prototype.sayOwnedCar = function () {
-        return this.car;
-    };
-    return Person;
-}());
-var person = new Person('Bob', 'Honda');
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Car_1 = __importDefault(require("./Car"));
+var Person_1 = __importDefault(require("./Person"));
+var Dealership_1 = __importDefault(require("./Dealership"));
+var person = new Person_1.default('Bob', 'Honda');
 console.log(person.sayFavouriteCar());
 /*-- create cars --*/
-var carA = new Car('Dodge', 2);
-var carB = new Car('Veloster', 4);
-var carC = new Car('Chevette', 3);
+var carA = new Car_1.default('Dodge', 2);
+var carB = new Car_1.default('Veloster', 4);
+var carC = new Car_1.default('Chevette', 3);
 /* -- assemble list of cars from dealership */
 var carList = [carA, carB, carC];
-var dealership = new Dealership('Center of Town', carList);
+var dealership = new Dealership_1.default('Center of Town', carList);
 /*-- show list of cars  --*/
 /*-- buy car --*/
-var client = new Person('Bob', 'Dodge');
+var client = new Person_1.default('Bob', 'Dodge');
 dealership.showCarList().map(function (car) {
     if (car['model'] == client.sayFavouriteCar()) {
         //buys car

@@ -1,0 +1,9 @@
+.btn {
+    background-color: #990000;
+    font-weight: bolder;
+}
+.jumbotron {
+    margin-top:30px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
