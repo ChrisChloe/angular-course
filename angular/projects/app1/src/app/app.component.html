@@ -1,2 +1,25 @@
 <app-header> </app-header>
-<app-dashboard> </app-dashboard>
+
+<div *ngIf="gameInProgress; else endOfGame" >
+    <app-dashboard (endGame)="endGame($event)"> </app-dashboard>
+</div>
+<ng-template #endOfGame>
+  <div *ngIf="endType === 'defeat'; else endOfGameVictory"  class="container" style="margin-top: 50px">
+      <div class="col">
+          <h3 style="color: #990000; font-weight: bolder">
+              Unfortunately, you lost.
+          </h3>
+          <button class="btn btn-primary" (click)="restartGame()">Restart</button>
+      </div>
+  </div>
+</ng-template>
+<ng-template #endOfGameVictory>
+  <div class="container" style="margin-top: 50px">
+    <div class="col">
+        <h3 style="color: green; font-weight: bolder">
+            Congratulations, you won.
+        </h3>
+        <button class="btn btn-primary" (click)="restartGame()">Restart</button>
+    </div>
+</div>
+</ng-template>

@@ -2,11 +2,11 @@
     <div class="jumbotron">
       <div class="row">
           <div class="col sm-6">
-              <app-progress></app-progress>
+              <app-progress [progress]="progress"></app-progress>
           </div>
           <div class="col-sm-6">
               <div class="d-flex justify-content-end">
-                <app-attempts></app-attempts>
+                <app-attempts [attempts]="attempts"></app-attempts>
               </div>
           </div>
       </div>
@@ -14,17 +14,22 @@
       <div class="row">
           <div class="col">
               <h6>{{ instruction }}</h6>
-              <p>{{sentences[0].sentenceEng}}</p>
+              <p>{{roundSentence.sentenceEng}}</p>
 
               <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
+                  <textarea
+                  class="form-control"
+                  rows="3"
+                  (input)="updateAnswer($event)"
+                  [value]="answer"
+                  ></textarea>
               </div>
           </div>
       </div>
       <div class="row">
           <div class="col">
               <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary">Verify</button>
+                <button type="button" class="btn btn-primary" (click)="checkAnswer()">Verify</button>
               </div>
           </div>
       </div>
