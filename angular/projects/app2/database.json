@@ -1,0 +1,92 @@
+{
+	"offers": [
+		{
+			"id": 1,
+			"category": "restaurant",
+			"title": "Super Burger",
+			"offer_description": "Rodízio de Mini-hambúrger com opção de entrada.",
+			"announcer": "Original Burger",
+			"value": 29.90,
+			"highlight": true,
+			"images": [
+				{"url": "/assets/ofertas/1/img1.jpg"},
+				{"url": "/assets/ofertas/1/img2.jpg"},
+				{"url": "/assets/ofertas/1/img3.jpg"},
+				{"url": "/assets/ofertas/1/img4.jpg"}
+			]
+		},
+		{
+			"id": 2,
+			"category": "restaurant",
+			"title": "Cozinha Mexicana",
+			"offer_description": "Almoço ou Jantar com Rodízio Mexicano delicioso.",
+			"announcer": "Mexicana",
+			"value": 32.90,
+			"highlight": true,
+			"images": [
+				{"url": "/assets/ofertas/2/img1.jpg"},
+				{"url": "/assets/ofertas/2/img2.jpg"},
+				{"url": "/assets/ofertas/2/img3.jpg"},
+				{"url": "/assets/ofertas/2/img4.jpg"}
+			]
+		},
+		{
+			"id": 3,
+			"category": "restaurant",
+			"title": "Pizzas Grandes",
+			"offer_description": "Pizza Grande, Mussarela, Marguerita ou outras!",
+			"announcer": "Nossa Pizza",
+			"value": 21.90,
+			"highlight": false,
+			"images": [
+				{"url": "/assets/ofertas/3/img1.jpg"},
+				{"url": "/assets/ofertas/3/img2.jpg"},
+				{"url": "/assets/ofertas/3/img3.jpg"},
+				{"url": "/assets/ofertas/3/img4.jpg"}
+			]
+		},
+		{
+			"id": 4,
+			"category": "entertainment",
+			"title": "Estância das águas",
+			"offer_description": "Diversão garantida com piscinas, trilhas e muito mais.",
+			"announcer": "Estância das águas",
+			"value": 31.90,
+			"highlight": true,
+			"images": [
+				{"url": "/assets/ofertas/4/img1.jpg"},
+				{"url": "/assets/ofertas/4/img2.jpg"},
+				{"url": "/assets/ofertas/4/img3.jpg"},
+				{"url": "/assets/ofertas/4/img4.jpg"},
+				{"url": "/assets/ofertas/4/img5.jpg"},
+				{"url": "/assets/ofertas/4/img6.jpg"}
+			]
+		},
+		{
+			"id": 5,
+			"category": "entertainment",
+			"title": "Kart",
+			"offer_description": "Bateria de Kart de 30 minutos.",
+			"announcer": "Speed Kart",
+			"value": 54.90,
+			"highlight": false,
+			"images": [
+				{"url": "/assets/ofertas/5/img1.jpg"},
+				{"url": "/assets/ofertas/5/img2.jpg"}
+			]
+		},
+		{
+			"id": 6,
+			"category": "entertainment",
+			"title": "Academia de tiro",
+			"offer_description": "Sessão de tiro dinâmico com Instrutor, Estande, Alvo e Equipamentos.",
+			"announcer": "Academia de Tiro",
+			"value": 89.90,
+			"highlight": false,
+			"images": [
+				{"url": "/assets/ofertas/6/img1.jpg"},
+				{"url": "/assets/ofertas/6/img2.jpg"}
+			]
+		}
+	]
+}
