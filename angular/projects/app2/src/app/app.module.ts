@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import { EntertainmentComponent } from './entertainment/entertainment.component';
+import { OfferComponent } from './offer/offer.component';
+import { HowToUseComponent } from './offer/how-to-use/how-to-use.component';
+import { LocationComponent } from './offer/location/location.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { EntertainmentComponent } from './entertainment/entertainment.component'
     HomeComponent,
     FooterComponent,
     RestaurantsComponent,
-    EntertainmentComponent
+    EntertainmentComponent,
+    OfferComponent,
+    HowToUseComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,

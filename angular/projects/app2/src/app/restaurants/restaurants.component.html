@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="secao">
+  <div class="section">
     <h3 class="text-center">Rodízios, Buffet, Carnes Especiais, Feijoada e mais!</h3>
     <h5 class="text-center">Conheça as melhores ofertas de restaurantes:</h5>
   </div>
@@ -33,13 +33,9 @@
       </div>
 
       <div class="row">
-        <button class="btn btn-outline-success">Ver oferta</button>
+        <button [routerLink]="['/offer', offer.id]" class="btn btn-outline-success">Ver oferta</button>
       </div>
     </div>
-
-
+    <hr/>
   </div>
-
-
-
 </div>

@@ -20,5 +20,9 @@
 }
 
 .active {
-    color: #FFF 
+    color: #FFF
+}
+
+.form-control{
+    margin-top: 10px;
 }

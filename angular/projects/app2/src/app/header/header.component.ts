@@ -12,4 +12,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  public search(searchTerm: string): void {
+    console.log(searchTerm);
+  }
+
 }
