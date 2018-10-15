@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+
 import { ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,9 @@ import { OfferComponent } from './offer/offer.component';
 import { HowToUseComponent } from './offer/how-to-use/how-to-use.component';
 import { LocationComponent } from './offer/location/location.component';
 
+import { ReducedDescription } from './utils/reduced-description.pipe';
+import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { LocationComponent } from './offer/location/location.component';
     EntertainmentComponent,
     OfferComponent,
     HowToUseComponent,
-    LocationComponent
+    LocationComponent,
+    ReducedDescription,
+    PurchaseOrderComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,13 @@
             #searchTerm
             (keyup)="search(searchTerm.value)"
             />
+            <ul class="list-group" style="position: absolute; z-index: 999">
+              <li class="list-group-item" *ngFor="let offer of offers | async" >
+                <a [routerLink]="['/offer', offer.id ]" (click)="cleanSearch()">
+                  {{ offer.title | reducedDescription:10 }}
+                </a>
+              </li>
+            </ul>
         </div>
         <div class="col-md-2">
             <a a href="#"><img src="/assets/carrinho.png" /></a>

@@ -7,6 +7,7 @@ import { EntertainmentComponent } from './entertainment/entertainment.component'
 import { OfferComponent } from './offer/offer.component';
 import { LocationComponent } from './offer/location/location.component';
 import { HowToUseComponent } from './offer/how-to-use/how-to-use.component';
+import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,6 @@ export const ROUTES: Routes = [
         { path: '', component: HowToUseComponent },
         { path: 'how-to-use', component: HowToUseComponent },
         { path: 'location', component: LocationComponent },
-      ] }
-
+      ] },
+  { path: 'purchase-order', component: PurchaseOrderComponent }
 ];

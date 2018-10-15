@@ -12,6 +12,8 @@ export class RestaurantsComponent implements OnInit {
 
   public offers: Offer[];
 
+  public dataTest: any = new Date(2017, 8, 30);
+
   constructor(private offerService: OfferService) { }
 
   ngOnInit() {

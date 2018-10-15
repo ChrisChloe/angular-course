@@ -1,6 +1,6 @@
 import { OfferService } from './../../offers.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-location',
@@ -18,10 +18,12 @@ export class LocationComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.offerService.getLocationById(this.route.parent.snapshot.params['id'])
-      .then((description: string) => {
-        this.location = description;
-      });
+    this.route.parent.params.subscribe((params: Params) => {
+      this.offerService.getLocationById(params.id)
+        .then((description: string) => {
+          this.location = description;
+        });
+    });
   }
 
 }
