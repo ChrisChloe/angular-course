@@ -18,6 +18,7 @@ import { LocationComponent } from './offer/location/location.component';
 
 import { ReducedDescription } from './utils/reduced-description.pipe';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
+import { PurchaseOrderSuccessComponent } from './purchase-order-success/purchase-order-success.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { PurchaseOrderComponent } from './purchase-order/purchase-order.componen
     HowToUseComponent,
     LocationComponent,
     ReducedDescription,
-    PurchaseOrderComponent
+    PurchaseOrderComponent,
+    PurchaseOrderSuccessComponent
   ],
   imports: [
     BrowserModule,
