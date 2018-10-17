@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="ordem-compra">
-    <form novalidate>
+  <div class="ordem-compra" *ngIf="idPurchaseOrder === undefined" >
+    <form [formGroup]="form" novalidate (ngSubmit)="confirmPurchase()">
 
       <h5>Sua Compra</h5>
       <hr />
@@ -62,7 +62,6 @@
       </div>
       <br />
 
-
       <h5>Dados de entrega</h5>
       <hr />
 
@@ -71,62 +70,35 @@
         <div class="form-group col-md-6">
           <input
             type="text"
-            class="form-control {{ addressPristine ? '' : (validAddress ? 'is-valid' : 'is-invalid')}}"
+            class="form-control"
             placeholder="Endereço"
             autocomplete="off"
-            minlength="5"
-            required
-            #inputAddress
-            (input)="updateAddress(inputAddress.value)"
-            [value]="address"
+            formControlName="address"
           >
-          <div *ngIf="addressPristine == false">
-            <div *ngIf="validAddress; else msgAddressInvalid">
-                <small class="form-text text-success">Ok</small>
-            </div>
-            <ng-template #msgAddressInvalid>
-                <small class="form-text text-danger">Endereço Inválido</small>
-            </ng-template>
-          </div>
+          <small *ngIf="form.get('address').valid && form.get('address').touched"  class="form-text text-success">Ok</small>
+          <small *ngIf="!form.get('address').valid && form.get('address').touched"  class="form-text text-danger">Endereço Inválido</small>
         </div>
 
         <div class="form-group col-md-2">
           <input
             type="text"
-            class="form-control {{ numberPristine ? '' : (validNumber ? 'is-valid' : 'is-invalid')}}"
+            class="form-control"
             placeholder="Número"
             autocomplete="off"
-            minlength="1"
-            required
-            #inputNumber
-            (input)="updateNumber(inputNumber.value)"
-            [value]="number"
+            formControlName="number"
           >
-          <div *ngIf="numberPristine == false">
-            <div *ngIf="validNumber; else msgNumberInvalid">
-                <small class="form-text text-success">Ok</small>
-            </div>
-            <ng-template #msgNumberInvalid>
-                <small class="form-text text-danger">Número Inválido</small>
-            </ng-template>
-          </div>
+          <small *ngIf="form.get('number').valid && form.get('number').touched"  class="form-text text-success">Ok</small>
+          <small *ngIf="!form.get('number').valid && form.get('number').touched"  class="form-text text-danger">Número Inválido</small>
         </div>
 
         <div class="form-group col-md-4">
           <input
             type="text"
-            class="form-control {{ complementPristine ? '' : (validComplement ? 'is-valid' : '')}}"
+            class="form-control"
             placeholder="Complemento"
             autocomplete="off"
-            #inputComplement
-            (input)="updateComplement(inputComplement.value)"
-            [value]="complement"
+            formControlName="complement"
           >
-          <div *ngIf="complementPristine == false">
-            <div *ngIf="validComplement">
-                <small class="form-text text-success">Ok</small>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -139,34 +111,26 @@
 
         <div class="form-group col-md-3">
           <select
-          class="form-control {{ payMethodPristine ? '' : (validPayMethod ? 'is-valid' : 'is-invalid')}}"
-            #selectPayMethod
-            (change)="updatePayMethod(selectPayMethod.value)"
+            class="form-control"
+            formControlName="payMethod"
           >
-            <option value="" >Selecione uma opção</option>
-            <option value="cash" selected="{{ payMethod == 'cash' ? 'selected' : '' }}">Dinheiro</option>
-            <option value="debit" selected="{{ payMethod == 'debit' ? 'selected' : '' }}">Débito</option>
+            <option value="">Selecione uma opção</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="debito">Débito</option>
           </select>
-
-          <div *ngIf="payMethodPristine == false">
-            <div *ngIf="validPayMethod; else msgPayMethodInvalid">
-                <small class="form-text text-success">Ok</small>
-            </div>
-            <ng-template #msgPayMethodInvalid>
-                <small class="form-text text-danger">Selecione uma opção de pagamento</small>
-            </ng-template>
-          </div>
+          <small *ngIf="form.get('payMethod').valid && form.get('payMethod').touched"  class="form-text text-success">Ok</small>
+          <small *ngIf="!form.get('payMethod').valid && form.get('payMethod').touched"  class="form-text text-danger">Forma de Pagamento Inválida</small>
         </div>
       </div>
 
       <hr />
       <button
-        type="button"
+        type="submit"
         class="btn btn-primary btn-lg"
-        [disabled]="formState"
-        (click)="purchaseConfirm()"
-      >
-      Confirmar compra</button>
+      >Confirmar compra</button>
     </form>
+  </div>
+  <div class="ordem-compra" *ngIf="idPurchaseOrder !== undefined" >
+    <app-purchase-order-success [idPurchaseOrder]=idPurchaseOrder></app-purchase-order-success>
   </div>
 </div>

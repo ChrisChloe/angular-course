@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Order } from './shared/order.model';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { URL_API } from './app.api';
 export class PurchaseOrderService {
     constructor(private http: Http) { }
 
-    public confirmPurchase(order: Order): Observable<any> {
+    public confirmPurchase(order: Order): Observable<number> {
 
         const headers: Headers = new Headers();
 
@@ -20,7 +20,7 @@ export class PurchaseOrderService {
           `${URL_API}purchases`,
           JSON.stringify(order),
           new RequestOptions({ headers: headers }))
-          .pipe(map((response: Response) => console.log(response.json)));
+          .pipe(map((response: Response) => response.json().id));
 
     }
 }
