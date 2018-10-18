@@ -19,7 +19,7 @@ export class PurchaseOrderService {
         return this.http.post(
           `${URL_API}purchases`,
           JSON.stringify(order),
-          new RequestOptions({ headers: headers }))
+          new RequestOptions({ headers }))
           .pipe(map((response: Response) => response.json().id));
 
     }

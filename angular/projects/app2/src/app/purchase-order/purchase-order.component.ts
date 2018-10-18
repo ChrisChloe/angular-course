@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseOrderService } from './../purchase-order.service';
-import CartService from '../cart.service';
+import { CartService } from '../cart.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Order } from '../shared/order.model';
+import { ItemCart } from '../shared/cart-item.model';
 
 @Component({
   selector: 'app-purchase-order',
   templateUrl: './purchase-order.component.html',
   styleUrls: ['./purchase-order.component.css'],
-  providers: [ PurchaseOrderService, CartService ]
+  providers: [ PurchaseOrderService ]
 })
 export class PurchaseOrderComponent implements OnInit {
 
   public idPurchaseOrder: number;
+  public itemsCart: ItemCart[] = [];
 
   public form: FormGroup = new FormGroup({
     'address': new FormControl(null, [ Validators.required, Validators.minLength(3), Validators.maxLength(120)]),
@@ -28,7 +30,8 @@ export class PurchaseOrderComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('array de itens do carrinho', this.cartService.showItems());
+    this.itemsCart = this.cartService.showItems();
+    console.log(this.itemsCart);
   }
   public confirmPurchase(): void {
     if (this.form.status === 'INVALID') {
@@ -39,18 +42,32 @@ export class PurchaseOrderComponent implements OnInit {
       this.form.get('payMethod').markAsTouched();
 
     } else {
+
+      if (this.cartService.showItems().length === 0) {
+        alert('Seu carrinho está vazio!');
+      } else {
+
       const order: Order = new Order(
         this.form.value.address,
         this.form.value.number,
         this.form.value.complement,
-        this.form.value.payMethod
+        this.form.value.payMethod,
+        this.cartService.showItems()
         );
 
         this.purchaseOrderService.confirmPurchase(order)
         .subscribe((idOrder: number) => {
           this.idPurchaseOrder = idOrder;
-          console.log(this.idPurchaseOrder);
-        });
+          this.cartService.clearCart();
+          });
+      }
     }
+  }
+  public add(item: ItemCart): void {
+    this.cartService.addQuantity(item);
+
+  }
+  public reduce(item: ItemCart): void {
+    this.cartService.reduceQuantity(item);
   }
 }

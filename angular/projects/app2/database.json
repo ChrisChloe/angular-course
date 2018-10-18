@@ -367,6 +367,90 @@
       "complement": null,
       "payMethod": "dinheiro",
       "id": 26
+    },
+    {
+      "address": "oiu",
+      "number": "oi",
+      "complement": null,
+      "payMethod": "dinheiro",
+      "id": 27
+    },
+    {
+      "address": "Rua 13",
+      "number": 23,
+      "complement": "Centro",
+      "payMethod": "dinheiro",
+      "items": [
+        {
+          "id": 1,
+          "img": {
+            "url": "/assets/ofertas/1/img1.jpg"
+          },
+          "title": "Super Burger",
+          "offer_description": "Rodízio de Mini-hambúrger com opção de entrada.",
+          "value": 29.9,
+          "quantity": 3
+        },
+        {
+          "id": 3,
+          "img": {
+            "url": "/assets/ofertas/3/img1.jpg"
+          },
+          "title": "Pizzas Grandes",
+          "offer_description": "Pizza Grande, Mussarela, Marguerita ou outras!",
+          "value": 21.9,
+          "quantity": 2
+        }
+      ],
+      "id": 28
+    },
+    {
+      "address": "Branco",
+      "number": 234,
+      "complement": "Algum",
+      "payMethod": "debito",
+      "items": [
+        {
+          "id": 1,
+          "img": {
+            "url": "/assets/ofertas/1/img1.jpg"
+          },
+          "title": "Super Burger",
+          "offer_description": "Rodízio de Mini-hambúrger com opção de entrada.",
+          "value": 29.9,
+          "quantity": 2
+        },
+        {
+          "id": 5,
+          "img": {
+            "url": "/assets/ofertas/5/img1.jpg"
+          },
+          "title": "Kart",
+          "offer_description": "Bateria de Kart de 30 minutos.",
+          "value": 54.9,
+          "quantity": 4
+        }
+      ],
+      "id": 29
+    },
+    {
+      "address": "Ruas",
+      "number": 213,
+      "complement": "zxc",
+      "payMethod": "dinheiro",
+      "items": [
+        {
+          "id": 4,
+          "img": {
+            "url": "/assets/ofertas/4/img1.jpg"
+          },
+          "title": "Estância das águas",
+          "offer_description": "Diversão garantida com piscinas, trilhas e muito mais.",
+          "value": 31.9,
+          "quantity": 6
+        }
+      ],
+      "id": 30
     }
   ]
 }

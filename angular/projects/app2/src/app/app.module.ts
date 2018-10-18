@@ -4,8 +4,11 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { CartService } from './cart.service';
 
+// pipes
 import { ROUTES } from './app.routes';
+import { ReducedDescription } from './utils/reduced-description.pipe';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,8 +19,6 @@ import { EntertainmentComponent } from './entertainment/entertainment.component'
 import { OfferComponent } from './offer/offer.component';
 import { HowToUseComponent } from './offer/how-to-use/how-to-use.component';
 import { LocationComponent } from './offer/location/location.component';
-
-import { ReducedDescription } from './utils/reduced-description.pipe';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { PurchaseOrderSuccessComponent } from './purchase-order-success/purchase-order-success.component';
 
@@ -43,7 +44,7 @@ import { PurchaseOrderSuccessComponent } from './purchase-order-success/purchase
     RouterModule.forRoot(ROUTES),
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ CartService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
