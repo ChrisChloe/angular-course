@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 d-flex justify-content-end" [@banner-animation]="stateBanner">
+      <app-banner></app-banner>
+    </div>
+    <div *ngIf="register; else formLogin">
+      <div
+        class="col-sm-6 d-flex justify-content-start"
+        [@card-animation]="stateCard"
+        (@card-animation.start)="animationStart()"
+        (@card-animation.done)="animationEnd()"
+      >
+        <app-register (showCard)="showCard($event)"></app-register>
+      </div>
+    </div>
+    <ng-template #formLogin>
+      <div
+        class="col-sm-6 d-flex justify-content-start"
+        [@card-animation]="stateCard"
+        (@card-animation.start)="animationStart()"
+        (@card-animation.done)="animationEnd()"
+      >
+        <app-login (showCard)="showCard($event)"></app-login>
+      </div>
+    </ng-template>
+  </div>
+</div>
