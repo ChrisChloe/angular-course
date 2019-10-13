@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 class="modal-title">Faturar</h4>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="toInvoice(invoice)">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Banco</label>
+                    <select ng-options="bank_account.id as bank_account.name+' | '+bank_account.account+'-'+bank_account.account_digit for bank_account in bank_accounts | orderBy:'name'"
+                        class="form-control" ng-model="invoice.bank_account_id" id="bank_account" ng-required="true">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Tipo de Pagamento</label>
+                    <select ng-model="invoice.type_payment" class="form-control" ng-options="a.value as a.title for a in typePayments" ng-required="true">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4" ng-if="invoice.type_payment === 4">
+                <div class="form-group">
+                    <label ng-if="attachment.file" title="{{attachment.file.name}}">
+                        {{attachment.file.name}} | {{(attachment.file.size / 1000000).toFixed(2)}} MB
+                    </label>
+                    <div type="button" class="btn btn-success btn-block" ngf-select="fileSelected(attachment)" ng-model="attachment.file" ngf-max-size="10MB"
+                        ngf-accept="'image/*,image/jpeg,application/pdf,text/plain,application/msword,application/excel,application/x-msexcel,application/x-excel'"
+                        name="file" ng-style="!attachment.file && {'margin-top':'23px'}">
+                        Selecione o arquivo
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <br>
+                    <button class="btn btn-success">
+                        <i class="fa fa-check-circle-o"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>

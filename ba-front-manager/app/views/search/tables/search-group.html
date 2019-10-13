@@ -1,0 +1,138 @@
+<ba-table ba-table-resource="resource" ba-table-items="searches" ba-table-filter-criteria="filterCriteria">
+
+        <ba-table-header filter="filter">
+                <form ng-submit="filter(search)">
+        
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">De</span>
+                                <input  class="form-control"
+                                        data-provide="datepicker"
+                                        data-date-format="dd/mm/yyyy"
+                                        data-language="pt-BR"
+                                        data-date-autoclose="true"
+                                        ng-model="search.min_date">
+                                <i style="cursor: pointer; position: absolute; font-size: 18px; line-height: 2em; left: 90%; z-index: 999" 
+                                ng-if="search.min_date" 
+                                class="fa fa-close"
+                                ng-click="clearDate(1)"></i>
+                            </div>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon3">Até</span>
+                                <input  class="form-control"
+                                        data-provide="datepicker"
+                                        data-date-format="dd/mm/yyyy"
+                                        data-language="pt-BR"
+                                        data-date-autoclose="true"
+                                        ng-model="search.max_date">
+                                <i style="cursor: pointer; position: absolute; font-size: 18px; line-height: 2em; left: 90%; z-index: 999" 
+                                ng-if="search.max_date" 
+                                class="fa fa-close"
+                                ng-click="clearDate(2)"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" id="region_id"
+                                    ng-model="search.region"
+                                    ng-options="s.value as s.title for s in region">
+                                <option value="">Regional</option>
+                            </select>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <select class="form-control" id="group_id"
+                                    ng-model="search.group"
+                                    ng-options="group.id as group.name for group in groups">
+                                <option value="">Grupo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" id="status"
+                                    ng-model="search.status"
+                                    ng-options="s.value as s.title for s in status">
+                                <option value="">Status</option>
+                            </select>
+                        </div>
+        
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </form>
+            </ba-table-header>
+
+    <ba-table-body>
+            <table id="data-table-search" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.agency.title">Agência</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="origin.initials">Origem</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="destination.initials">Destino</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="date_starting">Partida</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="date_back">Volta</ba-table-sort></th>
+                    <th>Status</th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="search in searches"  ng-click="openDetails(search)"  style="cursor: pointer">
+                    <td scope="row" ><span ng-class="{'fa fa-plus text-success':!search.open, 'fa fa-minus text-danger':search.open}"></span></th>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.id}}</td>
+                    <td ng-if="search.user.agency.title" ng-class="{'alert alert-warning':search.has_ops}"><a href="#/agency/{{search.user.agency.id}}" target="_blank">{{search.user.agency.title}}</a></td>
+                    <td ng-if="!search.user.agency.title" ng-class="{'alert alert-warning':search.has_ops}">Sem Informações</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.origin.initials}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.destination.initials}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.date_starting | toDate | date:'dd/MM/yy'}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{(search.date_back    | toDate | date:'dd/MM/yy') || '--'}}</td>
+                    <th>{{search.status_title}}</th>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                </tr>
+
+                <tr ng-repeat-end class="collapse" ng-class="{'in':search.open}">
+                    <td colspan="17">
+                        <div class="col-md-12">
+                            <div class="panel panel-white" style="margin-bottom:0!important;">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <ul class="list-inline list-unstyled" style="margin: 5px!important;">
+                                                <li><strong>ID: </strong> #{{ search.search_detail.id }}</li>
+                                                <li><strong>Tipo:</strong> {{search.search_detail.type_trip_title}}</li>
+                                                <li><strong>Adultos(ADT):</strong> {{search.search_detail.searches[0].adults ? search.search_detail.searches[0].adults : 0}}</li>
+                                                <li><strong>Crianças(CHD):</strong> {{search.search_detail.searches[0].children ? search.search_detail.searches[0].children : 0}}</li>
+                                                <li><strong>Bebês(BB):</strong> {{search.search_detail.searches[0].babies ? search.search_detail.searches[0].babies : 0}}</li>
+                                                <li><strong>Usuário:</strong> {{search.search_detail.user.name}} </li>
+                                                <li><strong>Telefone:</strong> {{search.search_detail.user.agency.phone}}</li>
+                                                <li ng-if="search.detail.user.agency"><strong>Agência:</strong> <a ui-sref="app.agency-edit(search.detail.user.agency)">{{search.search_detail.user.agency.title}}</a></li>
+                                                <li><strong>Realizado:</strong> {{search.search_detail.created_at | toDate | date:'dd/MM/yy HH:mm'}}</li>
+                                                <li><strong>Qtd. Cia:</strong> {{search.search_detail.count_search}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

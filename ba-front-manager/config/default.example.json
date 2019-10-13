@@ -1,0 +1,9 @@
+{
+  "s3": {
+    "region": "sa-east-1",
+    "bucket": "manager.buscaaereo.com.br",
+    "accessKeyId": "",
+    "secretAccessKey": "",
+    "signatureVersion": "v3"
+  }
+}

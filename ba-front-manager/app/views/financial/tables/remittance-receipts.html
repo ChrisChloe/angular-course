@@ -1,0 +1,97 @@
+<ba-table ba-table-resource="resource" ba-table-items="remittances" ba-table-filter-criteria="filterCriteria">
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">de</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.min_date">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.max_date">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon4">Banco</span>
+                        <select class="form-control" ng-model="search.bank_id" ng-options="bank.id as bank.name + ' - ' + bank.account for bank in remittance_banks">
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                </div>
+<!--                 <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">Cliente</span>
+                        <select ng-init="getClients()" 
+                                class="form-control" 
+                                ng-model="search.client_id" 
+                                ng-options="client.id as client.name for client in clients">
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="bank_accounts|bank_accounts.name">Banco</ba-table-sort></th>
+                <th>Qtd.</th>
+                <th>Total R$</th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="{{remittance.id}}" class="remittance-row" ng-repeat="remittance in remittances">
+                <td ng-bind="remittance.id"></td>
+                <td ng-bind="remittance.bank_name"></td>
+                <td ng-bind="remittance.receipts_count"></td>
+                <td ng-bind="remittance.total_price | currency:''"></td>
+                <td ng-bind="remittance.created_at | date: 'dd/MM/yy'"></td>
+                <td class="col-md-2">
+                    <a ui-sref="app.financial-remittance-receipts-view(remittance)" class="btn btn-info btn-xs" title="ver"><i class="fa fa-search"></i></a>
+                    <button type="button" ng-click="download(remittance.id)" class="btn btn-success btn-xs" title="Download"><i class="fa fa-download"></i></button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="bank_accounts|bank_accounts.name">Banco</ba-table-sort></th>
+
+                <th>Qtd.</th>
+                <th>Total R$</th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

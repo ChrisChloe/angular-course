@@ -1,0 +1,49 @@
+<ba-table ba-table-resource="CardComment" ba-table-items="comments" ba-table-filter-criteria="filterCardCommentCriteria">
+
+    <ba-table-body>
+
+        <table id="data-table-comment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCommentCriteria.sortedBy" ba-table-sort-by="filterCommentCriteria.orderBy" ba-table-sort-value="body">Observação</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCommentCriteria.sortedBy" ba-table-sort-by="filterCommentCriteria.orderBy" ba-table-sort-value="emission.emitter_id">Criador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCommentCriteria.sortedBy" ba-table-sort-by="filterCommentCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="comment in comments">
+                    <td>
+                        {{comment.body | limitTo:20}}<div ng-if="comment.body.length > 20">...</div>
+                    </td>
+                    <td>{{comment.user.name}}</td>
+                    <td>{{comment.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td>
+                        <button ng-click="comment.open = !comment.open" class="btn btn-xs btn-success">
+                            <span class="fa" ng-class="{'fa-eye':!comment.open,'fa-eye-slash':comment.open}"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr ng-repeat-end ng-show="comment.open">
+                    <td colspan="5">
+                        <div>
+                            <strong>Conteúdo</strong><br>
+                            <div id="comment-{{comment.id}}">
+                                {{comment.body}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr ng-if="comments.length <= 0">
+                    <td colspan="4">
+                        <h5 class="text-center">Nenhum problema encontrada</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

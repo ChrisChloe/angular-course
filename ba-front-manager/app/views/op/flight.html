@@ -1,0 +1,357 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 style="font-size: 16px" class="panel-title text-bold">Voo de IDA
+                    </h4>
+            </div>
+            <div class="panel-body">
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="list-unstyled list-with-padding list-inline">
+                            <li>
+                                <div>CIA</div>
+                                <strong class="ba-clipboard">{{ op.flight.company.title }}</strong>
+                            </li>
+                            <li>
+                                <div>Nº</div>
+                                <strong class="ba-clipboard">{{ op.flight.flight_code }}</strong>
+                            </li>
+                            <li>
+                                <div>Partida</div>
+                                <strong class="ba-clipboard">
+                                    {{ op.flight.date_boarding +' '+ op.flight.boarding | toDate | date:'dd/MM/yy HH:m'}}
+                                </strong>
+                            </li>
+                            <li>
+                                <div>Chegada</div>
+                                <strong class="ba-clipboard">
+                                    {{ op.flight.date_landing +' '+ op.flight.landing | toDate | date:'dd/MM/yy HH:m'}}
+                                </strong>
+                            </li>
+                            <li>
+                                <div>Taxas</div>
+                                <strong class="ba-clipboard" ng-if="op.flight.is_national">
+                                    {{ op.flight.shipping_rate + op.flight.company.additional_tax | currency}}
+                                    <span ng-if="op.flight.company.additional_tax">
+                                        + {{ op.flight.company.additional_tax | currency }}
+                                    </span>
+                                </strong>
+                                <strong class="ba-clipboard" ng-if="!op.flight.is_national">
+                                    {{ op.flight.shipping_rate + op.flight.company.additional_tax_inter | currency}}
+                                    <span ng-if="op.flight.company.additional_tax_inter">
+                                        + {{ op.flight.company.additional_tax_inter | currency }}
+                                    </span>
+                                </strong>
+                            </li>
+                            <li ng-if="op.flight.travel_markup_price">
+                                <div>Trecho</div>
+                                <strong class="ba-clipboard">{{ op.flight.travel_markup_price | currency}}</strong>
+                            </li>
+                            <li title="Preço total do voo">
+                                <div>Preço</div>
+                                <strong class="ba-clipboard">
+                                    {{ op.flight.price | currency }}
+                                </strong>
+                            </li>
+                            <!--<li>
+                                <div>Bagagem</div>
+                                <strong class="ba-clipboard">{{ op.flight.baggage_type_title }}</strong>
+                            </li>-->
+                            <li ng-if="op.flight.modality">
+                                <div>Modalidade</div>
+                                <strong class="ba-clipboard" ng-if="op.flight.modality == 'economy'">
+                                    {{ op.flight.modality_title }}
+                                </strong>
+                                <strong class="ba-clipboard text-danger" ng-if="op.flight.modality == 'executive'">
+                                    {{ op.flight.modality_title }}
+                                </strong>
+                            </li>
+                            <li>
+                                <div>Tipo</div>
+                                <strong class="ba-clipboard" ng-if="op.flight.fare_type == 0">
+                                    {{ op.flight.fare_type_title }}
+                                </strong>
+                                <strong class="ba-clipboard text-danger" ng-if="op.flight.fare_type == 1">
+                                    {{ op.flight.fare_type_title }}
+                                </strong>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4>Trechos</h4>
+                        <h6 class="text-bold">{{ op.flight.is_national ? 'Nacional' : 'Internacional' }}</h6>
+                    </div>
+                    <div class="col-md-11">
+                        <ul class="list-unstyled  list-inline list-with-padding">
+                            <li ng-repeat-start="connection in op.flight.connections">
+                                <div class="row">
+                                    <div class="col-md-4 text-center">
+                                        <strong>{{ connection.origin }}</strong><br> {{ connection.boarding | toDate | date:'HH:mm'
+                                        }}
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {{ connection.flight_code }}
+                                        <i class="fa fa-plane" style="font-size: 1.5em;margin-top:10px"></i>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <strong>{{ connection.destination }}</strong><br> {{ connection.landing | toDate
+                                        | date:'HH:mm' }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-repeat-end ng-if="$index < op.flight.connections.length - 1">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        {{connection.waiting | toDate | date:'HH:mm'}}
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <h4 class="panel-title" style="padding: 10px; margin-bottom: 5px;">Pax.</h4>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped table-responsive table-reduced" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Nome</th>
+                                            <th>Sobrenome</th>
+                                            <th>Sexo</th>
+                                            <th>CPF</th>
+                                            <th>RG</th>
+                                            <th>Telefone</th>
+                                            <th>E-mail</th>
+                                            <th>Nascimento</th>
+                                            <th>Bagagem</th>
+                                            <th ng-if="hasPassport(op.passengers)">Nº Passaporte</th>
+                                            <th ng-if="hasPassport(op.passengers)">V. Passaporte</th>
+                                            <th ng-if="op.status != 0">Emitir</th>
+                                            <th ng-if="op.status != 0" title="Solicitar Emissão">Solicitar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="passenger in op.passengers.adults">
+                                            <td class="ba-clipboard">ADT</td>
+                                            <td class="ba-clipboard">{{ passenger.name }}</td>
+                                            <td class="ba-clipboard">{{ passenger.surname }}</td>
+                                            <td class="ba-clipboard">{{ passenger.gender }}</td>
+                                            <td class="ba-clipboard">{{ passenger.cpf }}</td>
+                                            <td class="ba-clipboard">{{ passenger.rg }}</td>
+                                            <td class="ba-clipboard">{{ passenger.phone }}</td>
+                                            <td class="ba-clipboard">{{ passenger.email }}</td>
+                                            <td class="ba-clipboard">
+                                                {{ passenger.birthday | toDate | date:'dd/MM/yyyy' }}
+                                            </td>
+                                            <td>
+                                                <span ng-if="passenger.baggage_departure">{{passenger.price_baggage_departure
+                                                    | currency}}</span>
+                                                <span ng-if="!passenger.baggage_departure">Não</span>
+                                            </td>
+                                            <td class="ba-clipboard" ng-if="hasPassport(op.passengers)">{{ passenger.passport_number }}</td>
+                                            <td class="ba-clipboard" ng-if="hasPassport(op.passengers)">{{ passenger.passport_expires_at | toDate | date:'dd/MM/yy'  }}</td>
+                                            <td class="ba-clipboard">{{ passenger.email }}</td>
+                                            <td ng-if="op.status != 0">
+                                                <button class="btn btn-xs btn-info" title="Emitir IDA Apenas" ng-disabled="canDisableFlightPassenger(passenger)" ng-if="op.status != 0 && canEmmit(passenger, emissionTypes.oneWayTrip)"
+                                                    ng-click='emit(passenger, emissionTypes.oneWayTrip, op.flight.company)'>
+                                                    Ida
+                                                </button>
+                                                &nbsp;
+                                                <button class="btn btn-xs btn-danger" title="Emitir IDA e Volta" ng-disabled="canDisableFlightPassenger(passenger) || canDisableFlightBackPassenger(passenger)"
+                                                    ng-if="op.status != 0 && op.flight_back && op.flight.company.id ==  op.flight_back.company.id && canEmmit(passenger, emissionTypes.roundTrip)"
+                                                    ng-click='emit(passenger, emissionTypes.roundTrip, op.flight.company)'>
+                                                    I/V
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="!passenger.last_emission_request_to_flight || passenger.last_emission_request_to_flight.status == 4">
+                                                    <label><input type="checkbox" class="" ng-model="passenger.flight_selected_to_emit"
+                                                            ng-click="checkPassengerToEmit(passenger, passenger.flight_selected_to_emit)"
+                                                        /></label>
+                                                </div>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="passenger.last_emission_request_to_flight">
+                                                    <div class="text-success">
+                                                        <span title="{{ passenger.last_emission_request_to_flight.status_title }}">
+                                                            {{ passenger.last_emission_request_to_flight.status_title | limitTo:10 }}
+                                                        </span>
+                                                        #{{ passenger.last_emission_request_to_flight.id }}
+                                                        <a href="#/emission-request?search={{passenger.last_emission_request_to_flight.id}}"><i
+                                                                class="fa fa-external-link"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="passenger in op.passengers.children">
+                                            <td class="ba-clipboard">CHD</td>
+                                            <td class="ba-clipboard">{{ passenger.name }}</td>
+                                            <td class="ba-clipboard">{{ passenger.surname }}</td>
+                                            <td class="ba-clipboard">{{ passenger.gender }}</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td class="ba-clipboard">
+                                                {{ passenger.birthday | toDate | date:'dd/MM/yyyy' }}
+                                            </td>
+                                            <td>
+                                                <span ng-if="passenger.baggage_departure">{{passenger.price_baggage_departure
+                                                    | currency}}</span>
+                                                <span ng-if="!passenger.baggage_departure">Não</span>
+                                            </td>
+                                            <td ng-if="op.status != 0">
+                                                <button class="btn btn-xs btn-info" title="Emitir IDA Apenas" ng-disabled="canDisableFlightPassenger(passenger)" ng-if="op.status != 0 && canEmmit(passenger, emissionTypes.oneWayTrip)"
+                                                    ng-click='emit(passenger, emissionTypes.oneWayTrip, op.flight.company)'>
+                                                    Ida
+                                                </button>
+                                                &nbsp;
+                                                <span>
+                                                    <button class="btn btn-xs btn-danger" title="Emitir IDA e Volta" ng-disabled="canDisableFlightPassenger(passenger) || canDisableFlightBackPassenger(passenger)"
+                                                        ng-if="op.status != 0 && op.flight_back && op.flight.company.id ==  op.flight_back.company.id && canEmmit(passenger, emissionTypes.roundTrip)"
+                                                        ng-click='emit(passenger, emissionTypes.roundTrip, op.flight.company)'>
+                                                        I/V
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="!passenger.last_emission_request_to_flight || passenger.last_emission_request_to_flight.status == 4">
+                                                    <label><input type="checkbox" class="" ng-model="passenger.flight_selected_to_emit"
+                                                            ng-click="checkPassengerToEmit(passenger, passenger.flight_selected_to_emit)"
+                                                        /></label>
+                                                </div>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="passenger.last_emission_request_to_flight">
+                                                    <div class="text-success">
+                                                        <span title="{{ passenger.last_emission_request_to_flight.status_title }}">
+                                                            {{ passenger.last_emission_request_to_flight.status_title | limitTo:10 }}
+                                                        </span>
+                                                        #{{ passenger.last_emission_request_to_flight.id }}
+                                                        <a href="#/emission-request?search={{passenger.last_emission_request_to_flight.id}}"><i
+                                                                class="fa fa-external-link"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr ng-repeat="passenger in op.passengers.babies">
+                                            <td class="ba-clipboard">BB</td>
+                                            <td class="ba-clipboard">{{ passenger.name }}</td>
+                                            <td class="ba-clipboard">{{ passenger.surname }}</td>
+                                            <td class="ba-clipboard">{{ passenger.gender }}</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td>--</td>
+                                            <td class="ba-clipboard">
+                                                {{ passenger.birthday | toDate | date:'dd/MM/yyyy' }}
+                                            </td>
+                                            <td>
+                                                <span ng-if="passenger.baggage_departure">{{passenger.price_baggage_departure
+                                                    | currency}}</span>
+                                                <span ng-if="!passenger.baggage_departure">Não</span>
+                                            </td>
+                                            <td ng-if="op.status != 0">
+                                                <button class="btn btn-xs btn-info" title="Emitir IDA Apenas" ng-disabled="canDisableFlightPassenger(passenger)" ng-if="op.status != 0 && canEmmit(passenger, emissionTypes.oneWayTrip)"
+                                                    ng-click='emit(passenger, emissionTypes.oneWayTrip, op.flight.company)'>
+                                                    Ida
+                                                </button>
+                                                &nbsp;
+                                                <button class="btn btn-xs btn-danger" title="Emitir IDA e Volta" ng-disabled="canDisableFlightPassenger(passenger) || canDisableFlightBackPassenger(passenger)"
+                                                    ng-if="op.status != 0 && op.flight_back && op.flight.company.id ==  op.flight_back.company.id && canEmmit(passenger, emissionTypes.roundTrip)"
+                                                    ng-click='emit(passenger, emissionTypes.roundTrip, op.flight.company)'>
+                                                    I/V
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="!passenger.last_emission_request_to_flight || passenger.last_emission_request_to_flight.status == 4">
+                                                    <label><input type="checkbox" class="" ng-model="passenger.flight_selected_to_emit"
+                                                            ng-click="checkPassengerToEmit(passenger, passenger.flight_selected_to_emit)"
+                                                        /></label>
+                                                </div>
+                                                <div class="checkbox checkbox-to-emit pull-left" ng-if="passenger.last_emission_request_to_flight">
+                                                    <div class="text-success">
+                                                        <span title="{{ passenger.last_emission_request_to_flight.status_title }}">
+                                                            {{ passenger.last_emission_request_to_flight.status_title | limitTo:10 }}
+                                                        </span>
+                                                        #{{ passenger.last_emission_request_to_flight.id }}
+                                                        <a href="#/emission-request?search={{passenger.last_emission_request_to_flight.id}}"><i
+                                                                class="fa fa-external-link"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4" style="padding: 0;
+                                margin-top: 20px;">
+                                    <table class="table table-striped table-responsive table-reduced">
+                                        <tr>
+                                            <th>CIA</th>
+                                            <th>Milhas</th>
+                                            <th>R$</th>
+                                        </tr>
+                                        <tr>
+                                            <th>ADT</th>
+                                            <td>
+                                                <div ng-if="op.flight.adult_miles">{{ op.flight.adult_miles / 1000 | number
+                                                    }} Mil</div>
+                                                <div ng-if="!op.flight.adult_miles">--</div>
+                                            </td>
+                                            <td>
+                                                {{ op.flight.adult_original_price | currency }}
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="op.flight.child_original_price">
+                                            <th>CHD</th>
+                                            <td>
+                                                <div ng-if="op.flight.child_miles">{{ op.flight.child_miles / 1000 | number
+                                                    }} Mil</div>
+                                                <div ng-if="!op.flight.child_miles">--</div>
+                                            </td>
+                                            <td>
+                                                {{ op.flight.child_original_price | currency }}
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="op.flight.baby_original_price">
+                                            <th>BB</th>
+                                            <td>
+                                                <div ng-if="op.flight.baby_miles">{{ op.flight.baby_miles / 1000 | number
+                                                    }} Mil</div>
+                                                <div ng-if="!op.flight.baby_miles">--</div>
+                                            </td>
+                                            <td>
+                                                {{ op.flight.baby_original_price | currency }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

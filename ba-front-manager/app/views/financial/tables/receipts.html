@@ -1,0 +1,140 @@
+<ba-table ba-table-resource="resource" ba-table-items="receipts" ba-table-filter-criteria="filterCriteria">
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)" id="payable-search-form">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">de</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.min_date">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.max_date">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon4">Status</span>
+                        <select ng-init="getStatus()" 
+                                class="form-control"
+                                ng-model="search.status_id">
+                            <option value="">Selecione</option>
+                            <option ng-repeat="st in status" value="{{st.id}}">{{st.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="ID, REF, CPF ou nome." ng-model="search.query"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(receipts, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="receipt_status|receipt_status.name">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="original_amount">R$</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.cpf_cnpj">CPF/CNPJ</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="due_date">Vencimento</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="{{receipt.id}}" class="receipt-row" ng-repeat="receipt in receipts">
+                <td>
+                    <label>
+                        <input type="checkbox" ng-model="receipt.selected" ng-disabled="liquidating"/>
+                    </label>
+                </td>
+                <td ng-bind="receipt.id"></td>
+                <td ng-bind="receipt.reference"></td>
+                <td ng-bind="receipt.receipt_status.name"></td>
+                <td ng-bind="receipt.original_amount | currency:''"></td>
+                <td ng-bind="receipt.person.name"></td>
+                <td ng-bind="receipt.person.cpf_cnpj"></td>
+                <td ng-bind="receipt.due_date | date:'dd/MM/yy'"></td>
+                <td>
+                    <button ng-if="receipt.receipt_status_id == 2"
+                            title="Atualizar boleto"
+                            type="button"
+                            ng-click="billet.reference = receipt.reference"
+                            data-toggle="modal"
+                            data-target="#update-receipt"
+                            class="btn btn-info">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button title="Cancelar boleto"
+                            ng-disabled="isProcessReceive(receipt)"
+                            type="button"
+                            class="btn btn-danger"
+                            mwl-confirm
+                            message="Ddeseja cancelar o boleto ?"
+                            confirm-text="Sim"
+                            cancel-text="Não"
+                            placement="left"
+                            on-confirm="cancelReceipts(receipt)"
+                            confirm-button-type="default"
+                            cancel-button-type="danger">
+                        <i class="fa fa-close" aria-hidden="true"></i>
+                    </button>
+                </td>
+
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(receipts, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="receipt_status|receipt_status.name">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="original_amount">R$</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.cpf_cnpj">CPF/CNPJ</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="due_date">Vencimento</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

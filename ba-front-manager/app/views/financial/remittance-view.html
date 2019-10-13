@@ -1,0 +1,31 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="rootwizard" ng-controller="FinancialRemittanceCtrl" ng-init="view()">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Arquivo remessa</h4>
+                </div>
+                <div class="row" style="float:right; margin-bottom: 15px;">
+                        <button type="button"
+                                class="btn btn-success"
+                                ng-disabled="!selectedRemittances.count || canceling"
+                                mwl-confirm
+                                title="Cancelar Pagamento"
+                                message="Cancelar pagamento, você tem certeza?"
+                                confirm-text="Sim"
+                                cancel-text="Não"
+                                placement="left"
+                                on-confirm="cancelRemittanceBanks()"
+                                confirm-button-type="success"
+                                cancel-button-type="danger"
+                                cancel-button-type="default">Cancelar
+                        </button>
+                </div>
+                    <div class="col-md-12">
+                        <div ng-include="'views/financial/tables/remittance-view.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

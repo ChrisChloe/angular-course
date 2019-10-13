@@ -1,0 +1,31 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a href="" data-toggle="collapse" data-target="#venomconfig" style="text-decoration: none;">+ Configuração do
+                Buscador Venom</a>
+        </h3>
+    </div>
+    <div id="venomconfig" class="collapse">
+
+        <div class="panel-body" style="padding-top: 5px!important">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <span ng-if="isManager()">
+                        <button type="button" class="btn btn-success btn-md" mwl-confirm title="Gerar token do Venom" message="Gerar token pra essa agência, você tem certeza?"
+                            confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="generateToken(agency)" confirm-button-type="success"
+                            cancel-button-type="danger" cancel-button-type="default">Gerar Token
+                            <i class="fa fa-check-circle-o"></i>
+                        </button>
+                    </span>
+
+                </div>
+                <div class="col-md-6">
+                    <h5>Url da Logomarca</h5>
+                    <input type="text" ng-model="agency.url_logo" id="site" placeholder="www.elomilhas.com.br/logo.jpg" class="form-control"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

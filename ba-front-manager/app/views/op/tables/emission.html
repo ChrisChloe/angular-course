@@ -1,0 +1,263 @@
+<ba-table ba-table-resource="resource" ba-table-items="ops" ba-table-filter-criteria="filterCriteria" ba-table-on-change="changeCallback">
+
+    <ba-table-header filter="filter">
+
+        <div class="row">
+            <form ng-submit="filter(search)">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-md-1">
+                <button class="btn btn-success" type="button" ng-click="refresh()" title="Recarregar listagem" ng-disabled="refreshing">
+                    <i class="fa fa-refresh"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-op" class="display table table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">
+                            <b>ID</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Milhas</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.agency.title">
+                            <b>Agência/Usuário</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Telefone</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flight.company.title">
+                            <b>Cia</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flight.origin.initials">
+                            <b>Destino</b>
+                        </ba-table-sort>
+                    </th>
+                    <th title="Qtd. Passageiros">Pax.</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">
+                            <b>Criado</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="queue_emission_at">
+                            <b>Em fila</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type">
+                            <b>Pagamento</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emitter_id">
+                            <b>Emissor</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="op in ops" ng-class="{'alert-warning': op.received_at && !op.received_confirmation, 'alert-success':op.received_at && op.received_confirmation}">
+                    <td scope="row" class="text-center">
+                        <a ui-sref="app.op-show(op)" title="Detalhes/Emitir" target="_blank">
+                            {{op.id}}
+                        </a>
+                        <i style="font-size:15px; margin-left: 3px" class="fa fa-comment text-success" title="OP com Observação" ng-show="op.observation"></i>
+                    </td>
+                    </td>
+                    <td title="Data de embarque {{op.flight.date_boarding |  date:'dd/MM/yy'}}">
+                        <div>
+                            ADT(ida):
+                            <span ng-if="op.flight.fare_type == 1" class="text-danger">Tarifa</span>
+                            <span ng-if="op.flight.fare_type == 0 && op.flight.adult_miles">{{op.flight.adult_miles | number}}</span>
+                        </div>
+                        <div ng-if="op.passengers.children.length">
+                            CHD(ida):
+                            <span ng-if="op.flight.fare_type == 1" class="text-danger">Tarifa</span>
+                            <span ng-if="op.flight.fare_type == 0 && op.flight.child_miles">{{op.flight.child_miles | number}}</span>
+                        </div>
+                        <div ng-if="op.flight_back">
+                            <div>
+                                ADT(volta):
+                                <span ng-if="op.flight_back.fare_type == 1" class="text-danger">Tarifa</span>
+                                <span ng-if="op.flight_back.fare_type == 0 && op.flight_back.adult_miles">{{op.flight_back.adult_miles | number}}</span>
+                            </div>
+                            <div ng-if="op.passengers.children.length">
+                                CHD(volta):
+                                <span ng-if="op.flight_back.fare_type == 1" class="text-danger">Tarifa</span>
+                                <span ng-if="op.flight_back.fare_type == 0 && op.flight_back.child_miles">{{op.flight_back.child_miles | number}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-class="{'text-danger':!op.user.agency}" title="Realizado por {{op.user.name}}">
+                        <a href="#/agency/{{op.user.agency.id}}" target="_blank">{{op.user.agency.title || op.user.name}}</a>
+                        <span ng-if="op.email" class="text-danger" title="Realizado através do site">
+                            <br/>
+                            <strong>{{ op.email }}</strong>
+                        </span>
+                    </td>
+                    <td ba-click-to-call>{{op.user.agency.phone}}</td>
+                    <td title="Data de embarque {{op.flight.date_boarding |  date:'dd/MM/yy'}}">
+                        {{op.flight.company.title}}
+                        <span ng-if="op.flight_back">/ {{op.flight_back.company.title}}</span>
+                    </td>
+                    <td>
+                        {{op.flight.origin.initials}} / {{op.flight.destination.initials}}
+                    </td>
+                    <td title="Data de embarque {{op.flight.date_boarding |  date:'dd/MM/yy'}}">{{op.passengers.adults.length + op.passengers.children.length + op.passengers.babies.length}}
+                    </td>
+                    <td title="Data de embarque {{op.flight.date_boarding |  date:'dd/MM/yy'}}">{{op.created_at | toDate |  date:'dd/MM/yyyy HH:mm'}}
+                    </td>
+                    <td title="Total: {{op.time_in_queue}} min">{{op.queue_emission_at | toDate |  date:'dd/MM/yyyy HH:mm'}}
+                    </td>
+                    <td title="Valor: R$ {{op.price}}">{{op.form_payment_title}} /
+                        <span ng-if="op.status == 2" title='{{op.status_title}}'>
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </span>
+                        <span ng-if="op.status == 1" title='{{op.status_title}}'>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </span>
+                        <span ng-if="op.status == 7" title='{{op.status_title}}'>
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-if="op.emitter" title="Direcionado para {{op.emitter.name}} às {{op.started_at | toDate |  date:'dd/MM/yyyy HH:mm'}}">{{op.emitter.name}}
+                            <br>{{op.started_at | toDate |  date:'dd/MM/yyyy HH:mm'}}</span>
+                        <span ng-if="!op.emitter">
+                            <!--<span ng-if="!op.emitter && isManager()">-->
+                            <span ng-if="op.received_at != null">
+                                <button type="button" class="btn btn-md btn-danger btn-xs" mwl-confirm title="Direcionar Para Mim" message="Será enviado email para agência notificando o início da emissão, você tem certeza?"
+                                    confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="directToMe(op)" confirm-button-type="success"
+                                    cancel-button-type="danger" cancel-button-type="default" ng-disabled="!op.received_at">
+                                    Admitir
+                                </button>
+                            </span>
+                        </span>
+                        <span ng-if="!op.received_at && isManager()">
+                            <button type="button" class="btn btn-xs btn-success" mwl-confirm title="Liberar Admissão" message="Liberar admissão da op, você tem certeza?"
+                                confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="releaseAdmission(op)" confirm-button-type="success"
+                                cancel-button-type="danger" cancel-button-type="default">
+                                <i class="fa fa-check-circle-o"></i>
+                            </button>
+                        </span>
+
+                        </span>
+
+                    </td>
+                    <td style="min-width:90px;">
+                        <a class="btn btn-success btn-xs" ng-click="op.details = !op.details" title="Detalhes">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <!--<span ng-if="op.form_payment !=0">-->
+                        <!-- <a ui-sref="app.op-show(op)" class="btn btn-success btn-xs"
+                       title="Detalhes/Emitir" target="_blank">
+                        <i class="fa fa-search"></i>
+                    </a> -->
+                        <!--</span>-->
+                        <!-- <button type="button" ng-if="isManager()" class="btn btn-danger btn-xs" title="Arquivar" mwl-confirm message="A OP será arquivada, você tem certeza?"
+                            confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="archive(op)" confirm-button-type="success"
+                            cancel-button-type="danger" cancel-button-type="default">
+                            <i class="fa fa fa-archive"></i>
+                        </button> -->
+                        <ba-op-archive-reason ng-if="isManager()" op="op"></ba-op-archive-reason>
+
+                        
+                    </td>
+                </tr>
+                <tr style="background-color: #f5f5f5" ng-repeat-end="" ng-if="op.details">
+                    <td colspan="12" style="padding: 0 !important; text-align: left;" ng-controller="OpDetailsCtrl" ng-init="init(op.id)">
+                        <div>
+                            <div ng-include="'views/op/op-details.html'"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">
+                            <b>ID</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Milhas</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.agency.title">
+                            <b>Agência/Usuário</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Telefone</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flight.company.title">
+                            <b>Cia</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flight.origin.initials">
+                            <b>Destino</b>
+                        </ba-table-sort>
+                    </th>
+                    <th title="Qtd. Passageiros">Pax.</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">
+                            <b>Criado</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="queue_emission_at">
+                            <b>Em fila</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type">
+                            <b>Pagamento</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emitter_id">
+                            <b>Emissor</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>
+<div class="row">
+    <div class="col-md-2 pull-right">
+        <ul class="list-unstyled text-align-center">
+            <li class="alert-success">
+                <strong>Email respondido com OK</strong>
+            </li>
+            <li class="alert-warning">
+                <strong>Email respondido sem OK</strong>
+            </li>
+        </ul>
+    </div>
+</div>

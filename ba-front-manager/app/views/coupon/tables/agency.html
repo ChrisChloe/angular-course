@@ -1,0 +1,76 @@
+<ba-table ba-table-resource="resource" ba-table-items="coupons" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-body>
+
+        <table id="data-table-agency" class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="code">Código</ba-table-sort>
+                    </th>
+                    <th>
+                        Agência
+                    </th>
+                    <th>
+                        Valor
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="expires_at">Expiração</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="creator">Criado Por</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado em</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status_title">Status</ba-table-sort>
+                    </th>
+                    <th>
+                        Ação
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="coupon in coupons">
+                    <td>{{coupon.id}}</td>
+                    <td>{{coupon.code}}</td>
+                    <td>
+                        <a ui-sref="app.agency-show-financial(coupon.couponable)">{{coupon.couponable.name}}</a>
+                    </td>
+                    <td>{{coupon.discount}}</td>
+                    <td>{{coupon.expires_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                    <td>{{coupon.creator.name}}</td>
+                    <td>{{coupon.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                    <td>{{coupon.status_title}}</td>
+                    <td>
+                        <a ui-sref="app.coupon-show(coupon)" class="btn btn-success btn-xs" title="Detalhes">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <button type="button" ng-click="trash(coupon)" class="btn btn-danger btn-xs" title="Enviar para lixeira">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Agência</th>
+                    <th>Valor</th>
+                    <th>Expiração</th>
+                    <th>Criado por</th>
+                    <th>Criado em</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <ba-table ba-table-resource="resource"
+                  ba-table-items="refundFares"
+                  ba-table-filter-criteria="filterCriteria">
+
+            <ba-table-body>
+
+                <table id="data-table-markup" class="table table-responsive table-hover table-striped"
+                       style="width: 100%; cellspacing: 0;">
+                    <thead>
+                    <tr>
+                        
+                        <th title="Preço 7 dias antes da Emissão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço antes dos 7 dias</ba-table-sort>
+                        </th>
+                        <th title="Preço 7 dias depois da Emissão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço depois dos 7 dias</ba-table-sort>
+                        </th>
+                        <th title="Tipo de Voo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip">Tipo</ba-table-sort>
+                        </th>
+                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sub_continent">SubContinente</ba-table-sort></th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="refund in refundFares">
+                        <td>{{refund.price_before_boarding | currency}}</td>
+                        <td>{{refund.price_after_boarding | currency}}</td>
+                        <td>{{refund.type_trip_title}}</td>
+                        <td>{{refund.sub_continent_title}}</td>
+                        <td class="col-md-2">
+                            <button class="btn btn-danger btn-xs" title="Lixeira" ng-click="trash(refund)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th title="Preço 7 antes da Emissão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price_after_boarding">Preço antes dos 7 dias</ba-table-sort>
+                        </th>
+                        <th title="Preço 7 depois da Emissão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price_before_boarding">Preço depois dos 7 dias</ba-table-sort>
+                        </th>
+                        <th title="Tipo de Voo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip">Tipo</ba-table-sort>
+                        </th>
+                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sub_continent">SubContinente</ba-table-sort></th>
+                        <th>Ação</th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </ba-table-body>
+
+        </ba-table>
+
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-md-12">
+        <ng-include src="'views/refund-fares/form.html'"></ng-include>
+    </div>
+</div>

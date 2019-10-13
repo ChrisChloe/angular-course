@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="managerApp">
+<head>
+    <title>Gerenciador | Busca Aéreo</title>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Gerenciador do Busca Aéreo"/>
+    <meta name="keywords" content="manager,dashboard"/>
+    <meta name="author" content="PsvTurismo"/>
+
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0" />
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600"/>
+
+    <!-- inject:css -->
+    <!--<link rel="stylesheet" href="./css/all.min.css?v=20170203"/>-->
+    <!-- endinject -->
+
+</head>
+
+<body class="page-header-fixed">
+
+<ui-view></ui-view>
+
+<!-- vendor:js -->
+<!--<script src="./js/libs.min.js?v=20170203"></script>-->
+<!-- endinject -->
+
+<!--Problema quando em gulp-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-drag-and-drop-lists/1.4.0/angular-drag-and-drop-lists.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.3/js/datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-datetimepicker/1.1.3/js/datetimepicker.templates.min.js"></script>
+
+<!-- inject:js -->
+<!--<script src="./js/scripts.min.js?v=20170203"></script>-->
+<!--<script src="./views/templates.js?v=20170203"></script>-->
+<!-- endinject -->
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-44849819-3', 'auto');
+    ga('send', 'pageview');
+</script>
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ym55qig37o59ur9jn8tbh873lwyhl5u6tfsmtt09j8k0cdtn'></script>
+</body>
+</html>

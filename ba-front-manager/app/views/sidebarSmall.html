@@ -1,0 +1,128 @@
+<div class="page-sidebar" ng-controller="SidebarCtrl" ng-mouseleave="isCollapse = ''">
+    <div class="page-sidebar-inner slimscroll">
+
+
+        <ul class="menu accordion-menu">
+
+            <li class="droplink">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(15)">
+                    <span class="menu-icon glyphicon glyphicon-user"></span>
+                    <p ng-bind="user.name ? user.name : user.data.name"></p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==15)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.user-show({{user.name ? user : user.data}})"> Seu Perfil </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.info"> Área do Desenvolvedor </a></li>
+                    <li><a href="#/logout" ng-click="_closeSidebarSmall()"> <i class="fa fa-sign-out m-r-xs"></i>Sair </a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a ui-sref="app.dashboard" class="waves-effect waves-button">
+                    <span class="menu-icon glyphicon glyphicon-home"></span>
+                    <p>Área de trabalho</p>
+                </a>
+            </li>
+
+            <li class="droplink">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(1)">
+                    <span class="menu-icon glyphicon glyphicon-plane"></span>
+                    <p>Busca Aéreo</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==1)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.contacts"> Contatos </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.agency"> Agências </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.user"> Usuários </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.report"> Relatório </a></li>
+                </ul>
+            </li>
+            <li ng-if="canShowToUser('financial')" class="droplink">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(9)">
+                    <i class="menu-icon fa fa-money fa-2x"></i>
+                    <p>Financeiro</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==9)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.invoice-bank-transfer">Transferência Bancária</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.invoice-cielo-credit">Cielo Crédito</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.invoice-cielo-debit">Cielo Débito</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.invoice-pagseguro">Pag Seguro</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.invoice-billet">Boleto</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.company"> Companhias/Markups</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.bank-account">Contas Bancárias</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.account-paid">Contas Pagas</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.account-received">Contas Recebidas</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.electronic-service-invoice">Nota Fiscal</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.coupon">Cupons de Desconto</a></li>
+                </ul>
+            </li>
+            <li class="droplink" ng-if="canShowToUser('financial')">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(3)">
+                    <span class="menu-icon glyphicon glyphicon-usd"></span>
+                    <p>A pagar</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==3)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-payable"> A liquidar </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-payments"> Pagamentos </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-remittance"> Remessa </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-remittance-return"> Retorno </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.refund">Tx. Embarque </a></li>
+                </ul>
+            </li>
+            <li class="droplink" ng-if="canShowToUser('financial')">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(4)">
+                    <span class="menu-icon glyphicon glyphicon-usd"></span>
+                    <p>A receber</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==4)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.agencies-to-invoice">A receber </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-receipts"> Faturados </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-remittance-receipts"> Remessa </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.financial-remittance-return-receipts"> Retorno </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.balance"> Faturamento </a></li>
+                </ul>
+            </li>
+
+            <li class="droplink">
+                <a class="waves-effect waves-button" ui-sref="app.emission-statistics" ng-click="showSubMenu(5)">
+                    <span class="menu-icon glyphicon glyphicon-share-alt"></span>
+                    <p>Emissão</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==5)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.search"> Cotações </a></li>
+                    <li ng-show='auth'><a ui-sref="app.op">OPs</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.emission">Emissões</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.emission-request">Emissões Automáticas</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.reembolso">Reembolso</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.check-in">Relatório de Embarque</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.card">Cartões</a></li>
+
+                </ul>
+            </li>
+            <li class="droplink">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(6)">
+                    <span class=" glyphicon glyphicon-book"></span>
+                    <p>Cadastro</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==6)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.emails"> Emails </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.airport"> Aeroportos/Tarifas </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.group"> Grupos </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.api-statistic"> API &mdash; Estatísticas </a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.api-config"> API &mdash; Config </a></li>
+                </ul>
+            </li>
+            <li class="droplink">
+                <a class="waves-effect waves-button" ng-click="showSubMenu(8)">
+                    <i class="menu-icon fa fa-users fa-2x"></i>
+                    <p>Relacionamento</p>
+                </a>
+                <ul class="sub-menu" uib-collapse="!(isCollapse==8)">
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.email-config">Contas</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.email-account">Perfis</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.template">Templates</a></li>
+                    <li><a ng-click="_closeSidebarSmall()" ui-sref="app.campaign">Campanhas</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div><!-- Page Sidebar Inner -->
+</div><!-- Page Sidebar -->

@@ -1,0 +1,49 @@
+<div class="panel panel-white">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Histórico</h4>
+                <table class="display table table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="padding:15px">ID</th>
+                            <th ng-if="auditLogs.length > 0">Data/Horário</th>
+                            <th ng-if="auditLogs.length > 0">Usuário</th>
+                            <th ng-if="auditLogs.length > 0">Descrição</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="auditLogs.length <= 0">
+                            <td>
+                                <strong>Sem Histórico</strong>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="auditLog in auditLogs">
+                            <td><strong>{{$index+1}}</strong></td>
+                            <td>{{auditLog.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                            <td>{{auditLog.user.name}}</td>
+                            <td class="capitalize-first-letter">{{auditLog.description}}</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item disabled">
+                        <strong>Observação</strong>
+                    </li>
+                    <li class="list-group-item" style="min-height: 95px;">
+                        <p>{{op.observation ? op.observation : 'Nenhuma observação'}}</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</div>

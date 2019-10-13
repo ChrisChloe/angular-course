@@ -1,0 +1,28 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="rootwizard" ng-controller="FinancialRemittanceReceiptsCtrl" ng-init="listeners(); getRemittanceBanks();">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Arquivos de Remessa</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- Button trigger modal -->
+                        <button style="margin-right: 10px" type="button" mwl-confirm title="Gerar Remessa" message="Será agrupado e gerado o remessa de cobrança de hoje, você tem certeza?"
+                            confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="remittanceCreate()" on-cancel=""
+                            confirm-button-type="success" cancel-button-type="danger" cancel-button-type="default" class="btn btn-danger pull-right">
+                            Gerar arquivos REMESSA
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-include="'views/financial/tables/remittance-receipts.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

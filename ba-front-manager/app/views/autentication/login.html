@@ -1,0 +1,19 @@
+<div class="col-md-3 center">
+    <div class="login-box">
+        <a href="/" class="logo-name text-lg text-center">Busca Aéreo</a>
+        <p class="text-center m-t-md">Gerenciador</p>
+        <form method="post" role="login" name="form" ng-submit="login()" >
+            <div class="form-group">
+                <input name="username" type="email" class="form-control" placeholder="E-mail" ng-model="user.username" focus-on="username" required>
+            </div>
+            <div class="form-group">
+                <input name="password" ng-model="user.password"  type="password" class="form-control" placeholder="Senha" required>
+            </div>
+
+            <button class="btn btn-success btn-block" ng-class="{btnDisable:button}" type="submit" ng-model="buttonLogin" ng-disabled="button">{{buttonLogin}}</button>
+
+            <a href="#/password/reset" class="display-block text-center m-t-md text-sm">Esqueceu senha?</a>
+        </form>
+        <p class="text-center m-t-xs text-sm">{{$resolve.$stateParams.version}}</p>
+    </div>
+</div>

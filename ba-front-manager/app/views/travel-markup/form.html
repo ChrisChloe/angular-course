@@ -1,0 +1,71 @@
+<form ng-submit="save(travelMarkup)" name="formTravelMarkup">
+    <div class="row">
+
+        <div class="form-group col-md-3">
+            <label>Origem</label>
+            <ui-select ng-model="travelMarkup.origin_id" required title="Buscar origem" style="min-width: 150px !important;">
+                <ui-select-match placeholder="Buscar aeroporto...">
+                    {{$select.selected.initials}} - {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices refresh="searchAirport($select.search)" repeat="airport.id as airport in airports">
+                    <div style="height: 25px">
+                        <strong>{{airport.initials}} - {{airport.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label>Destino</label>
+            <ui-select ng-model="travelMarkup.destination_id" required title="Buscar destino" style="min-width: 150px !important;">
+                <ui-select-match placeholder="Buscar aeroporto...">
+                    {{$select.selected.initials}} - {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices refresh="searchAirport($select.search)" repeat="airport.id as airport in airports">
+                    <div style="height: 25px">
+                        <strong>{{airport.initials}} - {{airport.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="value">Valor</label>
+            <input type="text"
+                   class="form-control"
+                   id="value"
+                   ng-model="travelMarkup.value"
+                   placeholder="R$ 100,00"
+                   ui-money-mask
+                   required/>
+        </div>
+
+        <div class="form-group col-md-2" ng-class="{'has-error': formTravelMarkup.shipment_limit.$invalid}">
+            <label for="shipment-limit">Dias até voo</label>
+            <input type="text" class="form-control" id="shipment-limit" name="shipment_limit"
+                   ng-model="travelMarkup.shipment_limit"
+                   placeholder="120 dias (Padrão)"
+                   ui-number-mask="0"
+                   min="1"/>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="expiration">Data Expiração</label>
+            <input type="text"
+                   class="form-control"
+                   id="expiration"
+                   ng-model="travelMarkup.expiration_date"
+                   placeholder="Nunca"
+                   ui-date-mask/>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 ">
+            <button type="submit" ng-disabled="formTravelMarkup.$invalid" class="btn btn-success btn-addon m-b-sm btn-rounded pull-right" title="Cadastrar Markup">
+                <i class="fa fa-save"></i> Salvar
+            </button>
+        </div>
+    </div>
+</form>

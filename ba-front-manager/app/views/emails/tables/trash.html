@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <ba-table ba-table-resource="resource" ba-table-items="emails" ba-table-filter-criteria="filterCriteria">
+
+            <ba-table-body>
+
+                <table id="data-table-markup" class="table table-responsive table-hover table-striped"
+                       style="width: 100%; cellspacing: 0;">
+                    <thead>
+                    <tr>
+                        
+                        <th title="Preço a cada 10Mil">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço</ba-table-sort>
+                        </th>
+                        <th title="Tipo de calculo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipment_limit">Tipo de Calculo</ba-table-sort>
+                        </th>
+                         <th title="Tipo de Operação">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipment_limit">Tipo de Operação</ba-table-sort>
+                        </th>
+                        <th title="Data de expiração">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="expiration">Dias até Voo</ba-table-sort>
+                        </th>
+                        <th title="Tipo de Voo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type">Tipo</ba-table-sort>
+                        </th>
+                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="markup in pricemarkups">
+                        <td>{{markup.miles_start | number}}</td>
+                        <td>{{markup.miles_end | number}}</td>
+                        <td>{{markup.price | currency}}</td>
+                        <td>{{markup.shipment_limit}}</td>
+                        <td>{{markup.expiration | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                        <td>{{markup.type_title}}</td>
+                        <td>{{markup.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                        <td class="col-md-2">
+                            <button class="btn btn-success btn-xs" title="Restaurar" ng-click="restore(markup)">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th title="Preço a cada 10Mil">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço</ba-table-sort>
+                        </th>
+                        <th title="Tipo de calculo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipment_limit">Tipo de Calculo</ba-table-sort>
+                        </th>
+                         <th title="Tipo de Operação">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipment_limit">Tipo de Operação</ba-table-sort>
+                        </th>
+                        <th title="Data de expiração">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="expiration">Dias até Voo</ba-table-sort>
+                        </th>
+                        <th title="Tipo de Voo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type">Tipo</ba-table-sort>
+                        </th>
+                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                        <th>Ação</th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </ba-table-body>
+
+        </ba-table>
+
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Usuários</h4>
+        </div>
+        <div class="panel-body">
+            <div id="rootwizard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active" title="Usuários com acesso"><a href="?#user-tab1" data-toggle="tab"><i class="fa fa-user m-r-xs"></i>Ativos</a></li>
+                    <li role="presentation" title="Usuários com acesso expirado"><a href="?#user-tab2" data-toggle="tab"><i class="fa fa-exclamation-triangle m-r-xs"></i>Inativos</a></li>
+                    <li role="presentation" title="Usuários com login bloqueados"><a href="?#user-tab4" data-toggle="tab"><i class="fa fa-ban m-r-xs"></i>Bloqueados</a></li>
+                    <li role="presentation" id="user-tab-trash" title="Usuários removidos"><a href="?#user-tab3" data-toggle="tab"><i class="fa fa-trash m-r-xs"></i>Lixeira</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="user-tab1" ng-controller="UserCtrl">
+                        <div ng-include="'views/user/tables/index.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="user-tab2" ng-controller="UserInactiveCtrl">
+                        <div ng-include="'views/user/tables/inactives.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="user-tab4" ng-controller="UserBlockedCtrl">
+                        <div ng-include="'views/user/tables/blockeds.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="user-tab3" ng-controller="UserTrashCtrl">
+                        <div ng-include="'views/user/tables/trash.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

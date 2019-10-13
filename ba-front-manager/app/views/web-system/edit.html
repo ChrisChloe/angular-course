@@ -1,0 +1,76 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Nosso Sistemas | Web </h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="rootwizard">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="?#web-tab1" data-toggle="tab">
+                                    <i class="fa fa-user m-r-xs"></i>Editar
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fade in" id="web-tab1">
+                                <div class="table-responsive">
+                                    <form ng-submit="save(webSystem)" name="formWebSystem">
+                                        <div class="row">
+
+                                            <div class="form-group col-md-4">
+                                                <label for="shipment-limit">Nome</label>
+                                                <input type="text" class="form-control" id="shipment-limit" name="name"
+                                                       ng-model="webSystem.name"
+                                                       ng-required="true"
+                                                       min="1"/>
+                                            </div>
+
+
+                                            <div class="form-group col-md-4">
+                                                <label for="technology" title="Tecnologia ou Framework">Tecnologia
+                                                    /Framework</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="technology"
+                                                       ng-model="webSystem.technology"
+                                                       required/>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="version" title="Versão Final">Versão</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="version"
+                                                       ng-model="webSystem.version"
+                                                       required/>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-offset-8 col-md-4 ">
+                                                <button type="submit" ng-disabled="formWebSystem.$invalid"
+                                                        class="btn btn-success btn-addon m-b-sm btn-rounded pull-right"
+                                                        title="Cadastrar Sistema">
+                                                    <i class="fa fa-save"></i> Salvar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

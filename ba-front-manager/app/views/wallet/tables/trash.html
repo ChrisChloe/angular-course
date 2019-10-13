@@ -1,0 +1,57 @@
+<ba-table ba-table-resource="resource" ba-table-items="wallets" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-body>
+        <table id="data-table-wallet" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="description">Analista</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="manager_user_id">Gerente</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="wallet in wallets">
+                <th scope="row">{{wallet.id}}</th>
+                <td>{{wallet.name}}</td>
+                <td>{{wallet.analyst_name}}</td>
+                <td>{{wallet.manager_name}}</td>
+                <td>{{wallet.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td>{{wallet.updated_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td class="col-md-3">
+                    <button type="button" class="btn btn-xs btn-success" ng-click="restore(wallet)"><i class="fa fa-recycle"></i></button>
+                    <div class="btn btn-xs btn-danger  dropdown">
+                        <a type="button" class="dropdown-toggle"  data-toggle="dropdown" style="color:white;">
+                            <i class="fa fa-times"></i>
+                        </a>
+                        <ul class="custom-dropdown dropdown-menu dropdown-menu-right" role="menu">
+                            <li>
+                                <a ng-click="delete(wallet)">Excluir Definitivamente</a>
+                            </li>
+                            <li>
+                                <a>Cancelar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="description">Analista</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="manager_user_id">Gerente</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

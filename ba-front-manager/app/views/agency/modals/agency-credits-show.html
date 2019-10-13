@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Créditos</h4>
+</div>
+
+<div class="modal-body">
+    <ba-table ba-table-resource="resourceCredit"
+              ba-table-items="credits"
+              ba-table-filter-criteria="filterCriteriaCredit">
+
+        <ba-table-header>
+            <div class="row">
+                <div class="col-md-4">
+                    <form ng-submit="filter(search)">
+                        <div class="input-group">
+                            <input type="text" name="search" ng-model="search.search" class="form-control input-search"
+                                   placeholder="Buscar...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit"><i
+                                                    class="fa fa-search"></i></button>
+                                        </span>
+                        </div><!-- Input Group -->
+                    </form>
+                </div>
+            </div>
+        </ba-table-header>
+
+        <ba-table-body>
+
+            <table id="data-table-credit" class="table table-responsive table-hover table-striped"
+                   style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th title="Valor">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount">Valor
+                        </ba-table-sort>
+                    </th>
+                    <th title="Motivo do Crédito">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="observation">
+                            Motivo do Crédito
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado
+                        </ba-table-sort>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="credit in credits">
+                    <td>{{credit.amount | currency}}</td>
+                    <td>{{credit.observation}}</td>
+                    <td>{{credit.created_at | toDate | date:'dd/MM/yy HH:mm' }}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th title="Valor">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount">Valor
+                        </ba-table-sort>
+                    </th>
+                    <th title="Motivo do Crédito">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="observation">
+                            Motivo do Crédito
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                       ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado
+                        </ba-table-sort>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+
+        </ba-table-body>
+
+    </ba-table>
+</div>

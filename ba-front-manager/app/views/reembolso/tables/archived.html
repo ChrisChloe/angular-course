@@ -1,0 +1,63 @@
+<ba-table ba-table-resource="resource" ba-table-items="refunds" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-body>
+            <table id="data-table-emission" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="refund.id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emission_id">Nº Emissão</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="e_ticket">Localizador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cia">Cia</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type">Tipo</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="refund in refunds">
+
+                    <td>{{refund.id}}</td>
+                    <td>{{refund.passenger.fullname}}</td>
+                    <td>{{refund.emission_id}}</td>
+                    <td>{{refund.e_ticket}}</td>
+                    <td>{{refund.flight.company.title}}</td>
+                    <td>{{refund.type_title}}</td>
+                    <td>{{refund.status_title}}</td>
+                    <td>{{ refund.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td class="col-md-2">
+                        <button type="button" ng-click="openDetails(refund)" class="btn btn-success btn-xs"
+                                title="Detalhes"><i class="fa fa-search"></i></button>
+
+                    </td>
+
+                </tr>
+                <tr ng-repeat-end ng-show="refund.open">
+                    <td colspan="10">
+
+                        <div class="row" style="padding:1em;">
+                            <div ng-include="'views/reembolso/detail.html'"></div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="refund.id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emission_id">Nº Emissão</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="e_ticket">Localizador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cia">Cia</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type">Tipo</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

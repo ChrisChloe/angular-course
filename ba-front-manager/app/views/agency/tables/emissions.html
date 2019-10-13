@@ -1,0 +1,38 @@
+<ba-table ba-table-resource="EmissionResource"
+          ba-table-items="emissions"
+          ba-table-filter-criteria="filterEmissionsCriteria"
+          ba-table-disable-entries="true"
+          ba-table-pagination-max-size="9">
+
+    <ba-table-body>
+
+        <table id="data-table-emission" class="display table table-striped table-condensed" style="width: 100%;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterEmissionsCriteria.sortedBy" ba-table-sort-by="filterEmissionsCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterEmissionsCriteria.sortedBy" ba-table-sort-by="filterEmissionsCriteria.orderBy" ba-table-sort-value="type_trip">Tipo</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterEmissionsCriteria.sortedBy" ba-table-sort-by="filterEmissionsCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="emission in emissions">
+                <td>{{emission.sale}}</td>
+                <td>{{emission.type_trip_title}}</td>
+                <td>{{emission.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                <td>
+                    <a ui-sref="app.emission-show(emission)" class="btn btn-success btn-xs" title="Detalhes" target="_blank"><i class="fa fa-search"></i></a>
+                </td>
+            </tr>
+
+            <tr ng-if="emissions.length <= 0">
+                <td colspan="4">
+                    <h5 class="text-center">Nenhuma emissão encontrada</h5>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,29 @@
+
+<div class="col-md-12">
+    
+        <div class="panel panelwhite">
+           <div class="panel-body">
+    
+               <h4>Tempo de Cache <span class="alert-warning">Crawler</span></h4>
+    
+               <form>
+                   <div class="row">
+                       <div class="col-md-3" ng-repeat="cache in caches">
+                           <label style="text-transform: capitalize">{{cache.company}}</label>
+                           <div class="input-group">
+                               <input type="text"
+                                      ng-model="cache.time_formated"
+                                      id="cache_time_{{cache.id}}"
+                                      ui-time-mask=""
+                                      class="form-control"
+                                      required/>
+                               <span class="input-group-btn">
+                                   <button ng-click="saveCache(cache)" class="btn btn-success"><i class="fa fa-save"></i></button>
+                               </span>
+                           </div>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div>
+    </div>

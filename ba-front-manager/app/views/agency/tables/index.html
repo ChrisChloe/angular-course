@@ -1,0 +1,115 @@
+<ba-table ba-table-resource="resource" ba-table-items="agencies" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-8 col-md-3 col-md-offset-8">
+                <form ng-submit="normalFilter(search)">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search" />
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-1 col-md-1">
+                <ba-advanced-search></ba-advanced-search>
+            </div>
+
+        </div>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-agency" class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    <th class="col-md-3">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">Agência</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="phone">Telefone</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">UF</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_emission">Ultima
+                            Emissão
+                        </ba-table-sort>
+                    </th>
+                    <th style="min-width: 140px; max-width: 150px;">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="agency in agencies" ng-class="{'alert alert-danger':agency.status == 3}">
+                    <th scope="row">{{agency.id}}</th>
+                    <td>{{agency.title ? agency.title : '--'}}</td>
+                    <td>{{agency.email}}</td>
+                    <td ba-click-to-call>{{agency.phone}}</td>
+                    <td>{{agency.addresses.uf | uppercase}}</td>
+                    <td>{{agency.status_title}}</td>
+                    <td>{{agency.created_at | toDate | date:'dd/MM/yy H:mm'}}</td>
+                    <td>{{agency.updated_at | toDate | date:'dd/MM/yy H:mm'}}</td>
+                    <td>{{agency.last_emission ? (agency.last_emission | toDate | date:'dd/MM/yy H:mm') : '--'}}</td>
+                    <td>
+                        <ba-btn-action items="agencyTableActions" parent-scope="thisScope" btn-object="agency"></ba-btn-action>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    <th class="col-md-3">
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">Agência</ba-table-sort>
+                    </th>
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf_cnpj">CNPJ/CPF</ba-table-sort></th>-->
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="phone">Telefone</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="uf">UF</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_emission">Ultima
+                            Emissão
+                        </ba-table-sort>
+                    </th>
+                    <th style="min-width: 140px; max-width: 150px;">Ação</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

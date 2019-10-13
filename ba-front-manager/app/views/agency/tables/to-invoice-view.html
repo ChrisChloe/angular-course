@@ -1,0 +1,50 @@
+<table id="data-table-invoice" class="display table table-striped table-condensed table-hover" style="width: 100%;">
+    <thead>
+        <tr>
+            <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                <div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(agency.emissions_to_invoice, selectedAll)" /></label>
+                    </div>
+                </div>
+            </th>
+            <th>
+                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                    ba-table-sort-value="passenger.op">OP</ba-table-sort>
+            </th>
+            <th>
+                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                    ba-table-sort-value="miles_price">R$</ba-table-sort>
+            </th>
+            <th>
+                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                    ba-table-sort-value="sale">Nº Venda</ba-table-sort>
+            </th>
+            <th>
+                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                    ba-table-sort-value="confirmation_code">Localizador</ba-table-sort>
+            </th>
+            <th>
+                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                    ba-table-sort-value="created_at">Vencimento</ba-table-sort>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="{{invoice.reference}}" ng-repeat="invoice in agency.emissions_to_invoice">
+            <td>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="invoice.selected" ng-disabled="liquidating" />
+                    </label>
+                </div>
+            </td>
+            <td><a ui-sref="app.op-show(invoice.passenger.op)">{{invoice.op_id || '--'}}</a></td>
+            <td>{{ getTotalAmount(invoice) | currency }}</td>
+            <td>{{invoice.sale}}</td>
+            <td>{{invoice.confirmation_code}}</td>
+            <td>{{agency.due_date_invoice | toDate | date:'dd/MM/yy'}}</td>
+        </tr>
+    </tbody>
+
+</table>

@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <div class="col-md-12">
+        <h3 class="pull-left pt-0 mt-0" ng-if="!invoice.id">Solicitar Emissão NFS-e</h3>
+        <button type="button" class="close pull-right" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+    </div>
+</div>
+
+<div class="modal-body" id="to-invoice-modal" style="height: 50% !important">
+
+    <div ng-if="!invoice.id">
+        <form name="" ng-submit="save(invoice)">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="cpf_cnpj">CPF/CNPJ</label>
+                            <input type="text"
+                                   ng-model="invoice.cpf_cnpj"
+                                   id="cpf_cnpj"
+                                   placeholder="CPF/CNPJ"
+                                   ui-br-cpfcnpj-mask
+                                   class="form-control"
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="price">Valor</label>
+                            <input type="text"
+                                   ng-model="invoice.price"
+                                   id="price"
+                                   placeholder="Valor R$"
+                                   class="form-control"
+                                   ui-money-mask
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-success btn-block">Emitir</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="description">Discriminação</label>
+                    <textarea class="form-control"
+                              id="description"
+                              ng-model="invoice.description"
+                              rows="15"
+                              required
+                              style="width:594px;max-width:594px;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div ng-if="invoice.id">
+        <div class="text-center">
+            <h3>Solicitação de emissão enviada</h3>
+            <h3><a ui-sref="app.electronic-service-invoice-show(invoice)" ng-click="close()">#{{ invoice.id }}</a></h3>
+            <h4>{{ invoice.status_title }}</h4>
+        </div>
+    </div>
+
+</div>

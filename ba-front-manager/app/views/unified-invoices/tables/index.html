@@ -1,0 +1,99 @@
+<ba-table ba-table-resource="resource" ba-table-items="invoices" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="listFilter(filter)">
+            <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon2">Vencimento de</span>
+                    <input class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-language="pt-BR"
+                        data-date-autoclose="true" ng-model="filter.date_from">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">até</span>
+                        <input class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy"
+                            data-language="pt-BR" data-date-autoclose="true" ng-model="filter.date_to" ng-change="limitCorrection(filter)">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">Pagamento</span>
+                        <select ng-model="filter.gateway_type" class="form-control" ng-options="a.value as a.title for a in typePayments">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">Status</span>
+                        <select ng-model="filter.status" class="form-control" ng-options="a.value as a.title for a in invoiceStatus">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="input-group">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-invoice" class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>OP</th>
+                    <th>Agencia</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="invoice in invoices">
+                    <td>{{invoice.id}}</td>
+                    <td>{{ returnTypeTitle(invoice.gateway_type) }}</td>
+                    <td>{{ invoice.status_title }}</td>
+                    <td><a ng-if="invoice.op" ui-sref="app.op-show(invoice.op)">{{ invoice.op.id }}</a><span ng-if="!invoice.op">--</span></td>
+                    <td><a ui-sref="app.agency-show(invoice.agency)">{{ invoice.agency.title }}</a></td>
+                    <td>{{ invoice.original_amount | currency:'R$ ' }}</td>
+                    <td>{{ invoice.due_date | date:'dd/MM/yyyy'}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>OP</th>
+                    <th>Agencia</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

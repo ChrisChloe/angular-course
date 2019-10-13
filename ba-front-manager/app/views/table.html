@@ -1,0 +1,17 @@
+<div class="row">
+    <div  class="col-md-12">
+        <div ng-transclude="header">
+            <ng-include src="'views/table-filter.html'" ></ng-include>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div ng-transclude="body" ng-class="{'text-align-center': textAlign == 'center', 'text-left': textAlign == 'left' || !textAlign, 'text-right': textAlign == 'right'}" class="table-responsive"></div>
+    </div>
+</div>
+
+<div ng-transclude="footer">
+    <ng-include src="'views/table-footer.html'"></ng-include>
+</div>

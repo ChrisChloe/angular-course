@@ -1,0 +1,83 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">
+        Estoque #{{stock.id}} | {{stock.payment_form_title}}
+    </h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <h4><strong>Fornecedor:</strong> <span class="text-muted">{{stock.provider.name}}</span></h4>
+        </div>
+        <div class="col-md-12">
+            <h4><strong>Wintour:</strong> <span class="text-primary">{{stock.provider.wintour}}</span></h4>
+        </div>
+        <div class="col-md-12">
+            <h4><strong>Milhas:</strong>
+                <span class="text-success">{{stock.miles}}</span> | <span class="text-muted">{{stock.company.title}}</span></h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4><strong>Contato: </strong></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{stock.provider.phone}}
+        </div>
+        <div class="col-md-12">
+            {{stock.provider.cellphone}}
+        </div>
+        <div class="col-md-12">
+            {{stock.provider.company_phone}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ba-table ba-table-resource="resource" ba-table-items="logs" ba-table-filter-criteria="filterCriteria" ba-table-disable-search="true">
+                <ba-table-body>
+                    <table id="data-table-balance" class="display table table-striped table-condensed table-hover" style="width:100%;cellspacing:0;">
+                        <thead>
+                        <tr>
+                            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles">Milhas</ba-table-sort></th>
+                            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="transaction_type">Transação</ba-table-sort></th>
+                            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="">Data embarque</ba-table-sort></th>
+                            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Lançado em</ba-table-sort></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="log in logs" class="{{getTransactionClass(log)}}">
+                            <td>
+                                <div><span>{{log.id}}</span></div>
+                            </td>
+                            <td>
+                                <div><span>{{log.miles}}</span></div>
+                            </td>
+                            <td>
+                                <div><span>{{getTransactionText(log)}}</span></div>
+                            </td>
+                            <td>
+                                <div><span>{{log.date_boarding | toDate | date:'dd/MM/yy HH:mm'}}</span></div>
+                            </td>
+                            <td>
+                                <div><span>{{log.created_at | toDate | date:'dd/MM/yy HH:mm'}}</span></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </ba-table-body>
+
+            </ba-table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="close()">Fechar</button>
+</div>

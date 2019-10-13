@@ -1,0 +1,32 @@
+<ba-table ba-table-resource="resource" ba-table-items="agencies" ba-table-filter-criteria="filterCriteria">
+    <ba-table-body>
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency.id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency.title">Nome</ba-table-sort></th>
+                <th class="text-align-center">R$</th>
+                <th class="text-align-center">Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="{{agency.id}}" class="agency-row" ng-repeat="agency in agencies">
+                <td class="text-align-center" ng-bind="agency.id"></td>
+                <td class="text-align-center" ng-bind="agency.title"></td>
+                <td class="text-align-center" ng-bind="agency.total_amount | currency:''"></td>
+                <td class="col-md-2 text-align-center">
+                    <a ui-sref="app.electronic-service-invoice-agency-show(agency)" class="btn btn-info btn-xs" title="ver"><i class="fa fa-search"></i></a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency.id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency.title">Nome</ba-table-sort></th>
+                <th class="text-align-center">R$</th>
+                <th class="text-align-center">Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

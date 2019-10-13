@@ -1,0 +1,117 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="'problem'" ba-table-items="cards" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control" id="type"
+                            ng-model="search.type"
+                            ng-options="t.id as t.title for t in types">
+                        <option value="">Tipo</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-card" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="code">Cod.</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Titular</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">CPF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flag">Bandeira</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_type_id">Tipo</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_number">Número</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="balance">Saldo</ba-table-sort></th>
+                <th title="Última Utilização"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_use">Utilização</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="card in cards" ng-class="{'alert alert-danger text-del':!card.status, 'alert alert-danger':card.observations_count}">
+                <th scope="row" ng-class="{'alert alert-warning':card.observations_count}">{{card.code}}</th>
+
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.titular}}</td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.cpf}}</td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.flag_title | uppercase}}</td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.card_type_title}}</td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.card_number}}</td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">
+                    <strong ng-class="{'text-danger':card.balance <= 0, 'text-success':card.balance >= 0}">{{card.balance | currency}}</strong>
+                </td>
+                <td ng-class="{'alert alert-warning':card.observations_count}">{{card.last_use | toDate  | date:'dd/MM/yy HH:mm'}}</td>
+                <td class="col-md-2"  ng-class="{'alert alert-warning':card.observations_count}">
+                    <a ui-sref="app.card-show(card)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                    <a ui-sref="app.card-edit(card)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                    <a ui-sref="app.card-statement(card)" class="btn btn-primary btn-xs" title="Ver extrato"><i class="fa fa-file"></i></a>
+                    <button class="btn btn-xs btn-danger" ng-click="addProblem(card)" title="Reportar Problema"><i class="fa fa-bullhorn"></i></button>
+                    <button class="btn btn-xs btn-success" ng-click="solveProblem(card)" title="Resolver Problema"><i class="fa fa-check"></i></button>
+                </td>
+            </tr>
+            <tr ng-repeat-end>
+                <th colspan="9" class="alert alert-warning">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="list-unstyled list-with-padding">
+                                        <li>
+                                            <div><h4>Último problema relatado</h4></div>
+                                            <strong>Em: {{card.last_comment.created_at | toDate  | date:'dd/MM/yy HH:mm' }}</strong>
+                                        </li>
+                                        <li>
+                                            <strong>Por: {{card.last_comment.user.name }}</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <br>
+                            <h4>Descrição</h4>
+                            <div>
+                                {{card.last_comment.body}}
+                            </div>
+                        </div>
+                    </div>
+
+                </th>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="code">Cod.</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Titular</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">CPF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flag">Bandeira</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_type_id">Tipo</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_number">Número</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="balance">Saldo</ba-table-sort></th>
+                <th title="Última Utilização"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_use">Utilização</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

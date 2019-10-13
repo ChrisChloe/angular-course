@@ -1,0 +1,120 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">{{title}} #{{ company.id }}</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row" style="margin: 0 auto;">
+                        <div class="col-md-12">
+                            <div class="list-unstyled list-with-padding" style="margin: 0 auto;">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Nome</h4>
+                                        <p>{{ company.title }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Iniciais</h4>
+                                        <p>{{ company.initials }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>Programa</h4>
+                                        <p>{{ company.program }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>TX BB</h4>
+                                        <p>{{ company.additional_baby_tax }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>TX CIA</h4>
+                                        <p>{{ company.additional_tax}}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <h4>CPF</h4>
+                                            <p>{{ company.required_cpf ? 'Obrigatório' : 'Não obrigatório' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Internacional</h4>
+                                        <p>{{ company.international ? 'Sim' : 'Não' }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="row" style="font-size: 95%">
+                                <div class="col-md-4">
+                                    <strong>Criado: </strong>{{ company.created_at | toDate | date:'dd/MM/yy HH:mm' }}
+
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>Modificado: </strong>{{ company.updated_at | toDate | date:'dd/MM/yy H:mm' }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-body">
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button ng-disabled="!markupExist" ui-sref="app.markup(company)" class="btn btn-success btn-addon m-b-sm btn-rounded" title="Editar Markups/Preços">
+                                <i ng-if="markupExist" class="fa fa-edit"></i>
+                                <i ng-if="!markupExist" class="fa fa-ban"></i>
+                                Markup de Milhas
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <button ng-disabled="!priceMExist" ui-sref="app.price-markup(company)" class="btn btn-success btn-addon m-b-sm btn-rounded"
+                                title="Editar Markups/Preços">
+                                <i ng-if="priceMExist" class="fa fa-edit"></i>
+                                <i ng-if="!priceMExist" class="fa fa-ban"></i>
+                                Markup de Tarifa
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <button ng-disabled="!travelMExist" ui-sref="app.travel-markup(company)" class="btn btn-success btn-addon m-b-sm btn-rounded"
+                                title="Editar Markups/Preços Monopolizados">
+                                <i ng-if="travelMExist" class="fa fa-edit"></i>
+                                <i ng-if="!travelMExist" class="fa fa-ban"></i>
+                                Adicional de Trecho
+                            </button>
+                        </div>
+                    <div class="col-md-12">
+                        <button ng-disabled="!adjustmentExist" ui-sref="app.adjustment(company)" class="btn btn-success btn-addon m-b-sm btn-rounded"
+                            title="Descontos/Acréscimos">
+                            <i ng-if="adjustmentExist" class="fa fa-edit"></i>
+                            <i ng-if="!adjustmentExist" class="fa fa-ban"></i>
+                            Desconto e Acréscimo
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+                        <button ng-disabled="!refundFExist" ui-sref="app.refund-fares(company)" class="btn btn-success btn-addon m-b-sm btn-rounded"
+                            title="Tarifa/Rembolso">
+                            <i ng-if="refundFExist" class="fa fa-edit"></i>
+                            <i ng-if="!refundFExist" class="fa fa-ban"></i>
+                            Tarifa / Rembolso
+                        </button>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

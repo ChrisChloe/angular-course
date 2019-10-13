@@ -1,0 +1,232 @@
+<ba-table ba-table-resource="resource" ba-table-items="ops" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+
+        <div class="row">
+            <form ng-submit="filter(search)">
+                <div class="col-md-3">
+                    <select ng-options="ar.value as ar.title for ar in archiving_reasons " class="form-control"
+                        ng-model="search.archived_reason">
+                        <option value="">Motivo</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">data</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                ng-model="search.start_date">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-op-archived" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">
+                            <b>ID</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Milhas</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="user.agency.title">
+                            <b>Agência/Usuário</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Telefone</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="flight.company.title">
+                            <b>Cia</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="flight.origin.initials">
+                            <b>Destino</b>
+                        </ba-table-sort>
+                    </th>
+                    <th title="Qtd. Passageiros">Pax.</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="created_at">
+                            <b>Criado</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="archived_by">
+                            <b>Arquivado por</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="archived_at">
+                            <b>Arquivado em</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="payment_type">
+                            <b>Pagamento</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="op in ops">
+                    <td>
+                        <a ui-sref="app.op-show(op)" title="Detalhes" target="_blank">{{op.id}}</a>
+                        <i style="font-size:15px; margin-left: 3px" class="fa fa-comment text-success" title="OP com Observação"
+                            ng-show="op.observation"></i>
+
+                    </td>
+                    <td>
+                        <div>
+                            ADT(ida):
+                            <span ng-if="op.flight.fare_type == 1" class="text-danger">Tarifa</span>
+                            <span ng-if="op.flight.fare_type == 0 && op.flight.adult_miles">{{op.flight.adult_miles |
+                                number}}</span>
+                        </div>
+                        <div ng-if="op.passengers.children.length">
+                            CHD(ida):
+                            <span ng-if="op.flight.fare_type == 1" class="text-danger">Tarifa</span>
+                            <span ng-if="op.flight.fare_type == 0 && op.flight.child_miles">{{op.flight.child_miles |
+                                number}}</span>
+                        </div>
+                        <div ng-if="op.flight_back">
+                            <div>
+                                ADT(volta):
+                                <span ng-if="op.flight_back.fare_type == 1" class="text-danger">Tarifa</span>
+                                <span ng-if="op.flight_back.fare_type == 0 && op.flight_back.adult_miles">{{op.flight_back.adult_miles
+                                    | number}}</span>
+                            </div>
+                            <div ng-if="op.passengers.children.length">
+                                CHD(volta):
+                                <span ng-if="op.flight_back.fare_type == 1" class="text-danger">Tarifa</span>
+                                <span ng-if="op.flight_back.fare_type == 0 && op.flight_back.child_miles">{{op.flight_back.child_miles
+                                    | number}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td ng-class="{'text-danger':!op.user.agency}" title="Realizado por {{op.user.name}}">
+                        <a href="#/agency/{{op.user.agency.id}}" target="_blank">{{op.user.agency.title ||
+                            op.user.name}}</a>
+                    </td>
+                    <td ba-click-to-call>{{op.user.agency.phone}}</td>
+                    <td>
+                        {{op.flight.company.title}}
+                        <span ng-if="op.flight_back">/ {{op.flight_back.company.title}}</span>
+                    </td>
+                    <td>
+                        {{op.flight.origin.initials}} / {{op.flight.destination.initials}}
+                    </td>
+                    <td>{{op.passengers.adults.length + op.passengers.children.length + op.passengers.babies.length}}</td>
+                    <td>{{op.created_at | toDate |  date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{op.archived_by.name}}</td>
+                    <td>{{op.archived_at | toDate |  date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td title="Valor: R$ {{op.price}}">{{op.payment_type_title}}</td>
+                    <td class="col-xs-1">
+                        <a class="btn btn-success btn-xs" ng-click="op.details = !op.details" title="Detalhes">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <button ng-if="isManager()" type="button" class="btn btn-xs btn-danger" ng-click="unblock(op)"
+                            title="Desarquivar / Enviar para Abertas">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr style="background-color: #f5f5f5" ng-repeat-end="" ng-if="op.details">
+                    <td colspan="12" style="padding: 0 !important; text-align: left;" ng-controller="OpDetailsCtrl"
+                        ng-init="init(op.id)">
+                        <div>
+                            <div ng-include="'views/op/op-details.html'"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">
+                            <b>ID</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Milhas</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="user.agency.title">
+                            <b>Agência/Usuário</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Telefone</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="flight.company.title">
+                            <b>Cia</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="flight.origin.initials">
+                            <b>Destino</b>
+                        </ba-table-sort>
+                    </th>
+                    <th title="Qtd. Passageiros">Pax.</th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="created_at">
+                            <b>Criado</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="archived_by">
+                            <b>Arquivado por</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="archived_at">
+                            <b>Arquivado em</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="payment_type">
+                            <b>Pagamento</b>
+                        </ba-table-sort>
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

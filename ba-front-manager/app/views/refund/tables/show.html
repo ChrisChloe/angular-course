@@ -1,0 +1,115 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Fornecedor #{{provider.id}} - {{provider.name}}
+            </h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <ba-table ba-table-resource="resource" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria">
+
+                        <ba-table-header filter="filter">
+
+                            <div class="row">
+
+                                <form ng-submit="filter(search)">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="col-md-2 col-md-offset-4">
+                                    <span>&nbsp;</span>
+                                    <button
+                                            type="button"
+                                            ng-disabled="!liquidate.count || liquidating"
+                                            class="btn btn-md btn-success"
+                                            mwl-confirm
+                                            title="Baixar"
+                                            message="Você tem certeza que deseja enviar {{liquidate.count | number}} entradas no total de {{liquidate.total | currency}}?"
+                                            confirm-text="Sim"
+                                            cancel-text="Não"
+                                            placement="left"
+                                            on-confirm="liquidateEmissions(liquidate.ids)"
+                                            confirm-button-type="success"
+                                            cancel-button-type="danger"
+                                            cancel-button-type="default">
+                                        {{liquidating ? 'Baixando' : 'Baixar'}}
+                                    </button>
+                                </div>
+                            </div>
+
+                        </ba-table-header>
+
+                        <ba-table-body>
+                            <table id="data-table-emission" class="display table table-striped table-condensed table-hover table-responsive" style="width: 100%; cellspacing: 0;">
+                                <thead>
+                                    <tr>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">Emissão</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">OP</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Data</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipping_rate">Valor</ba-table-sort></th>
+                                        <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                                            <div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(emissions, selectedAll)"/></label>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="emission in emissions">
+                                        <th><a ui-sref="app.emission-show(emission)">{{emission.id}}</a></th>
+                                        <th><a ui-sref="app.op-show(emission.passenger.op)">{{emission.passenger.op.id}}</a></th>
+                                        <th>{{emission.sale}}</th>
+                                        <th>{{emission.created_at | toDate | date:'dd/MM/yy HH:mm'}}</th>
+                                        <th>{{emission.shipping_rate + emission.baggage_price | currency}}</th>
+                                        <th class="col-md-2">
+                                            <strong ng-if="emission.liquidated_at">
+                                                Baixado
+                                            </strong>
+                                            <div class="checkbox" ng-if="!emission.liquidated_at">
+                                                <label>
+                                                    <input type="checkbox" ng-model="emission.selected" ng-disabled="liquidating"/>
+                                                </label>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4"></th>
+                                        <th><h4>Total: {{provider.total_to_refund ? provider.total_to_refund : 0 | currency}}</h4></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </ba-table-body>
+
+                    </ba-table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

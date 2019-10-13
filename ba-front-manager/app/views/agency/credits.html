@@ -1,0 +1,98 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Créditos</h3>
+        </div>
+
+        <div id="content-credits" ng-if="isFinancial() || isManager()">
+            <div class="panel-body">
+
+                <ba-table ba-table-resource="resourceCredit"
+                          ba-table-items="credits"
+                          ba-table-filter-criteria="filterCriteriaCredit">
+
+                    <ba-table-header>
+                        <div class="row m-b-sm">
+                            <div class="col-md-3 m-b-xs">
+                                <button type="button" class="btn btn-success" ng-click="addCredit(agency)">Novo</button>
+                            </div>
+                            <div class="col-md-9">
+                                <form ng-submit="filter(search)">
+                                    <div class="input-group">
+                                        <input type="text" name="search" ng-model="search.search" class="form-control input-search" placeholder="Buscar...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div><!-- Input Group -->
+                                </form>
+                            </div>
+                        </div>
+                    </ba-table-header>
+
+                    <ba-table-body>
+
+                        <table id="data-table-credit" class="table table-responsive table-hover table-striped"
+                               style="width: 100%; cellspacing: 0;">
+                            <thead>
+                            <tr>
+                                <th title="Valor">
+                                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount">Valor</ba-table-sort>
+                                </th>
+                                <th title="Motivo do Crédito">
+                                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="observation">Motivo do Crédito</ba-table-sort>
+                                </th>
+                                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                                <th>
+                                   Ação
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="credit in credits">
+                                <td>{{credit.amount | currency}}</td>
+                                <td>{{credit.observation}}</td>
+                                <td>{{credit.created_at | toDate | date:'dd/MM/yy HH:mm' }}</td>
+                                <td>
+                                    <button
+                                            type="button"
+                                            class="btn btn-xs btn-danger"
+                                            mwl-confirm
+                                            title="Cancelar Crédito"
+                                            message="cancelar esse crédito, você tem certeza?"
+                                            confirm-text="Sim"
+                                            cancel-text="Não"
+                                            placement="left"
+                                            on-confirm="cancelCredit(credit)"
+                                            confirm-button-type="success"
+                                            cancel-button-type="danger"
+                                            cancel-button-type="default">
+                                        <i class="fa fa-check-circle-o"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th title="Valor">
+                                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount">Valor</ba-table-sort>
+                                </th>
+                                <th title="Motivo do Crédito">
+                                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="observation">Motivo do Crédito</ba-table-sort>
+                                </th>
+                                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                                <th>
+                                    Ação
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </ba-table-body>
+
+                </ba-table>
+            </div>
+        </div>
+    </div>
+</div>
+

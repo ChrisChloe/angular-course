@@ -1,0 +1,260 @@
+<form ng-submit="save(company)" name="companyForm">
+
+    <div class="col-md-8">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Companhia</label>
+                            <input type="text"
+                                   ng-model="company.title"
+                                   id="title"
+                                   placeholder="Nome da cia"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="initials">Iniciais</label>
+                            <input type="text"
+                                   ng-model="company.initials"
+                                   id="initials"
+                                   placeholder="Iniciais ou código"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="program">Programa</label>
+                            <input type="text"
+                                   ng-model="company.program"
+                                   id="program"
+                                   placeholder="Programa de fidelidade"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="additional-tax">Taxa Adicional cia (Nacional)</label>
+                            <input type="text"
+                                   ng-model="company.additional_tax"
+                                   id="additional-tax"
+                                   ui-money-mask
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="additional-tax-inter">Taxa Adicional cia (Inter)</label>
+                            <input type="text"
+                                   ng-model="company.additional_tax_inter"
+                                   id="additional-tax-inter"
+                                   ui-money-mask
+                                   class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="additional-tax-baby">Taxa Adicional (bebê)</label>
+                            <input type="text"
+                                   ng-model="company.additional_baby_tax"
+                                   id="additional-tax-baby"
+                                   ui-money-mask
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="additional-tax-baby">Bagagem Adicional (Nacional)</label>
+                            <input type="text"
+                                   ng-model="company.additional_baggage_tax"
+                                   id="additional-baggage-tax"
+                                   ui-money-mask
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="additional-tax-baby">Bagagem Adicional (Inter)</label>
+                            <input type="text"
+                                   ng-model="company.additional_baggage_tax_inter"
+                                   id="additional-baggage-tax-inter"
+                                   ui-money-mask
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Milhas</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error':company.shipment_miles_start > company.shipment_miles_end}">
+                            <label for="shipment-miles-start">Embarque Mínimo (dias) - Atual {{company.shipment_miles_start_date | date:'dd/MM/yyyy'}}</label>
+                            <input type="text"
+                                   ng-model="company.shipment_miles_start"
+                                   id="shipment-miles-start"
+                                   ui-number-mask="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error':company.shipment_miles_start > company.shipment_miles_end}">
+                            <label for="shipment-miles-end">Embarque Máximo (dias) - Atual {{company.shipment_miles_end_date | date:'dd/MM/yyyy'}}</label>
+                            <input type="text"
+                                   ng-model="company.shipment_miles_end"
+                                   id="shipment-miles-end"
+                                   ui-number-mask="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Tarifa</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': company.shipment_fare_start > company.shipment_fare_end}">
+                            <label for="shipment-fare-start">Embarque Mínimo (dias) - Atual {{company.shipment_fare_start_date | date:'dd/MM/yyyy'}}</label>
+                            <input type="text"
+                                   ng-model="company.shipment_fare_start"
+                                   id="shipment-fare-start"
+                                   ui-number-mask="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': company.shipment_fare_start > company.shipment_fare_end}">
+                            <label for="shipment-fare-end">Embarque Máximo (dias) - Atual {{company.shipment_fare_end_date | date:'dd/MM/yyyy'}}</label>
+                            <input type="text"
+                                   ng-model="company.shipment_fare_end"
+                                   id="shipment-fare-end"
+                                   ui-number-mask="0"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <input bs-switch
+                                   ng-model="company.auto_emission_miles"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Emissão auto Milhas"
+                                   switch-label-width="180"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <input bs-switch
+                                   ng-model="company.auto_emission_money"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Emissão auto Tarifa"
+                                   switch-label-width="180"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <input bs-switch
+                                   ng-model="company.international"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Voo inter. com Milhas"
+                                   switch-label-width="180"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <input bs-switch
+                                   ng-model="company.international_fare"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Voo inter. na Tarifa"
+                                   switch-label-width="180"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <input bs-switch
+                                   ng-model="company.required_cpf"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="CPF é obrigatório"
+                                   switch-label-width="180"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.company" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success pull-right">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

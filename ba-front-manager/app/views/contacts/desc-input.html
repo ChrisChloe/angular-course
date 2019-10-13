@@ -1,0 +1,22 @@
+<div class="modal-header">
+        <h4>Nota para {{name}}</h4>
+</div>
+
+<div class="modal-body">
+    <textarea
+        placeholder="Observação"
+        required
+        id="observation"
+        class="form-control"
+        style="height: 100px; resize:none"
+        ng-model="observation">
+    </textarea>
+<div class="modal-footer" style="padding: 15px 0 0 0;">
+        <button ng-if="action == 'Arquivar'" type="button" ng-click="archive()" 
+        class="btn btn-danger" data-dismiss="modal">{{action}}</button>
+
+        <button ng-if="action == 'Confirmar'" type="button" ng-click="confirm()" 
+        class="btn btn-success" data-dismiss="modal">{{action}}</button>
+</div>
+</div>
+    

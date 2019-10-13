@@ -1,0 +1,148 @@
+<form ng-submit="save(markup)" name="formMarkup">
+    <div class="row">
+
+        <div class="form-group col-md-2">
+            <label for="type">Tipo de Voo</label>
+            <select type="text" class="form-control" id="type" name="type"
+                    ng-model="markup.type"
+                    ng-init="markup.type = 0"
+                    ng-options="type.value as type.title for type in markupTypes"
+                    ng-required="true">
+                <option value="">Escolha o tipo</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2" ng-class="{'has-error': formMarkup.shipment_limit.$invalid}">
+            <label for="shipment-limit">Dias até voo</label>
+            <input type="text" class="form-control" id="shipment-limit" name="shipment_limit"
+                   ng-model="markup.shipment_limit"
+                   placeholder="120 dias (Padrão)"
+                   ui-number-mask="0"
+                   min="1"/>
+        </div>
+
+        <div class="form-group col-md-2" ng-class="{'has-error': formMarkup.miles_end.$touched && markup.miles_end < markup.miles_start}">
+            <label for="miles-start">Milhas Iniciais</label>
+            <input type="text" class="form-control"  id="miles-start"
+                   name="miles_start"
+                   ng-model="markup.miles_start"
+                   placeholder="1"
+                   ui-number-mask="0"
+                   required/>
+        </div>
+        <div class="form-group col-md-2" ng-class="{'has-error': formMarkup.miles_end.$touched && markup.miles_end < markup.miles_start}">
+            <label for="miles-end">Milhas Finais</label>
+            <input type="text" class="form-control" id="miles-end"
+                   ng-model="markup.miles_end"
+                   name="miles_end"
+                   placeholder="10.000"
+                   ui-number-mask="0"
+                   required/>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="price">Valor</label>
+            <input type="text" class="form-control" id="price"
+                   ng-model="markup.price"
+                   placeholder="R$ 300,00"
+                   ui-money-mask
+                   required/>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="type">Tipo de cálculo</label>
+            <select type="text" class="form-control" id="type_calculation" name="type_calculation"
+                    ng-model="markup.type_calculation"
+                    ng-init="markup.type_calculation = 0"
+                    ng-options="type.value as type.title for type in markupCalculationTypes"
+                    ng-required="true">
+                <option value="">Escolha o cálculo</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="expiration">Data Expiração</label>
+            <input type="text" class="form-control" id="expiration"
+                   ng-model="markup.expiration"
+                   placeholder="Nunca"
+                   ui-date-mask/>
+        </div>
+
+        <!--CUSTOM ORIGIN DESTINATION-->
+        <div class="form-group col-md-3" ng-if="markup.type == 5">
+            <label>Origem</label>
+            <ui-select ng-model="markup.origin_id" ng-required="markup.type == 5" title="Buscar origem" style="min-width: 200px !important;">
+                <ui-select-match placeholder="Buscar aeroporto...">
+                    {{$select.selected.initials}} - {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices refresh="searchAirport($select.search)" repeat="airport.id as airport in airports">
+                    <div style="height: 25px">
+                        <strong>{{airport.initials}} - {{airport.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group col-md-3" ng-if="markup.type == 5">
+            <label>Destino</label>
+            <ui-select ng-model="markup.destination_id" ng-required="markup.type == 5" title="Buscar destino" style="min-width: 200px !important;">
+                <ui-select-match placeholder="Buscar aeroporto...">
+                    {{$select.selected.initials}} - {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices refresh="searchAirport($select.search)" repeat="airport.id as airport in airports">
+                    <div style="height: 25px">
+                        <strong>{{airport.initials}} - {{airport.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <!--CUSTOM-->
+        <div class="form-group col-md-4" ng-if="markup.type == 4">
+            <label>Aeroporto</label>
+            <ui-select ng-model="markup.airport_id" ng-required="markup.type == 4" title="Buscar aeroporto" style="min-width: 200px !important;">
+                <ui-select-match placeholder="Buscar aeroporto...">
+                    {{$select.selected.initials}} - {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices refresh="searchAirport($select.search)" repeat="airport.id as airport in airports">
+                    <div style="height: 25px">
+                        <strong>{{airport.initials}} - {{airport.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group col-md-4" ng-if="markup.type == 4 || markup.type == 5">
+            <label>Agência</label>
+            <ui-select ng-model="markup.agency_id" title="Buscar agência" style="min-width: 200px !important;">
+                <ui-select-match placeholder="Buscar agência...">
+                    {{$select.selected.title}}
+                </ui-select-match>
+                <ui-select-choices allow-clear="true" refresh="searchAgency($select.search)" repeat="agency.id as agency in agencies">
+                    <div style="height: 25px">
+                        <strong>{{agency.title}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-group col-md-4" ng-if="markup.type != 4 && markup.type != 5" ng-init="searchGroup()">
+            <label>Grupo</label>
+            <ui-select ng-model="markup.group_id" title="Buscar grupo" style="min-width: 200px !important;">
+                <ui-select-match placeholder="Buscar grupo...">
+                    {{$select.selected.name}}
+                </ui-select-match>
+                <ui-select-choices allow-clear="true" refresh="searchGroup($select.search)" repeat="group.id as group in groups">
+                    <div style="height: 25px">
+                        <strong>{{group.name}}</strong>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 ">
+            <button type="submit" ng-disabled="formMarkup.$invalid" class="btn btn-success btn-addon m-b-sm btn-rounded pull-right" title="Cadastrar Markup">
+                <i class="fa fa-save"></i> Salvar
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,73 @@
+<div class="navbar" ng-controller="SidebarCtrl">
+    <div class="navbar-inner">
+        <div class="sidebar-pusher">
+            <a ng-if="!isExecutive" href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"
+                ng-click="_closeSidebarSmall()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <a ng-if="isExecutive" href="#/logout" class="log-out waves-effect waves-button waves-classic">
+                <span><i class="fa fa-sign-out m-r-xs"></i>Sair</span>
+            </a>
+        </div>
+        <div class="logo-box">
+            <a style="display: inline" href="/" class="logo-text"><span>Busca Aéreo</span></a>
+
+        </div>
+        <!-- Logo Box -->
+        <div class="search-button">
+            <a href="https://www.buscaaereo.com.br" class="waves-effect waves-button waves-classic show-search" target="_blank">
+                <span class="glyphicon glyphicon-plane"></span>
+            </a>
+        </div>
+        <div class="topmenu-outer">
+            <div class="top-menu">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a ui-sref="app.email-message" title="Emails" class="waves-effect waves-button waves-classic sidebar-toggle"
+                            ng-if="emissionUser">
+                            <i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li>
+                        <a title="Novo Email" class="waves-effect waves-button waves-classic sidebar-toggle m-t-xxs"
+                            ng-if="!isExecutive" ng-click="sendEmail()">
+                            <i class="fa fa-pencil"></i></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://www.buscaaereo.com.br" class="waves-effect waves-button waves-classic">
+                            <span class="glyphicon glyphicon-plane"></span>
+                        </a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="?#" class="dropdown-toggle waves-effect waves-button waves-classic" data-toggle="dropdown">
+                            <span class="user-name">{{user.name ? user.name : user.data.name}}<i ng-if="!isExecutive"
+                                    class="fa fa-angle-down"></i></span>
+                        </a>
+                        <ul ng-if="!isExecutive" class="dropdown-menu dropdown-list" role="menu">
+                            <li role="presentation">
+                                <a ui-sref="app.user-show({{user.name ? user : user.data}})"><i class="fa fa-user"></i>
+                                    Seu
+                                    Perfil</a>
+                            </li>
+                            <li role="presentation">
+                                <a ui-sref="app.info"><i class="fa fa-code"></i> Área do desenvolvedor</a>
+                            </li>
+                            <li role="presentation">
+                                <a class="pointer" ng-click="openHelpDesk()">
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Help Desk
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#/logout" class="log-out waves-effect waves-button waves-classic">
+                            <span><i class="fa fa-sign-out m-r-xs"></i>Sair</span>
+                        </a>
+                    </li>
+                </ul><!-- Nav -->
+            </div><!-- Top Menu -->
+        </div>
+    </div>
+</div><!-- Navbar -->

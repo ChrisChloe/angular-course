@@ -1,0 +1,45 @@
+<ba-table ba-table-resource="InboxMailResource" ba-table-items="messages" ba-table-filter-criteria="filterInboxMailCriteria">
+
+
+    <ba-table-body>
+
+        <table class="display table table-striped table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th title="Email">
+                        Email
+                    </th>
+                    <th title="Assunto">
+                        Assunto
+                    </th>
+                    <th title="Data de Recebimento">
+                        Data
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="message in messages" ng-class="{'unread':message.status == 1, 'read':message.status == 2}">
+                <td ng-class="{'alert-danger':message.status==3}" class="hidden-xs"> <span title="{{message.from_name}}"><a
+                            href="{{message.link}}" target="_blank">{{message.from_address}}</a> </span></td>
+                <td ng-class="{'alert-danger':message.status==3}">{{message.summary_subject | limitTo:40}}</td>
+                <td ng-class="{'alert-danger':message.status==3}">{{message.received_at | toDate | date:'dd/MM/yy HH:mm'}}
+                </td>
+                <td ng-class="{'alert-danger':message.status==3}">
+                    <button title="Abrir" class="btn btn-xs btn-success" ng-click="show(message)"><i class="fa fa-eye"></i></button>
+
+                    <span ng-if="message.status == 2" title="Op Liberada" class="text-success" style="font-size: medium"><i
+                            class="fa fa-check"></i></span>
+
+                </td>
+            </tr>
+            <tr ng-if="messages.length <= 0">
+                <td colspan="4">
+                    <h5 class="text-center">Nenhuma mensagem encontrada</h5>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,48 @@
+<div class="dropdown">
+        <button
+            class="btn btn-info dropdown-toggle"
+            type="button" id="actions-menu"
+            data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"
+            title="Ações">
+            <i class="fa fa-plus"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-center dropdown-actions" role="menu">
+            <li ng-repeat="action in items" ng-class="{'dropdown-submenu': action.isSubmenu == true}">
+                
+                <!-- Start submenu:false dynamic:false -->
+                <a  ng-if="action.isSubmenu == false && action.isDynamic == false"
+                    type="button"
+                    class="{{action.btnColor}} dropdown-item btn-actions"
+                    tabindex="-1" data-toggle="dropdown"
+                    title="{{action.title}}"
+                    style="text-align: center;"
+                    ng-style="{color: action.fontColor}"
+                    ui-sref="{{action.functionCall}}({{btnObject}})">
+                    <i class="fa {{action.icon}}"></i>
+                </a>
+                <!-- End simple -->
+                <!-- Start submenu:true dynamic:false -->
+                <a  ng-show="action.isSubmenu == true && action.isDynamic == false"
+                    type="button" class="{{action.btnColor}} dropdown-item btn-actions"
+                    tabindex="-1" data-toggle="dropdown"
+                    style="text-align: center;"
+                    title="{{action.title}}"
+                    ng-style="{color: action.fontColor}">
+                    <i class="fa {{action.icon}}"></i>
+                </a>
+                <ul ng-show="action.isSubmenu == true" class="dropdown-menu dropdown-submenu-left submenu" role="menu">
+                    <li class="submenu-title">
+                        {{action.modalTitle}}
+                    </li>
+                    <li class="{{action.confirmColor}}">
+                        <button style="width: 100%;" ng-click="confirmFunction(action)">{{action.confirmTitle}}</button>
+                    </li>
+                    <li>
+                        <a>Cancelar</a>
+                    </li>
+                </ul>   
+                <!-- End submenu simple -->
+            </li>
+        </ul>
+    </div>

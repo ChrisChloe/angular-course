@@ -1,0 +1,42 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Endereços de email</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <a ui-sref="app.email-account-create" class="btn btn-success m-b-sm">Novo Email</a>
+                    <div id="rootwizard">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="?#mail-account-tab1" data-toggle="tab">
+                                    <i class="fa fa-user m-r-xs"></i>Todos
+                                </a>
+                            </li>
+                            <li role="presentation" id="mail-account-tab-trash">
+                                <a href="?#mail-account-tab2" data-toggle="tab">
+                                    <i class="fa fa-trash m-r-xs"></i>Lixeira
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fade in" id="mail-account-tab1">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/email-account/tables/index.html'"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in" id="mail-account-tab2">
+                                <div class="table-responsive" ng-controller="EmailAccountTrashCtrl">
+                                    <div ng-include="'views/email-account/tables/trash.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

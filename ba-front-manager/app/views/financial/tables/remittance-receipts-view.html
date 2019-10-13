@@ -1,0 +1,47 @@
+<ba-table ba-table-resource="resource" ba-table-items="remittance" ba-table-filter-criteria="filterCriteria" ba-table-disable-pagination="true">
+    <ba-table-header filter="filter"></ba-table-header>
+    <ba-table-body>
+        <table id="data-table-receipt" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th>REF</th>
+                <th>{{remittance[0].receipts_count}}</th>
+                <th>{{remittance[0].total_price | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Nome</th>
+                <th>CPF/CNPJ</th>
+                <th>Vencimento</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="receipt in remittance[0].receipts">
+                    <td ng-bind="receipt.reference"></td>
+                    <td ng-bind="receipt.id"></td>
+                    <td ng-bind="receipt.original_amount | currency:'R$'"></td>
+                    <td ng-bind="receipt.status.name"></td>
+                    <td><a target="blank" href="{{crmUrl + 'providers/edit/' + receipt.person.cpf_cnpj}}">{{receipt.person.name}}</a></td>
+                    <td ng-bind="receipt.person.cpf_cnpj"></td>
+                    <td ng-bind="receipt.due_date | date:'dd/MM/yy'"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>REF</th>
+                <th>{{remittance[0].receipts_count}}</th>
+                <th>{{remittance[0].total_price | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Nome</th>
+                <th>CPF/CNPJ</th>
+                <th>Vencimento</th>
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>-->
+                <!--<th>{{remittance[0].receipts_count}}</th>-->
+                <!--<th>{{remittance[0].total_price | currency:'R$'}}</th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status.name">Status</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person.name">Nome</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person.cpf_cnpj">CPF/CNPJ</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="due_date">Vencimento</ba-table-sort></th>                -->
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

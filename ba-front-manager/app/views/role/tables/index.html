@@ -1,0 +1,39 @@
+<ba-table ba-table-resource="resource" ba-table-items="roles">
+
+    <ba-table-body>
+        <table id="data-table-role" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criação</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="role in roles">
+                <th scope="row">{{role.id}}</th>
+                <td>{{role.name}}</td>
+                <td>{{role.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td>{{role.updated_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td class="col-md-3">
+                    <a ui-sref="app.role-show(role)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                    <a ui-sref="app.role-edit(role)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criação</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

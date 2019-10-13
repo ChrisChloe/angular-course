@@ -1,0 +1,108 @@
+<ba-table ba-table-resource="resource" ba-table-items="electronicServiceInvoices">
+
+    <ba-table-header filter="filter">
+
+        <div class="row">
+            
+            <form ng-submit="filter(search)">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   placeholder="Buscar"
+                                   ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-md-1">
+                <button class="btn btn-success" type="button" ng-click="refresh()" title="Recarregar listagem"
+                        ng-disabled="refreshing">
+                    <i class="fa fa-refresh"></i>
+                </button>
+            </div>
+
+
+        </div>
+
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-group" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="nfse_number">Nº</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency_id">Agência</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf_cnpj">CPF/CNPJ</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="e in electronicServiceInvoices">
+                <th scope="row">{{ e.id }}</th>
+                <td>{{ e.nfse_number ? e.nfse_number : '--' }}</td>
+                <td>{{ e.agency.title }}</td>
+                <td>{{ e.cpf_cnpj }}</td>
+                <td>{{ e.price | currency }}</td>
+                <td ng-class="{'text-danger': e.status == 4 || e.status == 0, 'text-success':e.status == 3}">
+                    <i ng-show="e.status == 2" class="fa fa-spinner fa-spin"></i> {{ e.status_title }}
+                </td>
+                <td>{{ e.created_at | toDate | date:'dd/MM/yy hh:mm' }}</td>
+                <td class="col-md-3">
+                    <a ui-sref="app.electronic-service-invoice-show(e)" class="btn btn-xs btn-success" title="Ver"><i class="fa fa-search"></i></a>
+                    <button type="button"
+                            class="btn btn-danger btn-xs"
+                            ng-disabled="e.status != 0"
+                            mwl-confirm
+                            title="Reenviar NFS-e"
+                            message="Enviar novamente para emitir, você tem certeza?"
+                            confirm-text="Sim"
+                            cancel-text="Não"
+                            placement="left"
+                            on-confirm="retry(e)"
+                            confirm-button-type="success"
+                            cancel-button-type="danger"
+                            cancel-button-type="default">Reenviar
+                    </button>
+                    <button type="button"
+                            class="btn btn-danger btn-xs"
+                            ng-disabled="e.status == 4 || e.status == 3"
+                            mwl-confirm
+                            title="Cancelar NFS-e"
+                            message="Cancelar emissão de nota, você tem certeza?"
+                            confirm-text="Sim"
+                            cancel-text="Não"
+                            placement="left"
+                            on-confirm="cancel(e)"
+                            confirm-button-type="success"
+                            cancel-button-type="danger"
+                            cancel-button-type="default">Cancelar
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="nfse_number">Nº</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency_id">Agência</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf_cnpj">CPF/CNPJ</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="price">Preço</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,41 @@
+<form ng-submit="save(webSystem)" name="formWebSystem">
+    <div class="row">
+
+        <div class="form-group col-md-4">
+            <label for="shipment-limit">Nome</label>
+            <input type="text" class="form-control" id="shipment-limit" name="name"
+                   ng-model="webSystem.name"
+                   ng-required="true"
+                   min="1"/>
+        </div>
+
+
+        <div class="form-group col-md-4">
+            <label for="technology" title="Tecnologia ou Framework">Tecnologia /Framework</label>
+            <input type="text"
+                   class="form-control"
+                   id="technology"
+                   ng-model="webSystem.technology"
+                   required/>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="version" title="Versão Final">Versão</label>
+            <input type="text"
+                   class="form-control"
+                   id="version"
+                   ng-model="webSystem.version"
+                   required/>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 ">
+            <button type="submit" ng-disabled="formWebSystem.$invalid" class="btn btn-success btn-addon m-b-sm btn-rounded pull-right" title="Cadastrar Sistema">
+                <i class="fa fa-save"></i> Salvar
+            </button>
+        </div>
+    </div>
+</form>

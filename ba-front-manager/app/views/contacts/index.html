@@ -1,0 +1,43 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Contatos</h4>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="?#received" data-toggle="tab">
+                        <i class="fa fa-download m-r-xs"></i>Recebidos
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="?#confirmed" data-toggle="tab">
+                        <i class="fa fa-check m-r-xs"></i>Finalizados
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="?#archived" data-toggle="tab">
+                        <i class="fa fa-archive m-r-xs"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="received">
+                    <div ng-controller="ContactCtrl">
+                        <div ng-include="'views/contacts/tables/index.html'"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="confirmed">
+                    <div ng-controller="ContactConfirmedCtrl">
+                        <div ng-include="'views/contacts/tables/confirmed.html'"></div>
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="archived">
+                    <div ng-controller="ContactArchivedCtrl">
+                        <div ng-include="'views/contacts/tables/archived.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

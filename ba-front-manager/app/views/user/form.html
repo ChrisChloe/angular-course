@@ -1,0 +1,228 @@
+
+<form ng-submit="save(user)" name="userForm">
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}} | Informações Principais</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" ng-model="user.name" id="name" placeholder="Digite um nome" class="form-control" required/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Endereço de email</label>
+                        <input type="email" ng-model="user.email" id="email" placeholder="Digite um email" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="branch">Ramal</label>
+                        <input type="text" ng-model="user.branch" id="branch" class="form-control"/>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">-->
+                <!--<label>Permissões</label>-->
+                <!--<ui-select multiple ng-model="user.roles" theme="bootstrap" close-on-select="false"-->
+                <!--style="width: 450px;" title="Selecione as permissões">-->
+                <!--<ui-select-match placeholder="Selecione as permissões...">{{$item.name}}</ui-select-match>-->
+                <!--<ui-select-choices repeat="role in roles" ui-disable-choice="canNotAddRole(role)">-->
+                <!--{{role.name}}-->
+                <!--</ui-select-choices>-->
+                <!--</ui-select>-->
+                <!--</div>-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="agency">Agência</label>
+                        <!-- <ui-select ng-model="user.agency"
+                                   id="agency" title="Busca por Agência"
+                                   required
+                                   on-select="onSelectAgency($item)"
+                                   style="min-width: 200px !important;">
+                            <ui-select-match allow-clear="true" placeholder="Buscar agência...">
+                                {{$select.selected.title}}
+                            </ui-select-match>
+                            <ui-select-choices 
+                            refresh="searchAgency($select.search)"   
+                                               repeat="agency as agency in agencies">
+                               
+                                <div style="height: 25px">
+                                    <strong>{{agency.title}}</strong>
+                                </div>
+    
+                            </ui-select-choices>
+                        </ui-select> -->
+                        <input type="text" class="form-control" id="agency" ng-model="user.agency.title" placeholder="Agência" disabled/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <label for="user_is_manager">
+                            <input type="checkbox" ng-model="user.is_manager" id="user_is_manager" style="width:18px;" ng-disabled="!user.agency_id"
+                            />
+                            <span class="alert-danger">Master</span> - Este usuário pode ver emissões de outros usuários
+                            da agência
+                        </label>
+                    </div>
+                </div>
+
+                <h4>Endereço</h4>
+                <hr>
+                <div class="col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="address-cep">CEP</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="address-cep" ng-model="user.address.cep" placeholder="00000-000" pattern="^\d{5,5}[-]\d{3,3}$"
+                                    required ui-br-cep-mask/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-xs btn-success" title="Buscar CEP e preencher" ng-click="consultCep(user)">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label for="address-city">Cidade</label>
+                            <input type="text" class="form-control" id="address-city" ng-model="user.address.city" placeholder="Ex.: Recife" pattern=^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s]{5,}$
+                                required/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="address-uf">UF</label>
+                            <input type="text" class="form-control" id="address-uf" ng-model="user.address.uf" placeholder="Ex.: PE" pattern=^[a-z-A-Z]{2}$
+                                required/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="address-street">Endereço</label>
+                            <input type="text" class="form-control" id="address-street" ng-model="user.address.street" placeholder="Ex.: Rua do Paissandu"
+                                pattern=^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s\.\-0-9]{5,}$ required/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="address-street">Número</label>
+                            <input type="text" class="form-control" id="address-number" ng-model="user.address.number" placeholder="000" pattern=^[0-9]\d{0,}$
+                                required/>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="address-neighborhood">Bairro</label>
+                            <input type="text" class="form-control" id="address-neighborhood" ng-model="user.address.neighborhood" placeholder="Ex.: Paissandu"
+                                pattern=^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s]{5,}$ required/>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row">
+
+                        <div ng-class="classButton" align="left">
+                            <div class="form-group">
+                                <div class="btn-group">
+                                    <label class="btn btn-success" ng-model="user.status" uib-btn-radio="1" required="true">
+                                        Ativo
+                                    </label>
+                                    <label class="btn btn-success" ng-model="user.status" uib-btn-radio="0" required="true">
+                                        Inativo
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-class="classButton" ng-if="visibility">
+                            <div class="form-group">
+                                <button class="btn btn-primary" ng-class="{btnDisable:button}" ng-disabled="button" type="button" mwl-confirm title="Tem certeza ?"
+                                    message="Será enviado um email, com o link para redefinição de senha" confirm-text="Sim"
+                                    cancel-text="Não" placement="right" on-confirm="sendResetEmail(user)" confirm-button-type="success"
+                                    cancel-button-type="danger" cancel-button-type="default">
+                                    {{btnButton}}
+
+                                </button>
+                            </div>
+                        </div>
+
+                        <div ng-class="classButton">
+                            <div class="form-group" align="right">
+                                <a href="#/user" class="btn btn-danger">Cancelar</a>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">Informações adicionais</h4>
+            </div>
+            <div class="panel-body">
+
+                Deseja alterar alguma informação adicional?
+                <input type="checkbox" ng-model="disableAddInformations" ng-value="true" />
+
+                <br/><br/>
+                <div class="additionals">
+
+                    <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-md-8">
+                                <div class="form-group" ng-class="{'has-error':userForm.cpf_cnpj.$invalid}">
+                                    <label>CPF/CNPJ</label>
+                                    <input ng-model="user.information.cpf_cnpj" name="cpf_cnpj" placeholder="CPF/CNPJ" class="form-control" ng-disabled="!disableAddInformations"
+                                        ui-br-cpfcnpj-mask/>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="phone">Telefone</label>
+                                <input ng-model="user.information.phone" id="phone" placeholder="Telefone" ui-br-phone-number class="form-control" ng-disabled="!disableAddInformations"
+                                />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="birthday">Data nascimento</label>
+                                <input ng-model="user.information.birthday" id="birthday" ui-mask="99/99/9999" model-view-value="true" class="form-control"
+                                    ng-disabled="!disableAddInformations" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additional">Outras informações</label>
+                        <textarea ng-model="user.information.additional" id="additional" placeholder="Outras informações" class="form-control" ng-disabled="!disableAddInformations"
+                            style="height: 100px; resize:none"></textarea>
+                    </div>
+                </div><!-- additionals -->
+
+
+            </div>
+        </div>
+    </div>
+
+</form>

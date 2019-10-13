@@ -1,0 +1,85 @@
+<div class="modal-header" >
+    <h4 class="modal-title">Limpeza de Cache</h4>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Mas o que é a memória cache?</strong><br>
+            <span>
+                Simplificando: a memória cache é um conjunto de dados que o seu navegador vai guardando para tornar o acesso às páginas da web mais rápido. Toda vez que você acessa uma url, ao invés de carregar todos os elementos da página novamente, o navegador vai buscar na cache o que já tem salvo a fim de acelerar o carregamento da página.
+            </span>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>E como limpar a memória cache?
+            </strong><br>
+            <span>A tecla F5 ou as combinações ctrl+F5 ou shift+F5  ou ctrl+R são atalhos padrão para limpeza da cache da maioria dos navegadores. No entanto, a utilização destes atalhos não elimina os dados do histórico de acesso às páginas.</span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6"  style="margin-bottom: 8px">
+            <strong>Aperte o botão abaixo para limpar cache do Buscaaereo e Manager</strong><br>
+            <span>
+                <button
+                    style="padding: 8px;"
+                    type="button"
+                    class="btn btn-xs btn-success"
+                    mwl-confirm
+                    title="Limpar"
+                    message="Você tem certeza?"
+                    confirm-text="Sim"
+                    cancel-text="Não"
+                    placement="left"
+                    on-confirm="purge('buscaaereo')"
+                    confirm-button-type="success"
+                    cancel-button-type="danger"
+                    cancel-button-type="default">
+                    <i class="fa fa-cloud"></i>
+                    Limpar cache do CloudFlare BuscaAereo
+                </button>
+            </span>
+        </div>
+        <div class="col-md-6">
+            <strong>Aperte o botão abaixo para limpar cache de scripts do CRM e elomilhas.com.br</strong><br>
+            <span>
+                <button
+                style="padding: 8px;"
+                        type="button"
+                        class="btn btn-xs btn-success"
+                        mwl-confirm
+                        title="Limpar"
+                        message="Você tem certeza?"
+                        confirm-text="Sim"
+                        cancel-text="Não"
+                        placement="left"
+                        on-confirm="purge('crm')"
+                        confirm-button-type="success"
+                        cancel-button-type="danger"
+                        cancel-button-type="default">
+                    <i class="fa fa-cloud"></i>
+                    Limpar cache do CloudFlare CRM
+                </button>
+            </span>
+        </div>
+    </div>
+    <br>
+
+    <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<strong>Conteúdo</strong><br>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<br>-->
+
+    <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<div ng-bind-html="message.text_html" class="box-mail-content"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

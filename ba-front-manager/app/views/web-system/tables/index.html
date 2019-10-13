@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <ba-table ba-table-resource="resource"
+                  ba-table-items="webSystems"
+                  ba-table-filter-criteria="filterCriteria">
+
+            <ba-table-body>
+
+                <table id="data-table" class="display table table-striped table-condensed table-hover"
+                       style="width: 100%; cellspacing: 0;">
+                    <thead>
+                    <tr>
+                        <th title="Nome">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort>
+                        </th>
+                        <th title="Tecnologia">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="technology">Tecnologia</ba-table-sort>
+                        </th>
+                        <th title="Versão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value=version">Versão</ba-table-sort>
+                        </th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="webSystem in webSystems">
+                        <td>{{webSystem.name}}</td>
+                        <td>{{webSystem.technology}}</td>
+                        <td>{{webSystem.version}}</td>
+                        <td class="col-md-2">
+                            <a ui-sref="app.web-system-edit(webSystem)" class="btn btn-success btn-xs"
+                               title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th title="Nome">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort>
+                        </th>
+                        <th title="Tecnologia">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="technology">Tecnologia</ba-table-sort>
+                        </th>
+                        <th title="Versão">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value=version">Versão</ba-table-sort>
+                        </th>
+                        <th>Ação</th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </ba-table-body>
+
+        </ba-table>
+
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-md-12">
+        <ng-include src="'views/web-system/form.html'"></ng-include>
+    </div>
+</div>

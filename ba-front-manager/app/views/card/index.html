@@ -1,0 +1,62 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Cartões</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <a ui-sref="app.card-create" class="btn btn-success m-b-sm">Novo Cartão</a>
+                    <div id="rootwizard">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" id="card-tab-active" class="active">
+                                <a href="?#card-tab1" data-toggle="tab">
+                                    <i class="fa fa-check m-r-xs"></i>Ativos
+                                </a>
+                            </li>
+                            <li role="presentation" id="card-tab-trash">
+                                <a href="?#card-tab2" data-toggle="tab" ng-click="tabTrash = true">
+                                    <i class="fa fa-lock m-r-xs"></i>Inativos
+                                </a>
+                            </li>
+                            <li role="presentation" id="card-tab-problem">
+                                <a href="?#card-tab3" data-toggle="tab"  ng-click="tabProblem = true">
+                                    <i class="fa fa-exclamation-triangle m-r-xs"></i>Problemas
+                                </a>
+                            </li>
+                            <li role="presentation" id="card-tab-virtuals">
+                                <a href="?#card-tab4" data-toggle="tab"  ng-click="tabVirtual = true">
+                                    <i class="fa fa-id-card m-r-xs"></i>Virtuais
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fade in" id="card-tab1">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/card/tables/index.html'"></div>
+                                </div>
+                            </div>
+                            <div ng-if="tabTrash" class="tab-pane fade in" id="card-tab2" ng-controller="CardTrashCtrl">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/card/tables/trash.html'"></div>
+                                </div>
+                            </div>
+                            <div ng-if="tabProblem" class="tab-pane fade in" id="card-tab3" ng-controller="CardWithProblemCtrl">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/card/tables/card-with-problem.html'"></div>
+                                </div>
+                            </div>
+                            <div ng-if="tabVirtual" class="tab-pane fade in" id="card-tab4" ng-controller="CardVirtualCtrl">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/card/tables/card-virtual.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

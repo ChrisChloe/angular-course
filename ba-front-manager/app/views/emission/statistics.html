@@ -1,0 +1,93 @@
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-5">
+                    <h3 class="panel-title">
+                        Estatísticas De Emissões
+                    </h3>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">De</span>
+                        <input class="form-control"
+                               data-provide="datepicker"
+                               data-date-format="dd/mm/yyyy"
+                               data-language="pt-BR"
+                               ng-model="emissionStatisticsFilter.from"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input class="form-control"
+                               data-provide="datepicker"
+                               data-date-format="dd/mm/yyyy"
+                               data-language="pt-BR"
+                               ng-model="emissionStatisticsFilter.to"/>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-success"
+                            ng-click="loadEmissionStatistics(emissionStatisticsFilter.from, emissionStatisticsFilter.to)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row col-md-12 m-t">
+                <table class="display table m-b-xxs" style="width: 100% !important;">
+                    <thead class="btn-success">
+                    <tr>
+                        <th class="col-md-5">Emissor</th>
+                        <th class="col-md-1" ng-click="orderList('tam_amount', 1)" style="cursor: pointer;">JJ <i ng-if="selectedField == 1" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-1"  ng-click="orderList('azul_amount', 2)" style="cursor: pointer;">AD <i ng-if="selectedField == 2" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-1" ng-click="orderList('gol_amount', 3)" style="cursor: pointer;">G3 <i ng-if="selectedField == 3" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-1"  ng-click="orderList('avianca_amount', 4)" style="cursor: pointer;">AV <i ng-if="selectedField == 4" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-1"  ng-click="orderList('total', 5)" style="cursor: pointer;">Total <i ng-if="selectedField == 5" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-1"  ng-click="orderList('average', 6)" style="cursor: pointer;">T. Médio <i ng-if="selectedField == 6" ng-class="{'fa fa-sort-asc':!orderDirection, 'fa fa-sort-desc':orderDirection}"></i></th>
+                        <th class="col-md-2 text-align-center">OP</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="s in statistics | orderBy:orderField:orderDirection" ng-show="statistics.length">
+                        <td class="col-md-5"
+                            title="Ultimo acesso em: {{s.last_login | toDate | date:'dd/MM/yy HH:mm'}}">{{s.name}}
+                        </td>
+                        <td class="col-md-1">{{s.tam_amount}}</td>
+                        <td class="col-md-1">{{s.azul_amount}}</td>
+                        <td class="col-md-1">{{s.gol_amount}}</td>
+                        <td class="col-md-1">{{s.avianca_amount}}</td>
+                        <td class="col-md-1">{{s.total}}</td>
+                        <td class="col-md-1">{{s.average | limitTo:8}}</td>
+                        <td class="col-md-2 text-align-center">
+                            <a ui-sref="app.op-show(s.current_op)" ng-show="s.current_op"
+                               title="Emissão iniciada em: {{s.current_op.started_at | toDate | date:'dd/MM/yy HH:mm'}}"
+                               target="_blank">{{s.current_op.id}}</a>
+                            <span ng-show="!s.current_op" class="label label-success">Livre</span>
+                        </td>
+                    </tr>
+                    <tr ng-show="!statistics.length">
+                        <td class="text-align-center" colspan="12">
+                            Nenhum registro encontrado.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead class="btn-success">
+                    <tr>
+                        <th class="col-md-5">Emissor</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.col1}}</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.col2}}</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.col3}}</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.col4}}</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.col5}}</th>
+                        <th class="col-md-1">{{emissionStatisticsCountFooter.average}}</th>
+                        <th class="col-md-2 text-align-center">OP</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

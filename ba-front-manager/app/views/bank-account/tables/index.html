@@ -1,0 +1,49 @@
+<ba-table ba-table-resource="resource" ba-table-items="bank_accounts" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header></ba-table-header>
+
+    <ba-table-body>
+
+            <table id="data-table-agency" class="display table table-condensed" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Banco</th>
+                    <th>Conta</th>
+                    <th>Agência</th>
+                    <th>Modificado</th>
+                    <th>Saldo</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="bank_account in bank_accounts">
+                    <th scope="row">{{bank_account.id}}</th>
+                    <td>{{bank_account.name  +' - '+ bank_account.code}}</td>
+                    <td>{{bank_account.account +'-'+ bank_account.account_digit}}</td>
+                    <td>{{bank_account.agency +'-'+ bank_account.agency_digit}}</td>
+                    <td>{{bank_account.updated_at | toDate | date:'dd/MM/yy H:mm'}}</td>
+                    <td>{{bank_account.amount | currency }}</td>
+                    <td>
+                        <a ui-sref="app.bank-account-edit(bank_account)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                        <a ui-sref="app.account-paid-create(bank_account)" target="_blank" class="btn btn-danger btn-xs" title="Criar débito"><i class="fa fa-money"></i></a>
+                        <a ui-sref="app.bank-account-movement(bank_account)" target="_blank" class="btn btn-primary btn-xs" title="Movimentação"><i class="fa fa-eye"></i></a>      
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Banco</th>
+                    <th>Conta</th>
+                    <th>Agência</th>
+                    <th>Modificado</th>
+                    <th>Saldo</th>
+                    <th>Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

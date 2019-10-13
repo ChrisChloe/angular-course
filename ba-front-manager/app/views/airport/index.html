@@ -1,0 +1,42 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Aeroportos e Taxas</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <a ui-sref="app.airport-create" class="btn btn-success m-b-sm">Novo Aeroporto</a>
+                    <div id="rootwizard">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="?#airport-tab1" data-toggle="tab">
+                                    <i class="fa fa-user m-r-xs"></i>Todos
+                                </a>
+                            </li>
+                            <li role="presentation" id="airport-tab-trash">
+                                <a href="?#airport-tab2" data-toggle="tab">
+                                    <i class="fa fa-truck m-r-xs"></i>Lixeira
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fade in" id="airport-tab1" ng-controller="AirportCtrl">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/airport/tables/index.html'"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in" id="airport-tab2" ng-controller="AirportTrashCtrl">
+                                <div class="table-responsive">
+                                    <div ng-include="'views/airport/tables/trash.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

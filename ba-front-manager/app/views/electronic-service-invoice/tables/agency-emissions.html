@@ -1,0 +1,75 @@
+<ba-table ba-table-resource="resource" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-emission" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(emissions, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.op">OP</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles_price">R$</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="confirmation_code">Localizador</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type_title">Pagamento</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip_title">Tipo</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.name">Emissor</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="{{emission.reference}}" ng-repeat="emission in emissions">
+                <td class="text-align-center">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="emission.selected" ng-disabled="liquidating"/>
+                        </label>
+                    </div>
+                </td>
+                <td class="text-align-center"><a ui-sref="app.op-show(emission.passenger.op)">{{emission.passenger.op.id}}</a></td>
+                <td class="text-align-center">{{emission.passenger.fullname}}</td>
+                <td class="text-align-center">{{emission.miles_price + emission.shipping_rate + emission.baggage_price | currency:''}}</td>
+                <td class="text-align-center">{{emission.sale}}</td>
+                <td class="text-align-center">{{emission.confirmation_code}}</td>
+                <td class="text-align-center">{{emission.passenger.op.payment_form}}</td>
+                <td class="text-align-center">{{emission.type_trip_title}}</td>
+                <td class="text-align-center">{{emission.emitter.name}}</td>
+                <td class="text-align-center">{{emission.status_title}}</td>
+                <td class="text-align-center">{{emission.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(emissions, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.op">OP</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles_price">R$</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="confirmation_code">Localizador</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type_title">Pagamento</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip_title">Tipo</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.name">Emissor</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

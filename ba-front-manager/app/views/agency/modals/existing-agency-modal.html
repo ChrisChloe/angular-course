@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="closeModal()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title text-center">CPF/CNPJ já cadastrado</h4>
+</div>
+
+<div class="modal-body">
+
+    <div class="text-center">
+        <h3>
+            #{{agency.id}} <br>
+            {{agency.title}}
+        </h3>
+        <h5>Criada em: {{agency.created_at | toDate | date:'dd/MM/yy H:mm'}}<br></h5>
+        <a class="btn btn-success btn-block" ui-sref="app.agency-show(agency)" ng-click="closeModal()">Ir para cadastro</a>
+    </div>
+
+</div>

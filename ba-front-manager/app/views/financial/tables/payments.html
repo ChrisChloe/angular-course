@@ -1,0 +1,132 @@
+<ba-table ba-table-resource="resource" ba-table-items="payments" ba-table-filter-criteria="filterCriteria">
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">de</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.min_date">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                data-date-autoclose="true"
+                                ng-model="search.max_date">
+                    </div>
+                </div>
+
+<!--                 <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">Cliente</span>
+                        <select ng-init="getClients()" 
+                                class="form-control" 
+                                ng-model="search.client_id" 
+                                ng-options="client.id as client.name for client in clients">
+                            <option value="">Selecione</option>
+                        </select>
+                    </div>
+                </div> -->
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">Banco</span>
+                        <ui-select ng-model="search.bank_id"
+                                   id="card"
+                                   ng-init="getBanks()"
+                                   title="Busca por banco"
+                                   style="max-width: 200px !important;">
+                            <ui-select-match allow-clear="true" placeholder="Escolha um banco...">
+                                {{$select.selected.name.substr(0,16) + '...'}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="bank.id as bank in banks | propsFilter: {name: $select.search} | orderBy:['name']">
+                                <hr style="margin: 5px 0;"/>
+                                <small>{{bank.name}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">Status</span>
+                        <select ng-init="getStatus()" 
+                                class="form-control"
+                                ng-model="search.status_id">
+                            <option value="">Selecione</option>
+                            <option ng-disabled="[2,4,5,6].indexOf(st.id) == -1" ng-repeat="st in status" value="{{st.id}}">{{st.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="ID, REF, CPF ou nome." ng-model="search.query"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-payment" class="display table" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_status|payment_status.name">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.cpf_cnpj">CPF</ba-table-sort></th>
+                <th>Banco</th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount_paid">Valor</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="{{payment.reference}}" ng-repeat="payment in payments">
+                <td ng-bind="payment.id"></td>
+                <td ng-bind="payment.reference"></td>
+                <td ng-bind="payment.status.name"></td>
+                <td><a target="blank" href="{{crmUrl + 'providers/edit/' + payment.person.cpf_cnpj}}">{{payment.person.name}}</a></td>
+                <td ng-bind="payment.person.cpf_cnpj"></td>
+                <td ng-bind="payment.bankAccount.name"></td>
+                <td ng-bind="payment.amount_paid | currency:'R$'"></td>
+                <td ng-bind="payment.created_at | date : 'dd/MM/yy'"></td>
+<!--                 <td class="col-md-2">
+                    <button type="button" ng-if="payment.status.id != 6" ng-click="archive(payment)" class="btn btn-danger btn-xs" title="Arquivar"><i class="fa fa-archive"></i></button>
+                </td> -->
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_status|payment_status.name">Status</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.cpf_cnpj">CPF</ba-table-sort></th>
+                <th>Banco</th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="amount_paid">Valor</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+
+</ba-table>

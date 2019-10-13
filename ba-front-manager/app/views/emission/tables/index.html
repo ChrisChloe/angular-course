@@ -1,0 +1,128 @@
+<ba-table ba-table-resource="resource" ba-table-items="emissions">
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">Embarque</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                ng-model="search.from">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input  class="form-control"
+                                data-provide="datepicker"
+                                data-date-format="dd/mm/yyyy"
+                                data-language="pt-BR"
+                                ng-model="search.to">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="">
+                        <select ng-options="c.id as c.title for c in companies | orderBy:'title'"
+                                class="form-control"
+                                ng-model="search.company">
+                            <option value="">Companhia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="">
+                        <select ng-options="c.code as c.title for c in codes | orderBy:'title'"
+                                class="form-control"
+                                ng-model="search.checkin_code">
+                            <option value="">Situação</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+    <ba-table-body>
+            <table id="data-table-emission" class="display table table-striped table-condensed table-hover text-center" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.op">OP</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="invoice_id">Nº Fatura</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="confirmation_code">Localizador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type_title">Pagamento</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip_title">Tipo</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.name">Emissor</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th class="text-center">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="emission in emissions">
+                    <td><a ui-sref="app.op-show(emission.passenger.op)">{{emission.passenger.op.id}}</a></td>
+                    <td>{{emission.passenger.fullname}}</td>
+                    <td>{{emission.invoice_id || '--'}}</td>
+                    <td>{{emission.sale}}</td>
+                    <td>{{emission.confirmation_code}}</td>
+                    <td>{{emission.payment_type_title}}</td>
+                    <td>{{emission.type_trip_title}}</td>
+                    <td>{{emission.emitter.name}}</td>
+                    <td>{{emission.status_title}}</td>
+                    <td>{{emission.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                    <td class="col-md-2">
+                        <button type="button" ng-click="openDetails(emission)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></button>
+                        <button type="button" ng-click="changeStatus(emission)" class="btn btn-warning btn-xs" title="Alterar status"><i class="fa fa-check-circle-o"></i></button>
+                        <a ui-sref="app.emission-edit(emission)" ng-if="!emission.is_blocked || can_edit" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                        <!--<a ui-sref="app.emission-edit(emission)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>-->
+                    </td>
+                </tr>
+                <tr ng-repeat-end ng-show="emission.open">
+                    <td colspan="10" style="text-align: left">
+
+                        <div class="row" style="padding:1em;">
+                            <div ng-include="'views/emission/detail.html'"></div>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.op">OP</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="passenger.fullname">Passageiro</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="invoice_id">Nº Fatura</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Nº Venda</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="confirmation_code">Localizador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_type_title">Pagamento</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="type_trip_title">Tipo</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.name">Emissor</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th class="text-center">Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,41 @@
+<ba-table ba-table-resource="resource" ba-table-items="goals" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Região</th>
+                    <th>Estado</th>
+                    <th>Meta</th>
+                    <th>Deadline</th>
+                    <th>Ação</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="goal in goals">
+                    <td>{{goal.region | uppercase}}</td>
+                    <td>{{goal.state}}</td>
+                    <td>{{goal.goal}}</td>
+                    <td>{{goal.deadline | date:'dd/MM/yyyy'}}</td>
+                    <td>
+                        <button ui-sref="app.commercial-goals-edit(goal)" class="btn btn-info btn-xs">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-xs" ng-click="delete(goal.id)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

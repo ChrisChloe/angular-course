@@ -1,0 +1,220 @@
+<div class="col-md-6">
+    <div class="col-md-12">
+
+        <div class="panel panel-white">
+            <!-- <div class="panel-heading clearfix" style="margin: 0 auto;">
+                    <h4 class="panel-title"></h4>
+                </div> -->
+            <div class="panel-heading">
+                <h3 class="panel-title col-md-6">
+                    ID #{{ agency.id }}
+                </h3>
+
+                <div class="pull-right" ng-if="agency.id">
+                    <button ui-sref="app.agency-employee(agency)" title="Funcionários" class="btn btn-success btn-xs">Funcionários</button>
+                    <button ui-sref="app.check-in({search: agency.title})" title="Embarques" class="btn btn-success btn-xs">Embarques</button>
+                </div>
+
+            </div>
+
+            <hr>
+            <div class="panel-body" style="padding-top: 2px!important">
+                <div class="row" style="margin: 0 auto;">
+                    <div class="col-md-12">
+                        <div class="list-unstyled list-with-padding" style="margin: 0 auto;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>Nome</h4>
+                                    <p>{{ agency.title }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>CPF/CNPJ</h4>
+                                    <p>{{ agency.cpf_cnpj }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Email</h4>
+                                    <p style="word-wrap: break-word">{{ agency.email }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>Fone</h4>
+                                    <p ba-click-to-call>{{ agency.phone }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Site</h4>
+                                    <p>{{ agency.site ? agency.site : 'Sem Informações'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div>
+                                        <h4>Grupo</h4>
+                                        <p>{{ agency.group_title ? agency.group_title : 'Sem Informações' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-md-4">
+                                    <div>
+                                        <h4>Carteira</h4>
+                                        <p>{{ agency.wallet_title ? agency.wallet_title : 'Sem Informações' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>Endereço</h4>
+                                    {{ agency.addresses.street ? agency.addresses.street : 'Sem Informações' }}
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Bairro</h4>
+                                    <p>{{ agency.addresses.neighborhood ? agency.addresses.neighborhood : 'Sem Informações'}}
+                                    </p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Cidade</h4>
+                                    <p>{{ agency.addresses.city ? agency.addresses.city : 'Sem Informações' }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h4>UF</h4>
+                                    <p>{{ agency.addresses.uf ? agency.addresses.uf : 'Sem Informações'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>CEP</h4>
+                                    <p>{{ agency.addresses.cep ? agency.addresses.cep : 'Sem Informações'}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4>Responsáveis</h4>
+                                    <p>{{ agency.responsible ? agency.responsible : "Sem Informações"}}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <h4>Limite Crédito</h4>
+                                <p>{{ agency.credit_limit | currency }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Pagamento</h4>
+                                <p>{{ agency.payment_type_title }}</p>
+                            </div>
+                            <div class="dropdown col-md-4" style="margin-top:15px">
+                                <button class="btn btn-default dropdown-toggle" type="button"
+                                    id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <strong>Informações Adicionais</strong>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin: 7px 15px 0!important; width: 100%;">
+                                    <li style="margin-right: 0!important;" ng-repeat="contact in agency.contacts"><a>{{ contact.type
+                                            == 'phone' ? 'Fone' : 'Email'}}: {{ contact.value }}</a></li>
+                                    <li ng-if="agency.skype" style="margin-right: 0!important;"><a>{{agency.skype ? 'Skype:'
+                                            : ''}} {{ agency.skype ? agency.skype : '' }}</a></li>
+                                    <li class="list-group-item" ng-class="{'list-group-item-success': agency.mailer === 1, 'list-group-item-danger': agency.mailer === 0}" style="margin-right: 0!important;">{{agency.mailer === 1 ? 'Envio de Cotação Ativado'
+                                            : 'Envio de Cotação Desativado'}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <div class="row" style="font-size: 95%">
+                            <div class="col-md-4">
+                                <strong>Criado: </strong>{{ agency.created_at | toDate | date:'dd/MM/yy H:mm' }}
+
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Modificado: </strong>{{ agency.updated_at | toDate | date:'dd/MM/yy H:mm' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-md-6">
+
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix" style="cursor: pointer" data-toggle="collapse" data-target="#emission-agencyshow">
+                <h4 class="panel-title">+ Emissões</h4>
+            </div>
+            <div id="emission-agencyshow" class="collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-include="'views/agency/tables/emissions.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix" style="cursor: pointer" data-toggle="collapse" data-target="#op-list-agencyshow">
+
+                <h4 class="panel-title">+ Ordens de Passagem</h4>
+
+            </div>
+            <div id="op-list-agencyshow" class="collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-include="'views/agency/tables/ops.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix" style="cursor: pointer" data-toggle="collapse" data-target="#emails-agencyshow">
+                <h4 class="panel-title">+ Emails</h4>
+            </div>
+            <div id="emails-agencyshow" class="collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-include="'views/agency/tables/inboxmail.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix" style="cursor: pointer" data-toggle="collapse" data-target="#phonecalls-agencyshow">
+                <h4 class="panel-title">+ Listagem de Chamadas</h4>
+            </div>
+            <div ng-if="agency" id="phonecalls-agencyshow" class="collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-include="'views/agency/tables/phonecalls-list.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="aditionalAddresses.length > 0" class="col-md-12">
+        <div ng-include="'views/agency/aditionalAddresses.html'"></div>
+    </div>
+
+
+
+</div>

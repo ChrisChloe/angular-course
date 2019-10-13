@@ -1,0 +1,67 @@
+<div class="row dashboard" ng-if="!hideCompaniesMarkup">
+
+    <div class="col-xs-12">
+        <div class="panel panel-white">
+            <div class="panel-body text-center">
+                <h2 style="margin-top: 0;margin-bottom: 0" class="text-bold">Relatório Markups de Milhas
+                    <a href="javascript:void(0);" ng-click="previousDate()" class="text-success btn-link"><i class="fa fa-chevron-left"></i></a>
+                    {{currentDate.format('DD/MM/YY')}}
+                    <a href="javascript:void(0);" ng-click="nextDate()" class="btn-link" ng-class="{'text-success': canNextDate(), 'text-default': !canNextDate()}"><i class="fa fa-chevron-right"></i></a>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div ng-repeat="company in companies | orderBy:'title'">
+
+        <div class="col-xs-12" data-toggle="collapse" data-target="#company-{{$index}}">
+
+            <div class="panel panel-white">
+                <div class="panel-body text-center">
+                    <h2 style="margin-top: 0;margin-bottom: 0;font-size: 16px;" class="text-bold">
+                        {{company.title}} ({{company.initials}}) <i class="fa fa-plus m-l-lg text-success"></i>
+                    </h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="company-{{$index}}" class="collapse" ng-class="{'in':$first}">
+            <div class="col-lg-6 col-md-6">
+
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-center" ng-hide="company.chart1">
+                                <i class="fa fa-spinner fa-spin fa-5x text-success"></i>
+                            </div>
+                            <div class="col-md-12" ng-show="company.chart1">
+                                <canvas id="chart-searches-company-{{company.id}}" class="chart-searches-company"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 text-center" ng-hide="company.chart2">
+                                <i class="fa fa-spinner fa-spin fa-5x text-success"></i>
+                            </div>
+                            <div class="col-md-12" ng-show="company.chart2">
+                                <canvas id="chart-ops-emissions-company-{{company.id}}" class="chart-searches-company"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

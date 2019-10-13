@@ -1,0 +1,80 @@
+<button type="button" title="Pesquisa Avançada" class="btn btn-info" ng-class="{'btn-danger':filtered}" ng-click="openModal()" data-toggle="modal" data-target="#advancedSearch">
+    <i class="fa fa-filter"></i>
+</button>
+
+<div class="modal fade" id="advancedSearch" tabindex="-1" role="dialog" aria-labelledby="advancedSearchLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="advancedSearchLabel">Pesquisa Avançada</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form ng-submit="filter(adv_search)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label>CPF/CNPJ</label>
+                            <input ui-br-cpfcnpj-mask ng-model-options="{allowInvalid: true}" class="form-control" type="text" ng-model="adv_search.cpf_cnpj">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" ng-model="adv_search.title">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Email</label>
+                            <input class="form-control" type="text" ng-model="adv_search.email">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Telefone</label>
+                            <input ui-br-phone-number ng-model-options="{allowInvalid: true}" class="form-control" type="text" ng-model="adv_search.phone">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-4">
+                            <label>CEP</label>
+                            <input ui-br-cep-mask ng-model-options="{allowInvalid: true}" class="form-control" type="text" ng-model="adv_search.cep">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Região</label>
+                            <select class="form-control" id="region_id" ng-model="adv_search.region" ng-options="s.value as s.title for s in region">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Estado</label>
+                            <select class="form-control" id="uf_id" ng-model="adv_search.uf" ng-options="uf.title as uf.title for uf in ufs">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Mod. Pagamento</label>
+                            <select class="form-control" id="payment_type_id" ng-model="adv_search.payment_type" ng-options="st.value as st.title for st in payment_type">
+                                <option value=""></option>
+                            </select> </div>
+                        <div class="form-group col-md-4">
+                            <label>Grupos</label>
+                            <select class="form-control" id="group_id" ng-model="adv_search.group" ng-options="st.id as st.name for st in groups">
+                                <option value=""></option>
+                            </select> </div>
+                        <div class="form-group col-md-4">
+                            <label>Status</label>
+                            <select class="form-control" id="status_id" ng-model="adv_search.status" ng-options="st.value as st.title for st in status">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger" ng-click="clearForm(adv_search)">Limpar</button>
+                    <button type="submit" class="btn btn-success">Pesquisar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

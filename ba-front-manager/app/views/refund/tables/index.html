@@ -1,0 +1,36 @@
+<ba-table ba-table-resource="resource" ba-table-items="providers" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-body>
+
+            <table id="data-table-card" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Fornecedor</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">Valor</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="provider in providers">
+                    <th scope="row">{{provider.id}}</th>
+                    <td>{{provider.name}}</td>
+                    <td>{{provider.total_to_refund | currency}}</td>
+                    <td class="col-md-2">
+                        <a ui-sref="app.refund-show(provider)" class="btn btn-success btn-xs" title="Detalhe da(s) Taxa(s) de Embarque a Reembolsar"><i class="fa fa-search"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Fornecedor</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">Valor</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

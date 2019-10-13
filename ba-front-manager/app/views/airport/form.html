@@ -1,0 +1,135 @@
+<form ng-submit="save(airport)" name="airportForm">
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="title">Nome</label>
+                            <input type="text"
+                                   ng-model="airport.title"
+                                   id="title"
+                                   placeholder="Nome"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="title">Nome Alternativo</label>
+                            <input type="text"
+                                   ng-model="airport.subtitle"
+                                   id="subtitle"
+                                   placeholder="Nome Alternativo"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sub-continent">Sub-continente</label>
+                            <select type="text"
+                                    ng-model="airport.sub_continent"
+                                    id="sub-continent"
+                                    ng-options="subContinent.value as subContinent.title for subContinent in subContinents"
+                                    class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <br>
+                        <div class="form-group">
+                            <input bs-switch
+                                   ng-model="airport.belongs_to_brazil"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Brasileiro"
+                                   switch-label-width="125"
+                                   switch-handle-width="30"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="country">País</label>
+                            <input type="text"
+                                   ng-model="airport.country"
+                                   id="country"
+                                   placeholder="País"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>UF</label>
+                            <select ng-model="airport.uf"
+                                    ng-options="uf.title as uf.title for uf in ufs"
+                                    placeholder="UF"
+                                    class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">Cidade</label>
+                            <input type="text"
+                                   ng-model="airport.city"
+                                   id="city"
+                                   placeholder="Cidade"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="initials">Iniciais</label>
+                            <input type="text"
+                                   ng-model="airport.initials"
+                                   id="initials"
+                                   placeholder="Iniciais"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input bs-switch
+                                ng-model="airport.status"
+                                type="checkbox"
+                                switch-size="mini"
+                                switch-on-text="MOSTRAR"
+                                switch-off-text="NÃO MOSTRAR"
+                                switch-label="NO BUSCADOR"
+                                switch-label-width="125"
+                                switch-handle-width="30"
+                                switch-on-color="success"
+                                switch-off-color="danger"
+                                ng-true-value="1"
+                                ng-false-value="0"/>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a ui-sref="app.airport" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+

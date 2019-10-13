@@ -1,0 +1,190 @@
+<div class="modal-header" ng-if="showForm">
+    <h4 class="modal-title">
+        <span>Solicitar Emissão</span>
+    </h4>
+</div>
+
+<div class="modal-body" ng-form name="formEmissionRequestAll">
+    <div ng-if="showForm">
+        <form name="formEmissionRequest">
+
+            <div ng-if="emissionRequestIsMiles()" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="card_id">Cartão</label>
+                        <ui-select ng-model="emissionRequest.card_id"
+                                   id="card_id"
+                                   title="Busca por cartão"
+                                   style="min-width: 200px !important;"
+                                   required
+                                   on-select="onSelectCard($item, $model)">
+                            <ui-select-match placeholder="Escolha um cartão...">
+                                {{$select.selected.code}} - {{$select.selected.card_number}} - {{$select.selected.titular}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    ui-disable-choice="!card.status || card.code == '3333'"
+                                    refresh="listCards($select.search)"
+                                    repeat="card.id as card in cards">
+                                <hr style="margin: 5px 0;"/>
+                                <div ng-class="{'text-del':!card.status || card.code == 'CP00'}">
+                                    <div ng-bind-html="'Nº ' + card.card_number + ' | Tit. ' + card.titular | highlight: $select.search" style="font-weight: bold;"></div>
+                                    <small>
+                                        CVV: <strong>{{card.cvv}}</strong> |
+                                        CPF.: <strong>{{card.cpf}}</strong> |
+                                        Val.:
+                                        <strong>
+                                            <span ng-bind-html="''+ card.expiration | toDate | date:'MM/yy' | highlight: $select.search"></span>
+                                        </strong>
+                                        Saldo: <strong ng-class="{'text-danger':card.balance <= 0, 'text-success':card.balance >= 0}">{{card.balance | currency}}</strong>
+                                    </small>
+                                </div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="emissionRequestIsMiles()" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="card_id">Estoque</label>
+                        <ui-select ng-model="emissionRequest.provider_id"
+                                   theme="bootstrap"
+                                   style="width: 100%;" title="Selecione um estoque de fornecedor"
+                                   required
+                                   on-select="onSelectStock($item, $model)">
+                            <ui-select-match placeholder="Selecione um estoque de fornecedor...">{{$select.selected.provider.name}}</ui-select-match>
+                            <ui-select-choices refresh="listStocks($select.search)" repeat="stock.provider.id as stock in stocks" refresh-delay="500">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div ng-bind="stock.provider.name" style="font-weight:bold;"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="border-right-1px" style="width: 23%;float: left; padding: 5px;">
+                                        Milhas:
+                                        <strong ng-if="stock.miles">{{stock.miles / 1000 | number}} Mill</strong>
+                                        <strong ng-if="!stock.miles">0</strong>
+                                    </div>
+                                    <div class="border-right-1px" style="width: 26%;float: left; padding: 5px;">
+                                        Cartão: <strong>{{stock.card_number}}</strong>
+                                    </div>
+                                    <div class="" style="width: 26%;float: left; padding: 5px;">
+                                        Tipo:   <strong>{{stock.payment_form_title}}</strong>
+                                    </div>
+                                </div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="observation">Observação</label>
+                    <textarea class="form-control"
+                              id="observation"
+                              ng-model="emissionRequest.observation"
+                              rows="5"
+                              style="width:559px;max-width:559px;"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div ng-if="!showForm && !showError">
+
+        <div class="row" ng-if="!success">
+            <div class="col-md-12 text-center">
+                <h2>Solicitação #{{ emissionRequest.id }}</h2>
+                <h1>{{seconds | secondsToDateTime | date:'HH:mm:ss'}}</h1>
+                <h4>A sua emissão está sendo feita</h4>
+                <h5>O processo pode levar alguns minutos e não pode ser interrompido</h5>
+                <h5>Por favor, não feche esta janela</h5>
+                <h4 class="text-success" ng-bind="emissionRequest.status_title + ' - ' + emissionRequest.last_message"></h4>
+                <h4 ng-if="enableCancel" class="stop-emission">
+                    <div ng-click="stopEmission()">
+                        <i class="fa fa-stop text-danger btn" style="font-size: 2rem" aria-hidden="true"></i> Parar Emissão
+                        <input type="button" class="hide" id="stop-emission"  />
+                    </div>
+                </h4>
+            </div>
+        </div>
+
+        <div class="row" ng-if="success">
+            <div class="col-md-12 text-center">
+                <h1>{{seconds | secondsToDateTime | date:'HH:mm:ss'}}</h1>
+                <h2 class="text-success">A sua emissão foi concluída</h2>
+            </div>
+        </div>
+
+        <div class="row" ng-if="success">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>
+                    LOCALIZADOR:
+                    <span ng-if="emissionRequest.confirmation_code">{{emissionRequest.confirmation_code || '--'}}</span>
+                    <i ng-if="!emissionRequest.confirmation_code && sending" class="fa fa-spinner fa-spin"></i>
+                </h3>
+                <h3>
+                    MILHAS:
+                    <span ng-if="emissionRequest.points">{{(emissionRequest.points || 0) | number}}</span>
+                    <i ng-if="!emissionRequest.points && sending" class="fa fa-spinner fa-spin"></i>
+                </h3>
+                <h3>
+                    TARIFAS:
+                    <span ng-if="emissionRequest.money">{{(emissionRequest.money || 0) | currency}}</span>
+                    <i ng-if="!emissionRequest.money && sending" class="fa fa-spinner fa-spin"></i>
+                </h3>
+                <h3>
+                    BAGAGEM:
+                    <span ng-if="emissionRequest.baggage_price">{{(emissionRequest.baggage_price || 0) | currency}}</span>
+                    <i ng-if="!emissionRequest.baggage_price && sending" class="fa fa-spinner fa-spin"></i>
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="showError">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Solicitação #{{ emissionRequest.id }}</h2>
+                <h1>{{seconds | secondsToDateTime | date:'HH:mm:ss'}}</h1>
+                <h2 class="text-error">Ocorreu um erro durante sua emissão</h2>
+                <h5>Entre em contato com o administrador do sistema</h5>
+                <h4 ng-if="errorMessage" class="text-danger">{{ errorMessage }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer" ng-if="showForm">
+    <button type="button" class="btn btn-danger pull-left" ng-click="close()" ng-disabled="sending">Fechar</button>
+
+    <div class="pull-right">
+        <!--<button type="button" title="Solicitar ao TI realizar emissão" class="btn btn-success" ng-click="save(emissionRequest)" ng-disabled="formEmissionRequestAll.$invalid || sending">
+            <i class="fa fa-spinner fa-spin" ng-show="sending"></i>
+            <span ng-show="!sending">Apenas solicitar</span>
+        </button>-->
+
+        <button ng-if="emissionRequestIsMiles() && getPremiumName()" type="button" title="Fazer o processo de emissão no site da companhia {{ flight.company.title }}" class="btn btn-success" ng-click="saveAndEmit(emissionRequest, 1, false)" ng-disabled="formEmissionRequestAll.$invalid || sending">
+            <i class="fa fa-spinner fa-spin" ng-show="sending"></i>
+            <span ng-show="!sending">Emitir {{ showCompanyName() }} - {{getPremiumName()}}</span>
+            <span ng-show="sending">Aguarde... alguns minutos</span>
+        </button>
+
+        <button ng-if="!emissionRequestIsMiles()" type="button" title="Fazer o processo de emissão no site da consolidadora {{ flight.service.title }}" class="btn btn-success" ng-click="saveAndEmit(emissionRequest, 1, true)" ng-disabled="formEmissionRequestAll.$invalid || sending">
+            <i class="fa fa-spinner fa-spin" ng-show="sending"></i>
+            <span ng-show="!sending">Emitir Skyteam</span>
+            <span ng-show="sending">Aguarde... alguns minutos</span>
+        </button>
+
+        <button ng-if="emissionRequestIsMiles()" type="button" title="Fazer o processo de emissão no site da companhia {{ flight.company.title }}" class="btn btn-success" ng-click="saveAndEmit(emissionRequest, 0, false)" ng-disabled="formEmissionRequestAll.$invalid || sending">
+            <i class="fa fa-spinner fa-spin" ng-show="sending"></i>
+            <span ng-show="!sending">Emitir {{ showCompanyName() }}</span>
+            <span ng-show="sending">Aguarde... alguns minutos</span>
+        </button>
+
+    </div>
+
+</div>

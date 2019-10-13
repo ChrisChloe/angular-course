@@ -1,0 +1,97 @@
+<ba-table ba-table-resource="resource" ba-table-items="users" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-2">
+                    <select type="text"
+                            class="form-control" id="address-region"
+                            ng-model="search.region"
+                            ng-options="s.value as s.title for s in region">
+                        <option value="">Regional</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="region_id"
+                            ng-model="search.birthday"
+                            ng-options="s.value as s.title for s in birthday"
+                            ng-change="changeSelectOption()">
+                        <option value="">Aniversariantes</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">De</span>
+                        <input type="text" ng-model="search.from" ng-change="changeSelect()" class="form-control" ui-mask="99/99" model-view-value="true" aria-describedby="sizing-addon2">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input type="text" ng-model="search.to" ng-change="changeSelect()" class="form-control" ui-mask="99/99" model-view-value="true" aria-describedby="sizing-addon2">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-user" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;" >
+            <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort></th>
+                    <th>Agência</th>
+                    <th>Permissão</th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_login">Último Acesso</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <th scope="row">{{user.id}}</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td><a ui-sref="app.agency-show(user.agency)">{{user.agency.title}}</a></td>
+                    <td>
+                        <div ng-repeat="role in user.roles">{{role.name}}</div>
+                    </td>
+                    <td>{{user.created_at | toDate | date:'d/MM/yy H:mm'}}</td>
+                    <td>{{user.last_login | toDate | date:'d/MM/yy H:mm'}}</td>
+                    <td class="col-md-2">
+                        <ba-btn-action items="userTableActions" parent-scope="thisScope" btn-object="user"></ba-btn-action>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort></th>
+            <th>Agência</th>
+            <th>Permissão</th>
+            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+            <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_login">Último Acesso</ba-table-sort></th>
+            <th>Ação</th>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>
+

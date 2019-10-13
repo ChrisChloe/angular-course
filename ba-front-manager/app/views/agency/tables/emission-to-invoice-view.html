@@ -1,0 +1,54 @@
+<!-- <button title="Faturar" class="btn btn-xs btn-success" ng-click="invoiceTo(emission)"><i class="fa fa-money"></i></button> -->
+<ba-table ba-table-resource="resource" ba-table-resource-function="'getToInvoice'" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria">
+
+
+    <ba-table-header>
+    </ba-table-header>
+    <ba-table-body>
+            <table id="data-table-emission" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th class="text-align-center" >OP</th>
+                    <th class="text-align-center">Passageiro</th>
+                    <th class="text-align-center">R$</th>
+                    <th class="text-align-center">Nº Venda</th>
+                    <th class="text-align-center">Localizador</th>
+                    <th class="text-align-center">Tipo</th>
+                    <th class="text-align-center">Emissor</th>
+                    <th class="text-align-center">Criado</th>
+                    <th class="text-align-center">Faturar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="emission in emissions">
+
+                    <td class="text-align-center"><a ui-sref="app.op-show(emission.passenger.op)">{{emission.passenger.op.id}}</a></td>
+                    <td class="text-align-center">{{emission.passenger.fullname}}</td>
+                    <td class="text-align-center">{{emission.miles_price + emission.shipping_rate + emission.baggage_price | currency:''}}</td>
+                    <td class="text-align-center">{{emission.sale}}</td>
+                    <td class="text-align-center">{{emission.confirmation_code}}</td>
+                    <td class="text-align-center">{{emission.type_trip_title}}</td>
+                    <td class="text-align-center">{{emission.emitter.name}}</td>
+                    <td class="text-align-center">{{emission.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td class="text-align-center"> <button title="Faturar" class="btn btn-xs btn-success" ng-click="invoiceTo(emission)"><i class="fa fa-money"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class="text-align-center" >OP</th>
+                    <th class="text-align-center">Passageiro</th>
+                    <th class="text-align-center">R$</th>
+                    <th class="text-align-center">Nº Venda</th>
+                    <th class="text-align-center">Localizador</th>
+                    <th class="text-align-center">Tipo</th>
+                    <th class="text-align-center">Emissor</th>
+                    <th class="text-align-center">Criado</th>
+                    <th class="text-align-center">Faturar</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,54 @@
+<form ng-submit="save(account_paid)" name="accountPaidForm">
+    <div class="panel panel-white">
+        <div class="panel-body">
+
+            <div class="panel-heading">
+                <h3 class="panel-title col-md-6">
+                    Dados da Conta/Débito
+                </h3>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <label>Banco</label>
+                    <select class="form-control" ng-model="account_paid.bank_account_id" required
+                            ng-options="bank_account.id as bank_account.name + ' - ' + bank_account.account for bank_account in bank_accounts">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Tipo</label>
+                    <select class="form-control" ng-model="account_paid.debit_type_id" required
+                            ng-options="type.id as type.name for type in debit_types">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="observation">Observação</label>
+                    <textarea
+                           placeholder="Observação"
+                           required
+                           id="observation"
+                           class="form-control"
+                           ng-model="account_paid.observation">
+                    </textarea>
+                </div>
+                <div class="col-md-2">
+                    <label for="amount">Valor</label>
+                    <input type="text"
+                           ng-model="account_paid.amount"
+                           placeholder="R$ 0,00"
+                           id="amount"
+                           ui-money-mask="2"
+                           class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="col-md-12">
+                <br>
+                <a href="#/account-paid" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success pull-right">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>

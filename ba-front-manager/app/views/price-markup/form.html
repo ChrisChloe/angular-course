@@ -1,0 +1,106 @@
+<form ng-submit="save(priceMarkup)" name="formPriceMarkup">
+    <div class="row">
+
+        <div class="form-group col-md-2" ng-class="{'has-error': formPriceMarkup.shipment_limit.$invalid}">
+            <label for="shipment-limit">Dias até voo</label>
+            <input type="text" class="form-control" id="shipment-limit" name="shipment_limit"
+                   ng-model="priceMarkup.shipment_limit"
+                   placeholder="120 dias (Padrão)"
+                   ui-number-mask="0"
+                   min="1"/>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="type">Tipo de Voo</label>
+            <select type="text" class="form-control" id="type" name="type"
+                    ng-model="priceMarkup.type"
+                    ng-init="priceMarkup.type=1"
+                    ng-options="type.value as type.title for type in priceMarkupTypes"
+                    ng-required="true">
+            </select>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="price-start" title="Preço inicial">Tarifa Inicial</label>
+            <input type="text"
+                   class="form-control"
+                   id="price-start"
+                   ng-model="priceMarkup.price_start"
+                   placeholder="R$ 10,00"
+                   ui-money-mask
+                   required/>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="price-end" title="Preço final">Tarifa Final</label>
+            <input type="text"
+                   class="form-control"
+                   id="price-end"
+                   ng-model="priceMarkup.price_end"
+                   placeholder="R$ 100,00"
+                   ui-money-mask
+                   required/>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="expiration">Data Expiração</label>
+            <input type="text"
+                   class="form-control"
+                   id="expiration"
+                   ng-model="pricemarkup.expiration_date"
+                   placeholder="Nunca"
+                   ui-date-mask/>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="type">Tipo de de Calculo</label>
+            <select type="text" class="form-control" id="type_calculation" name="type_calculation"
+                    ng-model="priceMarkup.type_calculation"
+                    ng-init="priceMarkup.type_calculation=1"
+                    ng-options="type.value as type.title for type in priceMarkupTypes_calculation"
+                    ng-required="true">
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="type">Tipo de Operação</label>
+            <select type="text" class="form-control" id="type_operation" name="type_operation"
+                    ng-model="priceMarkup.type_operation"
+                    ng-init="priceMarkup.type_operation=1"
+                    ng-options="type.value as type.title for type in priceMarkupTypes_operation"
+                    ng-required="true">
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="value">Valor</label>
+            <input type="text"
+                   class="form-control"
+                   id="value"
+                   ng-model="priceMarkup._value"
+                   placeholder="10,00 %"
+                   ui-percentage-mask
+                   style="transition: visibility 0s, opacity 0s linear;"
+                   ng-if="!priceMarkup || priceMarkup.type_calculation == 1"
+                   required/>
+            <input type="text"
+                   class="form-control"
+                   id="value"
+                   ng-model="priceMarkup._value"
+                   placeholder="R$ 100,00"
+                   ui-money-mask
+                   style="transition: visibility 0s, opacity 0s linear;"
+                   ng-if="priceMarkup.type_calculation == 2"
+                   required/>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-8 col-md-4 ">
+            <button type="submit" ng-disabled="formPriceMarkup.$invalid" class="btn btn-success btn-addon m-b-sm btn-rounded pull-right" title="Cadastrar Markup">
+                <i class="fa fa-save"></i> Salvar
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<table ng-if="movements.statements.length <= 0" id="data-table-agency" class="display table table-condensed table-hover" style="width: 100%;">
+
+  <tbody>
+    <tr style="background-color: #f5f5f5" ng-if="highestAmounts.length <= 0">
+      <td>
+        <h5 class="text-center">Nenhuma movimentação encontrada no período selecionado</h5>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul ng-if="movements.statements.length > 0" class="timeline">
+  <li ng-repeat="statement in movements.statements | orderBy:'-created_at'" ng-class="{'timeline-inverted': statement.statement_type.title === 'Crédito'}">
+    <div class="timeline-badge" ng-class="{'success': statement.statement_type.title === 'Débito', 'warning': statement.statement_type.title === 'Crédito'}">
+      <i class="glyphicon glyphicon-credit-card"></i>
+    </div>
+    <div class="timeline-panel">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">{{statement.statement_type.title}}</h4>
+        <p>
+          <small class="text-muted">
+            <i class="glyphicon glyphicon-time"></i> Registrado em {{statement.created_at | toDate | date:'dd/MM/yy HH:mm:ss'}}</small>
+        </p>
+      </div>
+      <div class="timeline-body">
+        <p>{{statement.observation}}</p>
+        <p>Valor de: <strong>{{statement.amount | currency}}</strong></p>
+        <p>Saldo nesta data: <strong>{{statement.balance}}</strong></p>
+      </div>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,114 @@
+<div class="modal-header">
+    <div class="col-md-12">
+        <h4>
+            <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+        </h4>
+    </div>
+</div>
+
+<div class="modal-body" id="to-invoice-modal" style="height: 50% !important">
+
+    <form name="invoiceForm">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <label>
+                                <h4>Vencimento</h4>
+                            </label>
+                            <input class="form-control" data-provide="datepicker" data-date-container="#to-invoice-modal"
+                                data-date-format="dd/mm/yyyy" data-date-start-date="1d" data-date-autoclose="true"
+                                data-language="pt-BR" ng-model="invoice.due_date" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-md-offset-2">
+                        <br>
+                        <br>
+                        <ul class="list-unstyled">
+                            <li><strong class="title">Total da Fatura:</strong> {{total | currency}}</li>
+                            <li><strong>Total de Descontos:</strong> {{invoice.discount | currency}}</li>
+                            <li><strong>Calculo da Fatura com Desconto:</strong> {{total - invoice.discount |
+                                currency}}</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-right down-button-modal-invoice">
+                    <button type="button" class="btn btn-default" ng-click="close()">Fechar</button>
+                    <button style="margin-right: 10px" title="Para gerar uma fatura, selecione as emissões que deseja incluir ou selecione tudo."
+                        id="to-invoice-btn" class="btn btn-danger" ng-disabled="invoiceForm.$invalid" ng-click="save(invoice)">
+                        Faturar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    </form>
+    <ba-table ba-table-resource="resourceCredit" ba-table-items="credits" ba-table-filter-criteria="filterCriteriaCredit"
+        ba-table-disable-pagination="true">
+        <ba-table-header>
+        </ba-table-header>
+
+        <ba-table-body>
+            <div class="table-modal-invoice">
+                <table id="data-table-credit" class="table table-responsive table-condensed table-hover table-striped">
+                    <thead class="panel panel-success">
+                        <tr>
+                            <th title="Usar">
+                                Usar
+                            </th>
+                            <th title="Valor">
+                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                    ba-table-sort-value="amount">
+                                    Valor
+                                </ba-table-sort>
+                            </th>
+                            <th title="Motivo do Crédito">
+                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                    ba-table-sort-value="observation">
+                                    Motivo do Crédito
+                                </ba-table-sort>
+                            </th>
+                            <th class="col-md-3">
+                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                    ba-table-sort-value="created_at">
+                                    Criado
+                                </ba-table-sort>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="credit in credits">
+                            <td>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="credit.selected" ng-click="checkCredit(invoice, credit)" />
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{credit.amount | currency}}</td>
+                            <td>{{credit.observation}}</td>
+                            <td class="col-md-3">{{credit.created_at | toDate | date:'dd/MM/yy HH:mm' }}</td>
+                        </tr>
+                        <tr ng-if="!credits.length">
+                            <td colspan="4" class="text-center">Nenhum crédito encontrado.</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </ba-table-body>
+    </ba-table>
+</div>

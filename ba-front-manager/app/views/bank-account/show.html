@@ -1,0 +1,41 @@
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">Conta bancária</h4>
+                </div>
+                <div class="panel-body" style="height:340px">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled list-with-padding">
+                                <li>
+                                    <div>Banco</div>
+                                    <strong>{{bank_account.name  +' - '+ bank_account.code}}</strong>
+                                </li>
+                                <li>
+                                    <div>Conta</div>
+                                    <strong>{{bank_account.account +'-'+ bank_account.account_digit}}</strong>
+                                </li>
+                                <li>
+                                    <div>Agência</div>
+                                    <strong>{{bank_account.agency +'-'+ bank_account.agency_digit}}</strong>
+                                </li>
+
+                                <li>
+                                    <div>Saldo</div>
+                                    <strong>{{bank_account.amount | currency }}</strong>
+                                </li>
+                                <li>
+                                    <div>Modificado</div>
+                                    <strong>{{bank_account.updated_at | toDate | date:'dd/MM/yy H:mm'}}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="" ui-sref="app.bank-account" class="btn btn-default m-b-sm">Voltar</a>
+</div>

@@ -1,0 +1,76 @@
+<div class="col-md-12">
+
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">Ordens de passagem</h4>
+            </div>
+            <div class="panel-body">
+                <div id="rootwizard">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="?#op-tab-waiting" data-toggle="tab" title="Op's inativas">
+                                <i class="fa fa-clock-o m-r-xs"></i>Aguardando
+                            </a>
+                        </li>
+                        <li role="presentation" ng-show="isFinancial()">
+                            <a href="?#op-tab-financial" data-toggle="tab" title="Op's a pagar" ng-click="financialTab = true">
+                                <i class="fa fa-money m-r-xs"></i>Financeiro
+                            </a>
+                        </li>
+                        <li role="presentation" ng-show="isManager() || isEmitter() || isFinancial()">
+                            <a href="?#op-tab-emission" data-toggle="tab" title="Op's para emitir" ng-click="emissionTab = true">
+                                <i class="fa fa-share-square m-r-xs"></i>Emissão
+                            </a>
+                        </li>
+                        <li role="presentation" ng-show="isManager() || isEmitter() || isFinancial()">
+                            <a href="?#op-tab-my" data-toggle="tab" title="Minhas Emissões" ng-click="myEmissionsTab = true">
+                                <i class="fa fa-user m-r-xs"></i>Minhas Emissões
+                            </a>
+                        </li>
+                        <li role="presentation" id="tab-issued" ng-show="isManager() || isEmitter() || isFinancial()">
+                            <a href="?#op-tab-emitted" data-toggle="tab" title="" ng-click="emittedTab = true">
+                                <i class="fa fa-tags m-r-xs"></i>{{ tabEmittedTitle ? tabEmittedTitle : 'Bilhetes' }}
+                            </a>
+                        </li>
+                        <li role="presentation" id="tab-archived" ng-show="isManager() || isFinancial()">
+                            <a href="?#op-tab-archived" data-toggle="tab" title="Ops Arquivadas" ng-click="archivedTab = true">
+                                <i class="fa fa-archive m-r-xs"></i>Arquivadas
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active fade in" id="op-tab-waiting">
+                            <div ng-controller="OpWaitCtrl">
+                                <div ng-include="'views/op/tables/waiting.html'"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" ng-if="isFinancial() && financialTab" id="op-tab-financial">
+                            <div ng-controller="OpFinancialCtrl">
+                                <div ng-include="'views/op/tables/financial.html'"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" ng-if="(isManager() || isEmitter()) && emissionTab" id="op-tab-emission">
+                            <div ng-controller="OpEmissionCtrl">
+                                <div ng-include="'views/op/tables/emission.html'"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" ng-if="(isManager() || isEmitter()) && myEmissionsTab" id="op-tab-my">
+                            <div ng-controller="OpUserCtrl">
+                                <div ng-include="'views/op/tables/emitter.html'"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="op-tab-emitted" ng-if="emittedTab">
+                            <div  ng-controller="OpEmittedCtrl">
+                                <div ng-include="'views/op/tables/emitted.html'"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="op-tab-archived" ng-if="isManager() && archivedTab">
+                            <div  ng-controller="OpArchivedCtrl">
+                                <div ng-include="'views/op/tables/archived.html'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

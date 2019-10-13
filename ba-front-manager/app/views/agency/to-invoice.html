@@ -1,0 +1,35 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="rootwizard">
+                <div class="panel-heading">
+                    <h4 class="panel-title">À Faturar</h4>
+                </div>
+                <div class="panel-body">
+                    <div id="rootwizard">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="?#agency" data-toggle="tab">
+                                    <i class="fa fa-home m-r-xs"></i>Agência</a>
+                            </li>
+                            <li role="presentation" id="agency-tab-trash">
+                                <a href="?#all" data-toggle="tab" ng-click="listAllToInvoice = true">
+                                    <i class="fa fa-list m-r-xs"></i>Todas</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active fade in" id="agency">
+                                <div ng-include="'views/agency/tables/to-invoice.html'"></div>
+                            </div>
+                            <div class="tab-pane fade in" id="all" ng-if="listAllToInvoice">
+                                <div ng-controller="AllToInvoiceCtrl">
+                                    <div ng-include="'views/agency/tables/all-to-invoice.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

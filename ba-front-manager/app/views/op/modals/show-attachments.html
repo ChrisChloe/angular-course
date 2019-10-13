@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Anexos de comprovante de transferência - OP #{{op.id}} | {{op.price  | currency: 'R$'}}</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12 m-t-n-sm">
+            <div class="m-b-sm">
+                <strong>Crédito da agencia:</strong> {{op.user.agency.credit | currency: 'R$'}}
+            </div>
+            <table class="table-responsive table-condensed">
+                <tr ng-repeat="attachment in op.attachments">
+                    <td width="40%">
+                        <span ng-class="{'strike alert-danger':attachment.is_valid == 0, 'alert-success':attachment.is_valid == 1, 'alert-info':attachment.is_valid == undefined}">{{attachment.original_name | limitTo: 25}}</span>
+                    </td>
+                    <td width="5%">
+                        <button type="button" ng-click="downloadFile(attachment.filename)"
+                                id="{{attachment.filename.slice(0,12)}}" class="btn btn-success btn-xs m-b-xs m-l-xs"
+                                title="Fazer download do comprovante">
+                            <i class="fa fa-download"></i>
+                        </button>
+                    </td>
+                    <td width="5%"></td>
+                    <td width="50%">
+                        <span ng-if="attachment.read == 0">
+                            <i>Não lido</i>
+                        </span>
+                        <span ng-if="attachment.read == 1">
+                            <input bs-switch
+                               ng-model="attachment.is_valid"
+                               type="checkbox"
+                               switch-size="mini"
+                               ng-change="updateFile(attachment)"
+                               switch-on-text="SIM"
+                               switch-off-text="NÃO"
+                               switch-label="Este comprovante é valido?"
+                               switch-label-width="250"
+                               switch-handle-width="30"
+                               switch-on-color="success"
+                               switch-off-color="danger"
+                               ng-true-value="1"
+                               ng-false-value="0"
+                            />
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="row text-left">
+        <div class="col-xs-12 m-b"><hr></div>
+        <div class="col-xs-12 col-md-6 m-t-n-md col-md">
+            <small>Banco:</small>
+            <select ng-options="bank_account.id as bank_account.name+' | '+bank_account.account+'-'+bank_account.account_digit for bank_account in bank_accounts | orderBy:'name'"
+                    class="form-control" ng-disabled="!isValidToApprove"
+                    ng-model="bank_account_id" id="bank_account">
+                <option value="">Selecione</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-md-3 m-t-n-md">
+            <small>Valor transferido:</small>
+            <input type="text" ng-disabled="!isValidToApprove"
+                   ng-model="transfer_price"
+                   ui-money-mask="2"
+                   class="form-control"/>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <button type="button" class="btn btn-success btn-md" ng-click="confirmOpTransfer(bank_account_id, transfer_price)" id="confirm-button" ng-disabled="!bank_account_id || !isValidToApprove"
+                    title="{{bank_account_id ? 'Confirmar comprovante(s) de transferência bancária' : isValidToApprove ? 'É preciso selecionar o banco para confirmar a transferência.' : 'É preciso ter pelo menos um comprovante válido para confirmar a transferência.'}}">
+                <i class="fa fa-send"></i> {{btnValue}}
+            </button>
+        </div>
+    </div>
+</div>

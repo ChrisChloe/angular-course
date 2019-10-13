@@ -1,0 +1,14 @@
+<div class="dropdown" style="display:inline">
+    <button type="button" class="btn btn-xs btn-danger dropdown-toggle"  data-toggle="dropdown" style="color:white;">
+        <i class="fa fa-archive"></i>
+    </button>
+    <ul class="custom-dropdown dropdown-menu dropdown-menu-right" role="menu">
+        <li class="dropdown-header"><strong>SELECIONE O MOTIVO DO ARQUIVAMENTO DA OP</strong></li>
+        <li ng-repeat="reason in reasons">
+            <a class="pointer" ng-click="selectedReason(reason.value)" ng-bind="reason.title"></a>
+        </li>
+        <li>
+            <a class="pointer"><strong>Fechar</strong></a>
+        </li>
+    </ul>
+</div>

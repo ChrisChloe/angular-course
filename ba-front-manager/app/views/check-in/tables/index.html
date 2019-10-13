@@ -1,0 +1,248 @@
+<ba-table ba-table-resource="resource" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria"
+          ba-table-resource-function="'checkInQuery'">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">Embarque</span>
+                        <input class="form-control"
+                               data-provide="datepicker"
+                               data-date-format="dd/mm/yyyy"
+                               data-language="pt-BR"
+                               ng-model="search.from">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon5">Inicial</span>
+                        <input type="text" class="form-control"
+                               name="timeMaskInput"
+                               ng-model="search.min_time"
+                               ui-time-mask>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">até</span>
+                        <input class="form-control"
+                               data-provide="datepicker"
+                               data-date-format="dd/mm/yyyy"
+                               data-language="pt-BR"
+                               ng-model="search.to">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon6">Final</span>
+                        <input type="text" class="form-control"
+                               name="timeMaskInput"
+                               ng-model="search.max_time">
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="">
+                        <select ng-options="c.id as c.title for c in companies | orderBy:'title'"
+                                class="form-control"
+                                ng-model="search.company">
+                            <option value="">Companhia</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="">
+                        <select ng-options="c.code as c.title for c in codes | orderBy:'title'"
+                                class="form-control"
+                                ng-model="search.checkin_code">
+                            <option value="">Situação</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-emission" class="display table table-striped table-condensed table-hover"
+               style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th>
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="passenger.op.user.agency.title">Cliente
+                    </ba-table-sort>
+                </th>
+                <th>
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="passenger.fullname">Passageiro
+                    </ba-table-sort>
+                </th>
+                <th style="max-width: 50px">
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="passenger.op.flight.company.title">Cia
+                    </ba-table-sort>
+                </th>
+
+                <th style="max-width: 50px">Origem</th>
+                <th>Destino</th>
+
+                <th class="alert-success">
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="flight.full_date_boarding">IDA
+                    </ba-table-sort>
+                </th>
+                <th class="alert-info">
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="flightBack.full_date_boarding">VOLTA
+                    </ba-table-sort>
+                </th>
+                <th title="Localizador">
+                    <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                                   ba-table-sort-value="emissions.confirmation_code">Loc.
+                    </ba-table-sort>
+                </th>
+
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="emission in emissions">
+                <td><a ui-sref="app.agency-edit(emission.op.user.agency)">{{emission.op.user.agency.title}}</a></td>
+                <td>{{emission.passenger.fullname}}</td>
+
+                <td style="max-width: 50px">{{emission.flight.company.title}}</td>
+                <td style="max-width: 50px" title="{{emission.flight.origin.title}}">
+                    {{emission.flight.origin.initials}}
+                </td>
+                <td title="{{emission.flight.destination.title}}">{{emission.flight.destination.initials}}</td>
+                <td class="alert-success">{{emission.flight.full_date_boarding | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                <td class="alert-info">{{emission.flight_back.full_date_boarding | toDate | date:'dd/MM/yy HH:mm'}}</td>
+
+                <td>{{emission.confirmation_code}}</td>
+                <td class="col-md-2">
+                    <button type="button"
+                            class="btn btn-xs btn-success"
+                            title="Verificar check-in do voo de ida no site da cia"
+                            ng-click="verifyCheckIn(emission, false)"
+                            ng-disabled="emission.searchingCheckin"
+                            ng-init="emission.searchingCheckin = false">
+                        <i class="fa fa-plane" ng-show="!emission.searchingCheckin"></i>
+                        <i class="fa fa-spinner fa-spin" ng-show="emission.searchingCheckin"></i>
+                    </button>
+                    <button type="button"
+                            class="btn btn-xs btn-info"
+                            title="Verificar check-in do voo de volta no site da cia"
+                            ng-click="verifyCheckIn(emission, true)"
+                            ng-disabled="emission.searchingCheckin"
+                            ng-class="{'hidden-button':!emission.flight_back}"
+                            ng-init="emission.searchingCheckin = false">
+                        <i class="fa fa-plane fa-rotate-180" ng-show="!emission.searchingCheckin"></i>
+                        <i class="fa fa-spinner fa-spin" ng-show="emission.searchingCheckin"></i>
+                    </button>
+                    <button type="button"
+                            class="btn btn-xs btn-check-in-{{getLastCheckin(emission).status}} btn-check-in-emission-{{emission.status}}"
+                            title="Realizar check-in"
+                            ng-click="checkIn(emission)">
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <button type="button"
+                            class="btn btn-xs btn-default"
+                            title="Reportar problemas"
+                            ng-click="addObservation(emission)"
+                            ng-class="{'btn-danger':emission.has_problem}">
+                        <i class="fa fa-bullhorn"></i>
+                    </button>
+                    <button type="button" ng-click="openDetails(emission)" class="btn btn-xs btn-default"
+                            title="Visualizar check-in"><i class="fa fa-search"></i></button>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="emission.open">
+                <td colspan="11">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="list-unstyled list-with-padding list-inline">
+                                        <li>
+                                            <div>OP</div>
+                                            <strong><a ui-sref="app.op-show(emission.op)">{{ emission.op.id
+                                                }}</a></strong>
+                                        </li>
+                                        <li>
+                                            <div>Emissão</div>
+                                            <strong><a
+                                                    ui-sref="app.emission-show(emission)">{{emission.id}}</a></strong>
+                                        </li>
+                                    </ul>
+                                    <span ng-if="emission.flight.company.title == 'Gol' && emission.morning_flight != null">
+                                        <ul class="list-unstyled list-with-padding list-inline">
+                                            <li>
+                                                <div>Enviar aviso do voo de Ida</div>
+                                                <button type="button"
+                                                        class="btn btn-xs btn-default"
+                                                        title="Enviar Aviso"
+                                                        ng-click="sendMail(emission)">
+                                                    <i class="fa fa-reply"></i>
+                                                </button>
+                                            </li>
+                                             <li ng-if="emission.report_mail != null">
+                                                <div>{{emission.report_mail}}</div>
+                                            </li>
+
+                                        </ul>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-9">
+                            <h4>Checkins</h4>
+                            <ul class="list-unstyled">
+                                <li ng-repeat="checkin in emission.checkins | orderBy:'created_at':'desc'">
+                                    <div><strong>{{ checkin.user.name ? checkin.user.name : 'Automático'}}</strong> |
+                                        {{checkin.created_at | toDate | date:'dd/MM/yy HH:mm'}}
+                                    </div>
+                                    <hr style="margin: 1px;">
+                                    <div><strong>{{checkin.description}}</strong></div>
+                                    <br>
+                                </li>
+                                <li ng-if="emission.checkins.length <= 0">Nenhum checkin efetuado.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+
+</ba-table>
+

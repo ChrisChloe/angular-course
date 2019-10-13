@@ -1,0 +1,117 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Relatório de OPs arquivadas</h4>
+        </div>
+        <div class="panel-body">
+            <ba-table ba-table-resource="resource" ba-table-items="ops" ba-table-filter-criteria="filterCriteria">
+                <ba-table-header>
+                    
+
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h4>Total de OPs arquivadas: {{total_ops}}</h4>
+                            </div>
+
+                            <form ng-submit="filter(filter)">
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon2">De</span>
+                                            <input class="form-control" 
+                                            data-provide="datepicker" 
+                                            data-date-format="dd/mm/yyyy"
+                                            data-language="pt-BR" 
+                                            data-date-autoclose="true"
+                                            data-date-end-date="d"
+                                            ng-model="filter.start_date">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="sizing-addon2">Até</span>
+                                                <input class="form-control" 
+                                                       data-date-end-date="d" 
+                                                       data-provide="datepicker" 
+                                                       data-date-format="dd/mm/yyyy" 
+                                                       data-language="pt-BR" 
+                                                       data-date-autoclose="true"
+                                                       ng-model="filter.end_date"
+                                                       ng-change="limitCorrection(filter)">
+                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="input-group" >
+                                            <button class="btn btn-success" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                
+                                </form>
+
+                        </div>
+
+                </ba-table-header>
+                
+                <ba-table-body>
+
+                    <table id="data-table-op-archived" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <b>Motivo</b>
+                                    <!-- <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reason">
+                                        <b>Motivo</b>
+                                    </ba-table-sort> -->
+                                </th>
+                                <th>
+                                    <b>Quantidade</b>
+                                    <!-- <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="quantity">
+                                        <b>Quantidade</b>
+                                    </ba-table-sort> -->
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr ng-repeat="op in ops">
+                                <td class="capitalize-first-letter" ng-init="getTotalOps(ops)">
+                                    {{op.reason}}
+                                    
+                                </td>
+                                <td>
+                                    {{op.quantity}}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    <b>Motivo</b>
+                                    <!-- <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reason">
+                                        <b>Motivo</b>
+                                    </ba-table-sort> -->
+                                </th>
+                                <th>
+                                    <b>Quantidade</b>
+                                    <!-- <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="quantity">
+                                        <b>Quantidade</b>
+                                    </ba-table-sort> -->
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </ba-table-body>
+
+                <ba-table-footer>
+
+                </ba-table-footer>
+
+            </ba-table>
+        </div>
+    </div>
+</div>

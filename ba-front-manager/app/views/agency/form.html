@@ -1,0 +1,293 @@
+<form ng-submit="save(agency)" name="agencyForm">
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+
+
+            <div class="panel-heading">
+                <h3 class="panel-title col-md-6">
+                    Dados da Agência
+                </h3>
+
+                <div class="pull-right" ng-if="agency.id">
+                    <button ui-sref="app.agency-employee(agency)" class="btn btn-success btn-xs">Usuários</button>
+                    <button ui-sref="app.check-in({search: agency.title})" class="btn btn-success btn-xs">Embarques</button>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="panel-body" style="padding-top: 2px!important">
+
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group" ng-class="{'has-error':agencyForm.cpf_cnpj.$invalid}">
+                            <label>CPF/CNPJ</label>
+                            <div class="input-group">
+                                <input ng-model="agency.cpf_cnpj" name="cpf_cnpj" onpaste="return false" placeholder="CPF/CNPJ"
+                                    class="form-control" ng-disabled="!disableAddInformations" ui-br-cpfcnpj-mask />
+                                <span class="input-group-btn">
+                                    <button ng-if="!isExecutive" type="button" class="btn btn-xs btn-success" title="Buscar CNPJ e preencher"
+                                        ng-click="consult(agency)">
+                                        <i class="fa" ng-class="{'fa-search': !searchingCpfCnpj, 'fa-spin':searchingCpfCnpj, 'fa-spinner':searchingCpfCnpj}"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <label for="title">Agência</label>
+                        <input ng-disabled="!searchedCpfCnpj" type="text" ng-model="agency.title" id="title"
+                            placeholder="Nome" class="form-control" maxlength="125" />
+                    </div>
+
+
+                </div>
+
+                <h4>Contato</h4>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="phone" ng-model="agency.phone" id="phone"
+                                ui-br-phone-number class="form-control" placeholder="(99) 9999-9999" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="contact-phone-2">Telefone 2</label>
+                            <input type="hidden" name="type" ng-model="agency.contacts[0].type" ng-init="agency.contacts[0].type='phone'" />
+                            <input ng-disabled="!searchedCpfCnpj" type="phone" class="form-control" id="contact-phone-2"
+                                ng-model="agency.contacts[0].value" ui-br-phone-number placeholder="(99) 9999-9999" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="contact-phone-3">Telefone 3</label>
+                            <input type="hidden" name="type" ng-model="agency.contacts[1].type" ng-init="agency.contacts[1].type='phone'" />
+                            <input ng-disabled="!searchedCpfCnpj" type="phone" class="form-control" id="contact-phone-3"
+                                ng-model="agency.contacts[1].value" ui-br-phone-number placeholder="(99) 9999-9999" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="email" id="email" class="form-control" ng-model="agency.email"
+                                placeholder="agencia@elomilhas.com.br" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label for="contact-email-2">Segundo Email</label>
+                            <input type="hidden" name="type" ng-model="agency.contacts[2].type" ng-init="agency.contacts[2].type='email'" />
+                            <input ng-disabled="!searchedCpfCnpj" type="email" class="form-control" id="contact-email-2"
+                                ng-model="agency.contacts[2].value" placeholder="agencia2@elomilhas.com.br" />
+                        </div>
+
+                    </div>
+                </div>
+                <h4 style="margin-top: 20px;">Endereço <button class="btn btn-primary btn-sm animate-if" ng-if="!agency.id && searchedCpfCnpj" ng-click="setDefaultAddress(agency.addresses)">Definir Padrão</button></h4>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label for="address-cep">CEP</label>
+                            <div class="input-group">
+                                <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-cep"
+                                    ng-model="agency.addresses.cep" placeholder="55870-00" required ui-br-cep-mask />
+                                <span class="input-group-btn">
+                                    <button ng-disabled="!searchedCpfCnpj || !agency.addresses.cep" type="button" class="btn btn-xs btn-success"
+                                        title="Buscar CEP e preencher" ng-click="consultCep(agency)">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="address-city">Cidade</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-city"
+                                ng-model="agency.addresses.city" placeholder="RECIFE" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label for="address-neighborhood">Bairro</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-neighborhood"
+                                ng-model="agency.addresses.neighborhood" placeholder="PAISSANDU" required />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                        <div class="form-group">
+                            <label for="address-uf">UF</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-uf"
+                                ng-model="agency.addresses.uf" placeholder="PE" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label for="address-street">Endereço</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-street"
+                                ng-model="agency.addresses.street" placeholder="RUA DO PAISSANDU" required />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <div class="form-group">
+                            <label for="address-number">Numero</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-number"
+                                ng-model="agency.addresses.number" placeholder="557" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label for="address-complement">Complemento</label>
+                            <input ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-complement"
+                                ng-model="agency.addresses.complement" placeholder="..." />
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 20px;">Sobre</h4>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="responsible">Responsáveis</label>
+                            <textarea ng-disabled="!searchedCpfCnpj" ng-model="agency.responsible" id="responsible"
+                                placeholder="Nome dos reponsáveis" class="form-control" rows="5" cols="200" style="resize: none;">
+                            </textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <input switch-readonly="{{ !searchedCpfCnpj }}" bs-switch ng-model="agency.allow_executive"
+                                    type="checkbox" switch-on-text="SIM" switch-off-text="NÃO" switch-label="Voo executivo"
+                                    switch-label-width="150" switch-handle-width="50" switch-on-color="success"
+                                    switch-off-color="danger" ng-true-value="1" ng-false-value="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="site">Site</label>
+                                    <input ng-disabled="!searchedCpfCnpj" type="text" ng-model="agency.site" id="site"
+                                        placeholder="www.elomilhas.com.br" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="address-region">Região</label>
+                                    <select ng-disabled="!searchedCpfCnpj" type="text" class="form-control" id="address-region"
+                                        ng-model="agency.region" ng-options="s.value as s.title for s in region"
+                                        required>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="group_id">Grupo</label>
+                                    <select ng-disabled="!searchedCpfCnpj" class="form-control" id="group_id" ng-model="agency.group_id"
+                                        ng-options="group.id as group.name for group in groups">
+                                        <option value="">Nenhum</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select ng-disabled="!searchedCpfCnpj" ng-disabled="isExecutive" class="form-control"
+                                        id="status" ng-model="agency.status" ng-options="s.value as s.title for s in status"
+                                        required>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="status">Carteira</label>
+                                    <select ng-disabled="!searchedCpfCnpj" class="form-control" id="wallet_id" ng-model="agency.wallet_id"
+                                            ng-options="wallet.id as wallet.name for wallet in wallets">
+                                        <option value="">Nenhum</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="list-group">
+                                    <li class="list-group-item" ng-class="{'list-group-item-success': mailer, 'list-group-item-danger': !mailer, 'disabled': !searchedCpfCnpj}">
+                                        <input ng-disabled="!searchedCpfCnpj" type="checkbox" ng-model="mailer">
+                                        <strong>
+                                            Enviar Cópia da Cotação para Email da Agência
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer clearfix">
+                <div style="float: right">
+                    <a href="#/agency" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+
+<div ng-if="agency.id" class="col-md-6">
+    <ng-include src="'views/agency/counter.html'"></ng-include>
+</div>
+
+<div ng-if="agency.id" class="col-md-6">
+    <ng-include src="'views/agency/aditionalAddresses.html'" />
+</div>
+
+<div ng-if="agency.id" class="col-md-6">
+    <ng-include src="'views/agency/venomconfig.html'" />
+</div>
+
+<div ng-if="agency.id" class="col-md-6">
+    <ng-include src="'views/agency/observation.html'" />
+</div>
+
+<div ng-if="agency.id" class="col-md-6">
+    <ng-include src="'views/agency/attachment.html'" />
+</div>

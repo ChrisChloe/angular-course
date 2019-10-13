@@ -1,0 +1,120 @@
+<ba-table ba-table-resource="resource" ba-table-items="requests" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon2">De</span>
+                        <input class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-language="pt-BR" data-date-autoclose="true"
+                            ng-model="search.min_date">
+                        <i style="cursor: pointer; position: absolute; font-size: 18px; line-height: 2em; left: 90%; z-index: 999" ng-if="search.min_date"
+                            class="fa fa-close" ng-click="clearDate(1)"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="sizing-addon3">Até</span>
+                        <input class="form-control" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-language="pt-BR" data-date-autoclose="true"
+                            ng-model="search.max_date">
+                        <i style="cursor: pointer; position: absolute; font-size: 18px; line-height: 2em; left: 90%; z-index: 999" ng-if="search.max_date"
+                            class="fa fa-close" ng-click="clearDate(2)"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+        <table id="data-table-emission" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="op_id">OP</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card.code">Cartão</ba-table-sort>
+                    </th>
+                    <th>
+                        Fornecedor
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flight.company.title">Cia</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="confirmation_code">Localizador</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="baggage_price">Bagagem</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.name">Emissor</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status_title">Status</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="request in requests">
+                    <td>{{request.id}}</td>
+                    <td>
+                        <a ui-sref="app.op-show({id:request.op_id})">{{request.op_id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="app.card-show(request.card)">{{request.card.code}}</a>
+                    </td>
+                    <td title="{{request.provider ? request.provider.name : 'ND'}}">{{request.provider ? ((request.provider.name | limitTo: 15) + '...') : 'ND'}}</td>
+                    <td>{{request.flight.company.title}}</td>
+                    <td>{{request.confirmation_code ? request.confirmation_code : 'ND'}}</td>
+                    <td>{{request.baggage_price !== null ? (request.baggage_price | currency:'R$') : 'ND'}}</td>
+                    <td>{{request.user.name}}</td>
+                    <td>{{request.status_title}}</td>
+                    <td>{{request.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td class="col-md-2">
+                        <button type="button" ng-click="openDetails(request)" class="btn btn-success btn-xs" title="Detalhes">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <a ui-sref="app.emission-request-edit(request)" class="btn btn-info btn-xs" title="Editar">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr style="background-color: #f5f5f5" ng-repeat-end ng-show="request.open">
+                    <td colspan="12">
+
+                        <div class="row" style="padding:1em;">
+                            <div ng-include="'views/emission-request/detail.html'"></div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

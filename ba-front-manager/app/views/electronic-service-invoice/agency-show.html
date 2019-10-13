@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="rootwizard">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Emissões ({{agency.title}})</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button title="Para emitir nota, selecione as emissões que deseja incluir ou selecione tudo."
+                            ng-disabled="!emit.count || emiting"
+                            class="btn btn-info pull-left"
+                            id="to-invoice-btn"
+                            type="button"
+                            ng-click="openEmitModal(emit)">
+                            Emitir
+                        </button>
+                        <h4 class="pull-left">&nbsp;&nbsp;Total {{ emit.total | currency }}</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <div ng-include="'views/electronic-service-invoice/tables/agency-emissions.html'"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

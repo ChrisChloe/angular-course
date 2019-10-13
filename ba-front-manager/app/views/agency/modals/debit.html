@@ -1,0 +1,49 @@
+<div class="modal-content">
+    <form ng-submit="save(attachment)" name="formAttachment">
+
+        <div ng-if="isManager()" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="mySmallModalLabel">Inserir Débito</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-4"> 
+                    <label for="credit_limit">Valor*</label>
+                    <input type="numeric" 
+                           ng-model="agency.site" 
+                           id="site" 
+                           ng-required="true"                          
+                           class="form-control"/>                                                     
+                </div>
+                <div class="col-md-8">
+                    <label for="reference-type">Motivo do Débito*</label>
+                    <div>
+                        <textarea ng-model="attachment.description" id="attachment-description" maxlength="300"
+                                  placeholder="Digite algo para indentificar o Débito" class="form-control"
+                                  style="max-width:710px"
+                                  ng-required="true" rows="2"></textarea>
+                    </div>
+                </div>
+            </div>            
+
+        </div>
+
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    <uib-progressbar class="progress-striped active" value="dynamic" type="success" ng-if="progressbar">
+                        {{progressbar}}%
+                    </uib-progressbar>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

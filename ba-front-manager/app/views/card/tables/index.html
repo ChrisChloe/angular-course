@@ -1,0 +1,169 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="'active'" ba-table-items="cards" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control" id="type"
+                            ng-model="search.type"
+                            ng-options="t.id as t.title for t in types">
+                        <option value="">Tipo</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+
+            <table id="data-table-card" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="code">Cod.</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Titular</ba-table-sort></th>
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">CPF</ba-table-sort></th>-->
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flag">Bandeira</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_type_id">Tipo</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="balance">Saldo</ba-table-sort></th>
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_number">Número</ba-table-sort></th>-->
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="balance">Validade</ba-table-sort></th>-->
+                    <th title="Última Utilização"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_use">Utilização</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr ng-repeat-start="card in cards" ng-class="{'alert alert-danger text-del':!card.status, 'alert alert-danger':card.observations_count}">
+                    <th scope="row" ng-class="{'alert alert-warning':card.observations_count}">{{card.code}}</th>
+
+                    <td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.titular}}</td>
+                    <!--<td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.cpf}}</td>-->
+                    <td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.flag_title | uppercase}}</td>
+                    <td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.card_type_title}}</td>
+                    <td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.balance | currency}}</td>
+                    <!--<td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">{{card.card_number}}</td>-->
+                    <!--<td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">
+                        <strong ng-class="{'text-danger':card.balance <= 0, 'text-success':card.balance >= 0}">{{card.expiration | date:'MM/yy'}}</strong>
+                    </td>-->
+                    <td class="ba-clipboard" ng-class="{'alert alert-warning':card.observations_count}">
+                        {{card.last_use | toDate  | date:'dd/MM HH:mm'}}
+                        <span ng-if="card.payment_count > 0 "  class="badge badge-success pull-right" title="Uso diário"> {{card.payment_count}}</span>
+                        <span ng-if="card.payment_count > 5 "  class="badge badge-warning pull-right" title="Uso diário"> {{card.payment_count}}</span>
+                        <span ng-if="card.payment_count > 10 " class="badge badge-danger  pull-right" title="Uso diário"> {{card.payment_count}}</span>
+                    </td>
+                    <td class="col-md-2"  ng-class="{'alert alert-warning':card.observations_count}">
+                        <!--<button class="btn btn-xs" ng-class="{'btn-success':!card.status, 'btn-danger':!!card.status}"
+                                title="Clique para Ativar/Desativar" ng-click="inactivate(card)">
+                            <i ng-class="{'fa fa-frown-o':!!card.status, 'fa fa-smile-o':!card.status}"></i>
+                        </button>-->
+                        <a class="btn btn-success btn-xs" ng-class="{'detail-cards':OpenDetailCard == true }" ng-click="OpenDetailCard = !OpenDetailCard" title="Detalhes" data-toggle="collapse" data-target="#detailCards-{{$index}}"><i class="fa fa-caret-down"></i></a>
+                        <a ui-sref="app.card-show(card)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                        <a ui-sref="app.card-edit(card)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                        <a ui-sref="app.card-statement(card)" class="btn btn-primary btn-xs" title="Ver extrato"><i class="fa fa-file"></i></a>
+                        <!--<button class="btn btn-xs btn-danger" ng-click="trash(card)"><i class="fa fa-trash"></i></button>-->
+                        <button class="btn btn-xs btn-danger" ng-click="addProblem(card)" title="Reportar Problema"><i class="fa fa-bullhorn"></i></button>
+                        <!--<button type="button" ng-click="openDetails(card)"  class="btn btn-xs btn-default" title="Visualizar cartão"><i class="fa fa-search"></i></button>-->
+                    </td>
+                </tr>
+                <tr ng-repeat-end="">
+                    <td colspan="7" style="padding: 0 !important">
+                        <div id="detailCards-{{$index}}" class="collapse">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-white">
+                                        <div class="panel-heading clearfix">
+                                            <h4 class="panel-title">{{title}} #{{ card.id }}</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <ul class="list-unstyled list-with-padding list-inline">
+                                                        <li>
+                                                            <div>Código</div>
+                                                            <strong class="ba-clipboard">{{ card.code }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Nº</div>
+                                                            <strong class="ba-clipboard">{{ card.card_number }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Validade</div>
+                                                            <strong class="ba-clipboard">{{ card.expiration | toDate | date:'MM/yy' }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Bandeira</div>
+                                                            <strong class="ba-clipboard">{{ card.flag }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>CVV</div>
+                                                            <strong class="ba-clipboard">{{ card.cvv }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>CPF</div>
+                                                            <strong class="ba-clipboard">{{ card.cpf }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Titular</div>
+                                                            <strong class="ba-clipboard">{{ card.titular }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Nome Completo</div>
+                                                            <strong class="ba-clipboard">{{ card.full_name }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Nascimento</div>
+                                                            <strong class="ba-clipboard">{{ card.birthday | toDate | date:'dd/MM/yyyy' }}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Endereço</div>
+                                                            <strong class="ba-clipboard">{{ card.address.street}}, {{card.address.district}}, {{card.address.city}} - {{card.address.state}}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>CEP</div>
+                                                            <strong class="ba-clipboard">{{card.address.zipcode}}</strong>
+                                                        </li>
+                                                        <li>
+                                                            <div>Obs.</div>
+                                                            <strong class="ba-clipboard">{{ card.observation ? card.observation : 'Nenhuma' }}</strong>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="code">Cod.</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="titular">Titular</ba-table-sort></th>
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="cpf">CPF</ba-table-sort></th>-->
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="flag">Bandeira</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_type_id">Tipo</ba-table-sort></th>
+                    <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="card_number">Número</ba-table-sort></th>-->
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="balance">Saldo</ba-table-sort></th>
+                    <th title="Última Utilização"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="last_use">Utilização</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

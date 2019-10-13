@@ -1,0 +1,69 @@
+<div class="modal-content">
+    <form ng-submit="save(attachment)" name="formAttachment">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="mySmallModalLabel">Adicionar Anexo</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <label ng-if="attachment.file" title="{{attachment.file.name}}">
+                        {{attachment.file.name}} | {{(attachment.file.size / 1000000).toFixed(2)}} MB
+                    </label>
+                    <div type="button"
+                         class="btn btn-success btn-block"
+                         ngf-select="fileSelected(attachment)"
+                         ng-model="attachment.file"
+                         ngf-max-size="10MB"
+                         ngf-accept="'image/*,image/jpeg,application/pdf,text/plain,application/msword,application/excel,application/x-msexcel,application/x-excel'"
+                         name="file" ng-style="!attachment.file && {'margin-top':'23px'}">
+                        Selecione o arquivo
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="attachment-type">Tipo do arquivo*</label>
+                    <select ng-model="attachment.type" id="attachment-type" class="form-control"
+                            ng-required="true">
+                        <option value="Doc.Pessoal">Doc.Pessoal</option>
+                        <option value="Doc.Empresa">Doc.Empresa</option>
+                        <option value="Contrato">Contrato</option>
+                        <option value="Transferência Bancária">Transferência Bancária</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="attachment-description">Descriçao do arquivo*</label>
+                    <div>
+                        <textarea ng-model="attachment.description" id="attachment-description" maxlength="300"
+                                  placeholder="Digite algo para indentificar o arquivo" class="form-control"
+                                  style="max-width:710px"
+                                  ng-required="true" rows="2" style="resize: none"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    <uib-progressbar class="progress-striped active" value="dynamic" type="success" ng-if="progressbar">
+                        {{progressbar}}%
+                    </uib-progressbar>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger" ng-click="close()" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

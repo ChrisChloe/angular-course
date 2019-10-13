@@ -1,0 +1,46 @@
+<ba-table ba-table-resource="OpResource" ba-table-items="ops" ba-table-filter-criteria="filterOpsCriteria" ba-table-disable-entries="true"
+    ba-table-pagination-max-size="9">
+
+    <ba-table-body>
+
+        <table id="data-table-op" class="display table table-striped table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterOpsCriteria.sortedBy" ba-table-sort-by="filterOpsCriteria.orderBy"
+                            ba-table-sort-value="flight.company.title">Cia</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterOpsCriteria.sortedBy" ba-table-sort-by="filterOpsCriteria.orderBy"
+                            ba-table-sort-value="flight.origin.initials">Destino</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterOpsCriteria.sortedBy" ba-table-sort-by="filterOpsCriteria.orderBy"
+                            ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="op in ops">
+                    <td>{{op.flight.company.title}} <span ng-if="op.flight_back">/ {{op.flight_back.company.title}}</span></td>
+                    <td>{{op.flight.origin.initials}} / {{op.flight.destination.initials}}</td>
+                    <td>{{op.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td>
+                        <a ui-sref="app.op-show(op)" class="btn btn-success btn-xs" title="Detalhes/Emitir" target="_blank"><i
+                                class="fa fa-search"></i></a>
+                    </td>
+                </tr>
+
+                <tr ng-if="ops.length <= 0">
+                    <td colspan="4">
+                        <h5 class="text-center">Nenhuma OP encontrada</h5>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

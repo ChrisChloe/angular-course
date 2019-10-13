@@ -1,0 +1,458 @@
+<form ng-submit="save(emission)" name="emissionForm">
+
+    <div class="col-md-8">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="sale">Nº Venda</label>
+                            <input type="text" class="form-control" id="sale" ng-model="emission.sale"
+                                   ng-required="true"/>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="confirmation_code">Localizador</label>
+                            <input type="text" class="form-control" id="confirmation_code"
+                                   ng-model="emission.confirmation_code"
+                                   ng-required="true"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="e_ticket">E-ticket</label>
+                            <input type="text" class="form-control" id="e_ticket" ng-model="emission.e_ticket"
+                                   ng-required="true"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="sale_date">Data Venda</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="sale_date"
+                                   ng-model="emission.sale_date"
+                                   ng-required="true"
+                                   ui-mask="99/99/9999"
+                                   model-view-value="true"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="shipping_rate">Taxas</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="shipping_rate"
+                                   ng-model="emission.shipping_rate"
+                                   ui-money-mask
+                                   required/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="baggage_price">Bagagem</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="baggage_price"
+                                   ng-model="emission.baggage_price"
+                                   ui-money-mask
+                                   required/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="miles">Preço</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="miles_price"
+                                   ng-if="emission.id"
+                                   ng-model="emission.miles_price"
+                                   ui-money-mask
+                                   required/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="miles">Milhas</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="miles"
+                                   ng-model="emission.miles"
+                                   ui-number-mask="0"
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="row">
+
+                    <div class="col-md-1" ng-if="emission.provider_code">
+                        <div class="form-group">
+                            <label></label>
+                            <input type="radio" name="provider_type" value="0" ng-model="provider_type" ng-click="emission.card_type = 0" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" ng-if="emission.provider_code">
+                        <div class="form-group">
+                            <label for="provider_code">Cód. Fornecedor</label>
+                            <input type="text" class="form-control" id="provider_code"
+                                   ng-model="emission.provider_code"
+                                   ng-disabled="provider_type == 1"
+                                   ng-required="provider_type == 0"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8" ng-if="emission.provider_code">
+                        <div class="form-group">
+                            <label for="provider_code">Fornecedor</label>
+                            <input type="text" class="form-control" id="provider_name"
+                                   ng-model="emission.provider_name"
+                                   ng-disabled="provider_type == 1"
+                                   ng-required="provider_type == 0"/>
+                        </div>
+                    </div>
+
+                    &lt;!&ndash;Provider&ndash;&gt;
+                    <div class="col-md-1" ng-if="emission.provider_code">
+                        <div class="form-group">
+                            <label></label>
+                            <input type="radio" name="provider_type" value="1" ng-model="provider_type" class="form-control btn btn-success">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Fornecedor</label>
+                            <ui-select ng-model="emission.provider_id"
+                                       theme="bootstrap"
+                                       style="width: 100%;" title="Selecione um fornecedor"
+                                       ng-required="provider_type == 1"
+                                       ng-disabled="provider_type == 0"
+                                       on-select="onSelectStock($item, $model)">
+                                <ui-select-match placeholder="Selecione um fornecedor...">{{$select.selected.provider.name}}</ui-select-match>
+                                <ui-select-choices refresh="listStocks($select.search)" repeat="stock.provider.id as stock in stocks" refresh-delay="500">
+                                    <div ng-bind="stock.provider.name" style="font-weight:bold;"></div>
+                                    <small>
+                                        Milhas: <strong>{{stock.miles | number}}</strong> |
+                                        Cartão: <strong>{{stock.card_number}}</strong>
+                                    </small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12" ng-if="selectedStock">
+                        <ul class="list-unstyled list-with-padding list-inline">
+                            <li>
+                                <div>Nome</div>
+                                <strong><span class="ba-clipboard">{{selectedStock.provider.name}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Milhas</div>
+                                <strong><span class="ba-clipboard">{{selectedStock.miles | number}}</span></strong>
+                            </li>
+                        </ul>
+
+                        <ul class="list-unstyled list-with-padding list-inline">
+                            <li>
+                                <div>N° Cartão</div>
+                                <strong><span class="ba-clipboard">{{selectedStock.card_number}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Assinatura Digital</div>
+                                <label for="seeDigitalSignature"><span class="fa" ng-class="{'fa-eye':!selectedStock.seeDigitalSignature,'fa-eye-slash':selectedStock.seeDigitalSignature}"></span></label>
+                                <input type="checkbox" id="seeDigitalSignature" ng-model="selectedStock.seeDigitalSignature" style="display: none;">
+                            <span class="ba-clipboard" ng-if="selectedStock.seeDigitalSignature">
+                                {{selectedStock.digital_signature}}
+                            </span>
+                            </li>
+                            <li>
+                                <div>Senha de Acesso</div>
+                                <strong>
+                                    <label for="seePassword"><span class="fa" ng-class="{'fa-eye':!selectedStock.seePassword,'fa-eye-slash':selectedStock.seePassword}"></span></label>
+                                    <input type="checkbox" id="seePassword" ng-model="selectedStock.seePassword" style="display: none;">
+                            <span class="ba-clipboard" ng-if="selectedStock.seePassword">
+                                {{selectedStock.access_password}}
+                            </span>
+                                </strong>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>-->
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <div class="input-group-addon"><input id="debit_on_stock_1" class="" type="radio" ng-model="emission.debit_on_stock" name="debit_on_stock" value="1"/></div>
+                            <div class="form-control"><label for="debit_on_stock_1">Estoque</label></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" >
+                        <div class="input-group">
+                            <div class="input-group-addon"><input id="debit_on_stock_0" class="" type="radio" ng-model="emission.debit_on_stock" name="debit_on_stock" value="0"/></div>
+                            <div class="form-control"><label for="debit_on_stock_0">Tarifa</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h4>Fornecedor</h4>
+
+                            <ui-select ng-if="emission.debit_on_stock == '1'"
+                                       ng-model="emission.provider_id"
+                                       theme="bootstrap"
+                                       style="width: 100%;" title="Selecione um estoque de fornecedor"
+                                       on-select="onSelectStock($item, $model)"
+                                        ng-required="emission.debit_on_stock == '1'">
+                                <ui-select-match placeholder="Selecione um estoque de fornecedor...">{{$select.selected.provider.name}}</ui-select-match>
+                                <ui-select-choices refresh="listStocks($select.search)" repeat="stock.provider.id as stock in stocks" refresh-delay="500">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-bind="stock.provider.name" style="font-weight:bold;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-right-1px" style="width: 20%;float: left; padding: 5px;">
+                                            Milhas:
+                                            <strong ng-if="stock.miles">{{stock.miles / 1000 | number}} Mill</strong>
+                                            <strong ng-if="!stock.miles">0</strong>
+                                        </div>
+                                        <div class="border-right-1px" style="width: 26%;float: left; padding: 5px;">
+                                            Cartão: <strong>{{stock.card_number}}</strong>
+                                        </div>
+                                        <div class="" style="width: 26%;float: left; padding: 5px;">
+                                            Tipo:   <strong>{{stock.payment_form_title}}</strong>
+                                        </div>
+                                    </div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <ui-select ng-if="emission.debit_on_stock == '0'"
+                                       ng-model="emission.provider_id"
+                                       theme="bootstrap"
+                                       style="width: 100%;" title="Selecione um fornecedor"
+                                       on-select="onSelectProvider($item, $model)"
+                                       ng-required="emission.debit_on_stock == '0'">
+                                <ui-select-match placeholder="Selecione um fornecedor...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices refresh="listProviders($select.search)" repeat="provider.id as provider in providers" refresh-delay="500">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-bind="provider.name" style="font-weight:bold;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="border-right-1px" style="width: 60%;float: left; padding: 5px;">
+                                            Email: <strong>{{provider.email}}</strong>
+                                        </div>
+                                        <div style="width: 40%;float: right; padding: 5px;">
+                                            Tel: <strong>{{provider.phone}}</strong>
+                                        </div>
+                                    </div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Card-->
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <label></label>
+                                    <input type="radio" name="card_type" value="0" ng-model="emission.card_type" class="form-control btn btn-success" required>
+                                </div>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="form-group">
+                                    <label for="card"> Cartão </label>
+                                    <ui-select ng-model="emission.card_id"
+                                               id="card"
+                                               title="Busca por cartão"
+                                               style="min-width: 200px !important;"
+                                               ng-required="emission.card_type == 0"
+                                               ng-disabled="emission.card_type == 1"
+                                               on-select="onSelectCard($item, $model)">
+                                        <ui-select-match placeholder="Escolha um cartão...">
+                                            {{$select.selected.code}} - {{$select.selected.card_number}} - {{$select.selected.titular}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                ui-disable-choice="!card.status || card.code == '3333'"
+                                                refresh="listCards($select.search)"
+                                                repeat="card.id as card in cards">
+                                            <hr style="margin: 5px 0;"/>
+                                            <div ng-class="{'text-del':!card.status || card.code == 'CP00'}">
+                                                <div ng-bind-html="'Nº ' + card.card_number + ' | Tit. ' + card.titular | highlight: $select.search" style="font-weight: bold;"></div>
+                                                <small>
+                                                    CVV: <strong>{{card.cvv}}</strong> |
+                                                    CPF.: <strong>{{card.cpf}}</strong> |
+                                                    Val.:
+                                                    <strong>
+                                                        <span ng-bind-html="''+ card.expiration | toDate | date:'MM/yy' | highlight: $select.search"></span>
+                                                    </strong>
+                                                    Saldo: <strong ng-class="{'text-danger':card.balance <= 0, 'text-success':card.balance >= 0}">{{card.balance | currency}}</strong>
+                                                </small>
+                                            </div>
+
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" ng-if="selectedCard">
+                        <ul class="list-unstyled list-with-padding list-inline">
+                            <li>
+                                <div>Cód.</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.code}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Nº:</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.card_number}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Validade</div>
+                                <strong>
+                                    <span class="ba-clipboard">{{selectedCard.expiration | toDate | date:'MM/yy'}}</span>
+                                </strong>
+                            </li>
+                            <li>
+                                <div>Bandeira</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.flag}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Titular</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.titular}}</span></strong>
+                            </li>
+                            <li>
+                                <div>CVV</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.cvv}}</span></strong>
+                            </li>
+                            <li>
+                                <div>CPF</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.cpf}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Nome Completo</div>
+                                <strong><span class="ba-clipboard">{{selectedCard.full_name}}</span></strong>
+                            </li>
+                            <li>
+                                <div>Nascimento</div>
+                                <strong>
+                                    <span class="ba-clipboard">{{selectedCard.birthday| toDate | date:'dd/MM/yyyy'}}</span>
+                                </strong>
+                            </li>
+                            <li>
+                                <div>CEP</div>
+                                <strong>
+                                    <span class="ba-clipboard">{{selectedCard.address.zipcode }}</span>
+                                </strong>
+                            </li>
+                            <li>
+                                <div>Endereço</div>
+                                <strong>
+                                    <span class="ba-clipboard">{{selectedCard.address.street+', '+ selectedCard.address.district+', '+ selectedCard.address.city +', '+ selectedCard.address.state }}</span>
+                                </strong>
+                            </li>
+                            <li ng-if="selectedCard.observation">
+                                <div>Obs.</div>
+                                <strong>
+                                    <span class="ba-clipboard">{{selectedCard.observation }}</span>
+                                </strong>
+                            </li>
+                        </ul>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label></label>
+                            <input type="radio" name="card_type" value="1" ng-model="emission.card_type" class="form-control btn btn-success"
+                                   ng-click="provider_type = 1"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <br>
+                        <h4>Cartão do fornecedor</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="observation">Observações de Emissão</label>
+                    <textarea class="form-control" id="observation" ng-model="emission.observation" rows="5"
+                              style="width: 360px;max-width:380px"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <label>Tipo</label>
+                                <br>
+                                <label class="btn btn-success"
+                                       ng-model="emission.flight_type"
+                                       uib-btn-radio="0"
+                                       required="true">
+                                    Doméstico
+                                </label>
+                                <label class="btn btn-success"
+                                       ng-model="emission.flight_type"
+                                       uib-btn-radio="1"
+                                       required="true">
+                                    Inter.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.emission" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success" ng-disabled="emissionForm.$invalid || sending">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

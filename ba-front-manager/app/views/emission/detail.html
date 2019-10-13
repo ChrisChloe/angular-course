@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-md-2">
+        <h4>ID</h4>
+        <p>{{ emission.id }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Agencia</h4>
+        <p><a ui-sref="app.agency-show(emission.passenger.op.agency)" target="_blank">{{emission.passenger.op.agency.title}}</a></p>
+    </div>
+    <div class="col-md-2">
+        <h4>OP</h4>
+        <p><a ui-sref="app.op-show(emission.passenger.op)">{{ emission.passenger.op.id }}</a></p>
+    </div>
+    <div class="col-md-2">
+        <h4>Nº Venda</h4>
+        <p>{{ emission.sale }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Passageiro</h4>
+        <p>{{ emission.passenger.fullname }}</p>
+    </div>
+
+    <div class="col-md-2">
+        <h4>Ticket</h4>
+        <p>{{ emission.e_ticket }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <h4>Localizador</h4>
+        <p>{{ emission.confirmation_code }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Pagamento</h4>
+        <p>{{ emission.payment_type_title }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Tipo Voo</h4>
+        <p>{{ emission.flight_type_title }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Tipo Emissão</h4>
+        <p>{{ emission.type_trip_title }}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Tx. Embarque</h4>
+        <p>{{ emission.shipping_rate | currency}}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Milhas</h4>
+        <p>{{ emission.miles | number}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <h4>Código Fornecedor</h4>
+        <p>{{ emission.provider.code ? emission.provider.code : '--' }}</p>
+    </div>
+    <div class="col-md-2" ng-if="!emission.card">
+        <h4>Cartão</h4>
+        <p style="color: red">{{emission.card_type == 1 ? 'Cartão do Fornecedor' : 'Não Possui Cartão Relacionado'}}</p>
+    </div>
+    <div class="col-md-2">
+        <h4>Observação</h4>
+        <p>{{ emission.observation ? emission.observation : '--' }}</p>
+    </div>
+
+</div>
+
+<div ng-if="emission.card" class="row" style="margin-top: 20px">
+
+    <div class="col-md-12">
+        <h4>Cartão</h4>
+    </div>
+
+    <div class="col-md-12">
+        <ul class="row">
+            <div class="col-md-2">
+                <h4>Código<h4>
+                <p style="word-break: break-all">{{ emission.card.code }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Nº</h4>
+                <p style="word-break: break-all">{{ emission.card.card_number }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Validade<h4i>
+                <p style="word-break: break-all">{{ emission.card.expiration | toDate | date:'MM/yy' }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Bandeira<h4>
+                <p style="word-break: break-all">{{ emission.card.flag }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>CVV<h4>
+                <p style="word-break: break-all">{{ emission.card.cvv }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Titular<h4>
+                <p style="word-break: break-all">{{ emission.card.titular }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Nome Completo<h4>
+                <p style="word-break: break-all">{{ emission.card.full_name }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Nascimento<h4>
+                <p style="word-break: break-all">{{ emission.card.birthday | toDate | date:'dd/MM/yy' }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>CEP<h4>
+                <p style="word-break: break-all">{{ emission.card.cep }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Endereço<h4>
+                <p style="word-break: break-all"> {{ emission.card.address.street+', '+emission.card.address.district+',
+                    '+emission.card.address.city+', '+emission.card.address.state }}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Obs.<h4>
+                <p style="word-break: break-all">{{ emission.card.observation }}</p>
+            </div>
+        </ul>
+    </div>
+
+</div>
+
+<hr style="margin-top: 20px">
+
+<div class="row">
+    <div class="col-md-3" style="width: auto;">
+        <strong>Emissor: </strong>{{ emission.emitter.name }}
+    </div>
+    <div class="col-md-3" style="width: auto;">
+        <strong>Nome do Fornecedor: </strong>{{ emission.provider.name }}
+    </div>
+    <div class="col-md-3" style="width: auto;">
+        <strong>Usuário que Liquidou: </strong>{{emission.liquidator ? emission.liquidator.name : '--'}}
+    </div>
+</div>
+
+<hr style="margin-top: 20px">
+<div class="row" style="font-size: 13px;">
+    <div class="col-md-3" style="width: auto;">
+        <strong>Criado: </strong>{{ emission.created_at | toDate | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+    <div class="col-md-3" style="width: auto;">
+        <strong>Data Emissão OP: </strong>{{ (emission.passenger.op.emitted_at | toDate | date: 'dd/MM/yyyy HH:mm')
+        || 'ND'}}
+    </div>
+    <div class="col-md-3" style="width: auto;">
+        <strong>Data de Venda: </strong>{{ emission.sale_date | toDate | date: 'dd/MM/yyyy HH:mm' }}
+    </div>
+    <div class="col-md-3" style="width: auto;">
+        <strong>Ticket Enviado em: </strong>{{(emission.ticked_sended_at | toDate | date: 'dd/MM/yyyy HH:mm') ||
+        'ND'}}
+    </div>
+    <div class="col-md-2">
+        <strong>Liquidação em: </strong>{{ (emission.liquidated_at | toDate | date: 'dd/MM/yyyy HH:mm') || 'ND'}}
+
+    </div>
+
+</div>
+
+</div>

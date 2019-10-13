@@ -1,0 +1,471 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">{{title}}</h4>
+        </div>
+        <div class="panel-body">
+
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="template-id">Template*</label>
+
+                        <ui-select ng-model="campaign.template_id" title="Busca por Template" required on-select="onSelectTemplate(campaign, $item)"
+                            style="min-width: 200px !important;">
+                            <ui-select-match placeholder="Buscar Template...">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="searchTemplate($select.search)" repeat="template.id as template in templates">
+
+                                <div style="height: 25px">
+                                    <strong>{{template.name}}</strong>
+                                </div>
+
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="account-id">Email*</label>
+                        <select type="text" ng-model="campaign.email_account_id" ng-options="a.id as a.name for a in accounts"
+                            id="account-id" class="form-control" ng-change="changeHost(a.config)" required />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="account-id">Host*</label>
+                        <select type="text" ng-value="host" ng-model="campaign.email_account_id" ng-options="a.config.id as a.config.name for a in accounts"
+                            id="account-id" class="form-control" required disabled />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Agendar*</label>
+                    <input class="form-control" data-provide="datepicker" data-date-container="#to-invoice-modal"
+                        data-date-format="dd/mm/yyyy" data-date-start-date="1d" data-language="pt-BR" ng-model="scheduled.date"
+                        required />
+
+                </div>
+                <div class="col-md-2">
+                    <label>Horário</label>
+                    <input type="text" class="form-control" name="field" ng-model="scheduled.time" ui-time-mask="HH:mm"
+                        parse="false">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" ng-model="campaign.name" id="name" placeholder="Nome da Campanha" class="form-control"
+                            required />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="subject">Assunto*</label>
+                        <input type="text" ng-model="campaign.subject" id="subject" placeholder="Nome" class="form-control"
+                            required />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="send-type">Tipo de Envio</label>
+                        <select class="form-control" ng-model="sendType" ng-options="a.value as a.title for a in sendTypes"
+                            ng-init="sendType = sendTypes[1].value" ng-change="changee(sendType)" title="Enviar para emails específicos ou para grupos de emails filtrados.">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Testar Campanha</label>
+                        <input type="text" class="form-control" placeholder="Email de Teste" ng-model="test_email" />
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button ng-disabled="loadingTest || !test_email" style="transform: translateY(70%);" class="btn btn-primary btn-block"
+                        ng-click="sendTest(campaign)">Teste</button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12" id="accordion">
+    <div class="panel panel-white" data-parent="#accordion" data-toggle="collapse" data-target="#template" style="cursor:pointer">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">Template
+                <small>&mdash; clique para visualizar</small>
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div id="template" class="collapse">
+                <div ng-bind-html="campaign.html"></div>
+
+                <textarea class="hidden" ng-model="campaign.html" id="html"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="col-md-12" ng-show="sendType=='group'" style="transition: none">
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">Envio por Grupo</h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <input style="cursor: default!important" disabled class="form-control" ng-model="sendGroupTitle">
+                        <li type="button" ng-class="{'list-group-item-success': sendToAgencies, 'list-group-item-warning': !sendToAgencies}"
+                            ng-click="sendToAgencies = !sendToAgencies" class="list-group-item pointer" style="transition: all 200ms">
+                            <span ng-if="sendToAgencies">Enviar para Agências</span>
+                            <span ng-if="!sendToAgencies">Não Enviar para Agências</span>
+                        </li>
+                        <li type="button" ng-class="{'list-group-item-success': sendToUsers, 'list-group-item-warning': !sendToUsers}"
+                            ng-click="sendToUsers = !sendToUsers" class="list-group-item pointer" style="transition: all 200ms">
+                            <span ng-if="sendToUsers">Enviar para Usuários</span>
+                            <span ng-if="!sendToUsers">Não Enviar para Usuários</span>
+                        </li>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <select ng-disabled="!sendToUsers && !sendToAgencies" class="form-control" type="text"
+                            ng-change="selectedRegion()" ng-model="regionOption" ng-options="a.value as a.title for a in regions">
+
+                            <option value="">Filtro por Região</option>
+                        </select>
+                        <li ng-show="!sendToUsers && !sendToAgencies || regions_selected.length <= 0" class="list-group-item d-flex justify-content-between align-items-center">
+                            <p>Selecione o Filtro de Região</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="selected in regions_selected">
+                            {{selected | uppercase}}
+                            <span class="badge badge-danger badge-pill pointer" ng-click="deleteRegionOption(selected)">X</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <select ng-disabled="!sendToUsers && !sendToAgencies" class="form-control" type="text"
+                            ng-change="selectedState()" ng-model="stateOption" ng-options="a as a.name for a in states">
+
+                            <option value="">Filtro por Estado</option>
+                        </select>
+                        <li ng-show="!sendToUsers && !sendToAgencies || state_selected.length <= 0" class="list-group-item d-flex justify-content-between align-items-center">
+                            <p>Selecione o Filtro de Estado</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="selected in state_selected">
+                            {{ selected.name }}
+                            <span class="badge badge-danger badge-pill pointer" ng-click="deleteStateOption(selected)">X</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        <select ng-disabled="!sendToUsers && !sendToAgencies" class="form-control" type="text" ng-model="statusOption"
+                            ng-options="a.value as a.title for a in agency_status" ng-change="selectedStatus()">
+                            <option value="">Filtro por Status</option>
+                        </select>
+                        <li ng-show="status_selected.length <= 0" class="list-group-item d-flex justify-content-between align-items-center">
+                            <p>Selecione o Filtro de Status</p>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="selected in status_selected">
+                            {{selected | statusMapper}}
+                            <span class="badge badge-danger badge-pill pointer" ng-click="deleteStatusOption(selected)">X</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-offset-10 col-md-2">
+                    <button ng-disabled="sendGroupValidator()" class="btn btn-success" ng-click="sendGroupCampaign(campaign, scheduled.date, scheduled.time)">Criar
+                        Campanha</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12" ng-show="sendType=='specific'">
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">Envio Específico</h4>
+        </div>
+        <div class="panel-body">
+
+
+            <div id="rootwizard">
+
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="?#agency-tab1" data-toggle="tab">
+                            <i class="fa fa-home m-r-xs"></i>Agências
+                        </a>
+                    </li>
+                    <li role="presentation" id="user-tab-trash">
+                        <a href="?#user-tab2" data-toggle="tab">
+                            <i class="fa fa-user m-r-xs"></i>Usuários
+                        </a>
+                    </li>
+                    <li role="presentation" id="user-tab-trash">
+                        <a href="?#selected-tab3" data-toggle="tab">
+                            <i class="fa fa fa-check"></i>Emails Selecionados
+                            <span style="background: whitesmoke;
+                                                                border: 1px solid #e0e0e0b6;
+                                                                border-radius: 25px;
+                                                                padding: 5px;
+                                                                margin: 0.3em;cursor:pointer">{{agenciesSelected.length
+                                + usersSelected.length}}</span>
+
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane active fade in" id="agency-tab1">
+
+                        <ba-table ba-table-resource="resourceAgency" ba-table-items="agencies" ba-table-id="'Agency'"
+                            ba-table-filter-criteria="filterCriteriaAgency">
+
+                            <ba-table-header filter="filter">
+                                <form ng-submit="filterAgency(search)">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Todas Regiões</label>
+
+                                            <select class="form-control" id="region_id" ng-model="search.region"
+                                                ng-options="s.value as s.title for s in regions">
+                                                <option value=""></option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Estado</label>
+                                            <select class="form-control" id="uf_id" ng-model="search.uf" ng-options="uf.title as uf.title for uf in ufs">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Todos Status</label>
+
+                                            <select class="form-control" id="status_id" ng-model="search.status"
+                                                ng-options="s.value as s.title for s in agency_status">
+                                                <option value=""></option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Buscar</label>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" ng-model="search.search" />
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-success" type="button" ng-click="filterAgency(search)">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ba-table-header>
+
+                            <ba-table-body>
+
+                                <table id="data-table-agency" class="display table table-striped table-condensed table-hover"
+                                    style="width: 100%; cellspacing: 0;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                                    ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort>
+                                            </th>
+                                            <th>
+                                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                                    ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">Agência</ba-table-sort>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="agency in agencies">
+                                            <td>{{agency.email}}</td>
+                                            <td>{{agency.title}}</td>
+                                            <td>
+                                                <input type="checkbox" ng-model="agency.send" ng-init="getAgencySendState(agency)"
+                                                    ng-click="addOrRemoveAgency(agency, agency.send)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </ba-table-body>
+
+                        </ba-table>
+
+                    </div>
+
+                    <div class="tab-pane fade in" id="user-tab2">
+
+                        <ba-table ba-table-resource="resourceUser" ba-table-items="users" ba-table-id="'User'"
+                            ba-table-filter-criteria="filterCriteriaUser">
+
+                            <ba-table-header filter="filter">
+                                <form ng-submit="filterUser(search)">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>Região</label>
+                                            <select class="form-control" ng-model="search.region" ng-options="s.value as s.title for s in region">
+                                                <option value=""></option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Estado</label>
+                                            <select class="form-control" id="uf_id" ng-model="search.uf" ng-options="uf.title as uf.title for uf in ufs">
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Todos Status</label>
+                                            <select class="form-control" ng-model="search.status" ng-options="s.value as s.title for s in user_status">
+                                                <option value=""></option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Buscar</label>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                        ng-model="search.search" />
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-success" type="button" ng-click="filterUser(search)">
+                                                            <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ba-table-header>
+
+
+                            <ba-table-body>
+
+                                <table id="data-table-user" class="display table table-striped table-condensed table-hover"
+                                    style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                                    ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort>
+                                            </th>
+                                            <th>
+                                                <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy"
+                                                    ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">Usuário</ba-table-sort>
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="user in users">
+                                            <td>{{user.email}}</td>
+                                            <td>{{user.name}}</td>
+                                            <td>
+                                                <input type="checkbox" ng-model="user.send" ng-init="getUserSendState(user)"
+                                                    ng-click="addOrRemoveUser(user, user.send)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </ba-table-body>
+
+                        </ba-table>
+
+                    </div>
+
+                    <div class="tab-pane fade in" id="selected-tab3">
+
+
+                        <table id="data-table-agency" class="display table table-striped table-condensed table-hover"
+                            style="width: 100%; cellspacing: 0;">
+
+                            <tbody>
+
+                                <tr ng-repeat="agencySelected in agenciesSelected">
+                                    <td>
+                                        <strong>AGÊNCIA</strong>
+                                    </td>
+                                    <td>{{agencySelected.email}}</td>
+                                    <td>{{agencySelected.title}}</td>
+                                    <td>
+                                        <input type="checkbox" ng-model="agencySelected.send" ng-change="addOrRemoveAgency(agencySelected, agencySelected.send)" />
+                                    </td>
+                                </tr>
+                                <tr ng-if="userSelected.send" ng-repeat="userSelected in usersSelected">
+                                    <td>
+                                        <strong>USUÁRIO</strong>
+                                    </td>
+                                    <td>{{userSelected.email}}</td>
+                                    <td>{{userSelected.name}}</td>
+                                    <td>
+                                        <input type="checkbox" ng-model="userSelected.send" ng-change="addOrRemoveUser(userSelected, userSelected.send)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+                        <br>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-offset-10 col-md-2">
+                                <button ng-disabled="(agenciesSelected.length + usersSelected.length) < 1" class="btn btn-success"
+                                    ng-click="sendSpecificCampaign(campaign, scheduled.date, scheduled.time)">Criar
+                                    Campanha</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

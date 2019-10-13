@@ -1,0 +1,57 @@
+<ba-table ba-table-resource="CardObservation" ba-table-items="observations" ba-table-filter-criteria="filterObservationCriteria">
+
+    <ba-table-body>
+
+        <table id="data-table-observation" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterObservationCriteria.sortedBy" ba-table-sort-by="filterObservationCriteria.orderBy" ba-table-sort-value="body">Observação</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterObservationCriteria.sortedBy" ba-table-sort-by="filterObservationCriteria.orderBy" ba-table-sort-value="emission.emitter_id">Criador</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterObservationCriteria.sortedBy" ba-table-sort-by="filterObservationCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="observation in observations">
+                    <td>
+                        {{observation.body | limitTo:20}}<div ng-if="observation.body.length > 20">...</div>
+                    </td>
+                    <td>{{observation.user.name}}</td>
+                    <td>{{observation.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td>
+                        <button ng-click="observation.open = !observation.open" class="btn btn-xs btn-success">
+                            <span class="fa" ng-class="{'fa-eye':!observation.open,'fa-eye-slash':observation.open}"></span>
+                        </button>
+                    </td>
+                </tr>
+
+                <tr ng-repeat-end ng-show="observation.open">
+                    <td colspan="5">
+                        <div>
+                            <strong>Emissão</strong>
+                            <div>
+                                {{observation.emission_id}}
+                                <a class="btn btn-xs btn-success" ui-sref="app.emission-show({id:observation.emission_id})" style="font-size: 9px" target="_blank"><span class="fa fa-external-link"></span></a>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <strong>Conteúdo</strong><br>
+                            <div id="observation-{{observation.id}}">
+                                {{observation.body}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr ng-if="observations.length <= 0">
+                    <td colspan="4">
+                        <h5 class="text-center">Nenhuma observação encontrada</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

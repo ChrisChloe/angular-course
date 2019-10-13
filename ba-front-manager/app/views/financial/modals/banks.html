@@ -1,0 +1,33 @@
+<div class="modal fade" id="banksOpt" tabindex="-1" role="dialog" aria-labelledby="banksOptLabel" ng-init="getBanks()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="banksOptLabel">Boletos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon3">Banco</span>
+                            <select class="form-control" ng-model="billets.bank_id" ng-options="bank.id as bank.name + ' - ' + bank.account for bank in banks">
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer m-t-lg">
+                <button style="margin-right: 10px"
+                        title="Selecione as faturas que deseja incluir ou clique no botão 'SELECIONAR TUDO'"
+                        id="create-billets" 
+                        class="btn btn-danger"
+                        ng-click="createBillets()"
+                        ng-disabled="inProcess">
+                    {{btnProcessBoleto}}
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

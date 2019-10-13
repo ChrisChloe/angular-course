@@ -1,0 +1,109 @@
+<ba-table ba-table-resource="resource" ba-table-items="details" ba-table-filter-criteria="filterCriteriaDetails" ba-table-disable-pagination="true">
+    <ba-table-header filter="filter"></ba-table-header>
+    <ba-table-body>
+        <table id="data-table-receipt" class="display table table-striped table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Registro</th>
+                    <th>Data de Ocorrência</th>
+                    <th>Data de Crédito</th>
+                    <th>Data de Vencimento</th>
+                    <th>Movimentação</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="detail in details.Details" style="cursor: pointer" data-toggle="collapse"
+                    data-target="#detailInfo-{{$index}}">
+                    <td>
+                        <i class="text-success fa fa-plus"></i>
+                    </td>
+                    <th>{{detail.name ? detail.name : 'Sem Informações'}}</th>
+                    <td>{{detail.register}}</td>
+                    <td>{{detail.dates.occurrence}}</td>
+                    <td>{{detail.dates.credit}}</td>
+                    <td>{{detail.dates.due}}</td>
+                    <td>{{detail.movement}}</td>
+                </tr>
+                <tr ng-repeat-end="">
+                    <td colspan="12" style="padding: 0 !important">
+                        <div id="detailInfo-{{$index}}" class="collapse">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-white">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-3">
+
+                                                    <div class="list-group">
+                                                        <a class="list-group-item disabled">
+                                                            Dados
+                                                        </a>
+                                                        <a class="pointer list-group-item ba-clipboard">Número do Documento: {{detail.num_doc ? detail.num_doc : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Conta: {{detail.account ? detail.account : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Agência: {{detail.agency ? detail.agency : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Confirmação: {{detail.confirmation ? detail.confirmation : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Liquidação: {{detail.liquidation ? detail.liquidation : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Cancelamento: {{detail.cancel ? detail.cancel : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard"><strong>{{detail.card ? detail.card : ' -'}}</strong></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="list-group">
+                                                        <a class="list-group-item disabled">
+                                                            Valores
+                                                        </a>
+                                                        <a class="pointer list-group-item ba-clipboard">Tarifa: {{detail.values.tariff ? (detail.values.tariff | currency
+                                                            : "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Multa: {{detail.values.mulct ? (detail.values.mulct | currency :
+                                                            "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Cancelado: {{detail.values.canceled ? (detail.values.canceled | currency
+                                                            : "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">IOF: {{detail.values.iof ? (detail.values.iof | currency : "R$ ":
+                                                            2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Pago: {{detail.values.paid ? (detail.values.paid | currency : "R$
+                                                            ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Líquido: {{detail.values.liquid ? (detail.values.liquid | currency
+                                                            : "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Despesas: {{detail.values.expenses ? (detail.values.expenses | currency
+                                                            : "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Crédito: {{detail.values.credit ? (detail.values.credit | currency
+                                                            : "R$ ": 2) : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">sac: {{detail.values.sac ? (detail.values.sac | currency : "R$ ":
+                                                            2) : ' -'}}</a>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-3">
+
+                                                    <div class="list-group">
+                                                        <a class="list-group-item disabled">
+                                                            Informações
+                                                        </a>
+                                                        <a class="pointer list-group-item ba-clipboard">Rejeições: {{detail.information.Rejections ? detail.information.Rejections
+                                                            : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Tarifas: {{detail.information.tariff ? detail.information.tariff
+                                                            : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Custas: {{detail.information.custodial ? detail.information.custodial :
+                                                            ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Liquidações: {{detail.information.liquidations ? detail.information.liquidations
+                                                            : ' -'}}</a>
+                                                        <a class="pointer list-group-item ba-clipboard">Baixas: {{detail.information.low ? detail.information.low :
+                                                            ' -'}}</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ba-table-body>
+</ba-table>

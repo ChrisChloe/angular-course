@@ -1,0 +1,102 @@
+<form ng-submit="save(bank_account)" name="bank_accountForm">
+    <div class="panel panel-white">
+        <div class="panel-body">
+
+            <div class="panel-heading">
+                <h3 class="panel-title col-md-6">
+                    Dados da conta bancária
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-3 m-r-n-md">
+                    <div class="col-md-8">
+                        <label>Nome do Banco</label>
+                        <input type="text"
+                               placeholder="Banco"
+                               required
+                               id="name" class="form-control"
+                               ng-model="bank_account.name"/>
+                    </div>
+                    <div class="col-md-4 m-l-n-md">
+                        <label>Código</label>
+                        <input type="text"
+                               placeholder="Codigo"
+                               required
+                               id="codigo" class="form-control"
+                               ng-model="bank_account.code"/>
+                    </div>
+                </div>
+                <div class="col-md-2 m-l-n-md">
+                    <label>Slug do Banco</label>
+                    <input type="text"
+                           placeholder="Slug do banco"
+                           required
+                           id="slug" class="form-control col-md-10"
+                           ng-model="bank_account.slug"/>
+                </div>
+                <div class="col-md-3 m-l-n-md m-r-n-md">
+                    <div class="col-md-8">
+                        <label for="account">Nº Conta</label>
+                        <input type="text"
+                               pattern="[0-9]+"
+                               placeholder="0000000"
+                               required
+                               title="Nº da Conta - *Apenas numeros"
+                               id="account" class="form-control col-md-10"
+                               ng-model="bank_account.account"/>
+                    </div>
+                    <div class="col-md-4 m-l-n-md">
+                        <label for="account_digit">Dígito</label>
+                        <input type="text"
+                               pattern="[0-9]+"
+                               maxlength="3"
+                               placeholder="00"
+                               title="Dígito da Conta - *Apenas numeros"
+                               required
+                               id="account_digit" class="form-control"
+                               ng-model="bank_account.account_digit"/>
+                    </div>
+                </div>
+                <div class="col-md-3 m-l-n-lg m-r-n-lg">
+                    <div class="col-md-8">
+                        <label for="agency">Nº Agência</label>
+                        <input type="text"
+                               pattern="[0-9]+"
+                               title="Agência - *Apenas numeros"
+                               placeholder="0000000"
+                               required
+                               id="agency" class="form-control col-md-10"
+                               ng-model="bank_account.agency"/>
+                    </div>
+                    <div class="col-md-4 m-l-n-md">
+                        <label for="agency_digit">Dígito</label>
+                        <input type="text"
+                               pattern="[0-9]+"
+                               placeholder="00"
+                               maxlength="3"
+                               title="Dígito da agência - *Apenas numeros"
+                               required
+                               id="agency_digit" class="form-control"
+                               ng-model="bank_account.agency_digit"/>
+                    </div>
+                </div>
+                <div class="col-md-2 m-l-n-xs">
+                    <label for="amount">Saldo</label>
+                    <input type="text"
+                           ng-model="bank_account.amount"
+                           placeholder="R$ 0,00"
+                           id="amount"
+                           ui-money-mask="2"
+                           class="form-control"/>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="col-md-12">
+                <br>
+                <a href="#/bank-account" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success pull-right">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>

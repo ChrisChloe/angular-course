@@ -1,0 +1,50 @@
+<div class="col-md-6">
+    <div class="panel panel-white">
+    <div class="panel-body clearfix" style="padding-bottom: 0!important;">
+        <div class="col-md-4">
+            <!-- <h4 class="panel-title">
+                    Cotações: {{counters.searches_count}}<br>
+                    Último(a) semana: {{counters.searches_count_week | number}} | mês: {{counters.searches_count_month | number}}
+                </h4> -->
+            <ul class="list-group">
+                <li class="list-group-item disabled" style="cursor: default;">
+                    <strong>Cotações</strong>
+                </li>
+                <li class="list-group-item"><strong>Total: </strong>{{user.searches_count_total | number}}</li>
+                <li class="list-group-item"><strong>Hoje:</strong> {{user.searches_count_today  | number}}</li>
+                <li class="list-group-item"><strong>Semana:</strong> {{user.searches_count_week | number}}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <!-- <h4 class="panel-title">
+                    OP's: {{counters.ops_count | number}}<br>
+                    Último(a) semana: {{counters.ops_count_week | number}} | mês: {{counters.ops_count_month | number}}
+                </h4> -->
+            <ul class="list-group">
+                <li class="list-group-item disabled" style="cursor: default;">
+                    <strong>OPS</strong>
+                </li>
+                <li class="list-group-item"><strong>Total:</strong> {{user.ops_count_total | number}}</li>
+                <li class="list-group-item"><strong>Hoje:</strong> {{user.ops_count_today  | number}}</li>
+                <li class="list-group-item"><strong>Semana:</strong> {{user.ops_count_week | number}}</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <!-- <h4 class="panel-title">Pagamentos: {{counters.payments_count | number}}<br> Último(a) semana: {{counters.payments_count_week
+                    | number}} | mês: {{counters.payments_count_month | number}}
+                </h4> -->
+            <ul class="list-group">
+                <li class="list-group-item disabled" style="cursor: default;">
+                    <strong>Emissões</strong>
+                </li>
+                <li class="list-group-item"><strong>Total:</strong> {{user.emissions_count_total | number}}</li>
+                <li class="list-group-item"><strong>Hoje:</strong> {{user.emissions_count_today  | number}}</li>
+                <li class="list-group-item"><strong>Semana:</strong> {{user.emissions_count_week | number}}</li>
+            </ul>
+            
+        </div>
+        
+    </div>
+</div>
+</div>
+

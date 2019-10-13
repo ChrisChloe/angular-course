@@ -1,0 +1,45 @@
+<div class="modal fade" id="remittance-return" tabindex="-1" role="dialog" aria-labelledby="banksOptLabel" ng-init="getRemittanceBanks()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!-- <h4 class="modal-title" id="banksOptLabel">Selecione o Banco</h4> -->
+            </div>
+            <div class="modal-body">
+                <form ng-app="fileUpload" name="remittance_return.form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="sizing-addon3">Banco</span>
+                                        <select class="form-control" ng-model="remittance_return.remittance_return_bank_id" ng-options="bank.id as bank.name + ' - ' + bank.account for bank in remittance_return_banks">
+                                            <option value="">Selecione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row m-t-md">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span title="Arquivo retorno" class="input-group-addon" id="sizing-addon3">Arquivo</span>
+                                        <div class="btn btn-default btn-block" ngf-select ng-model="remittance_return.file" type="button" name="file" ngf-pattern="'.txt,.TXT,.RET,.ret'"
+                                        ngf-accept="'.txt,.TXT,.RET,.ret'" ngf-max-size="2MB" ngf-min-height="100"
+                                        ngf-resize="{width: 100, height: 100}">{{remittance_return.file ? remittance_return.file.name.substr(0,16) : 'Selecione...'}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-t-md pull-right">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" type="button" data-dismiss="modal">Fechar</button>
+                                    <button class="btn btn-danger" id="send-remittance-return" type="submit" ng-click="submit()" ng-disabled="!remittance_return.file || !remittance_return.remittance_return_bank_id">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

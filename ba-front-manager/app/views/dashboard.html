@@ -1,0 +1,129 @@
+<div id="main-wrapper">
+    <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel info-box panel-white">
+                <div class="panel-body">
+                    <div class="info-box-stats">
+                        <p class="counter">{{ $amountUser }}</p>
+                        <span class="info-box-title">Total de Usuários</span>
+                    </div>
+                    <div class="info-box-icon">
+                        <i class="icon-users"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress progress-xs progress-squared bs-n">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel info-box panel-white">
+                <div class="panel-body">
+                    <div class="info-box-stats">
+                        <p class="counter">{{ $amountAgencies }}</p>
+                        <span class="info-box-title">Total de Agências</span>
+                    </div>
+                    <div class="info-box-icon">
+                        <i class="icon-home"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress progress-xs progress-squared bs-n">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel info-box panel-white">
+                <div class="panel-body">
+                    <div class="info-box-stats">
+                        <p class="counter">{{ $amountQuotations }}</p>
+                        <span class="info-box-title">Qtd de Cotações (hoje)</span>
+                    </div>
+                    <div class="info-box-icon">
+                        <i class="icon-plane"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress progress-xs progress-squared bs-n">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50"
+                                 aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- Row -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quantidade de OP's</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris4"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    Diário
+                </div>
+                <div class="panel-body">
+                    <h3 class="panel-title">
+                        <input name="date_daily" id="filter-daily" class="form-control" placeholder="Data"
+                               style="width:160px"/>
+                    </h3>
+                    <table class="display table" id="data-table-agencies-daily" style="width: 100% !important;">
+                        <thead>
+                        <tr>
+                            <th>Agência</th>
+                            <th>Cotações</th>
+                            <th>OP's</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    Mensal
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <h3 class="panel-title">
+                            <input name="date_monthly" id="filter-monthly" class="form-control" placeholder="Data"
+                                   style="width:160px"/>
+                        </h3>
+                        <table class="display table" id="data-table-agencies-monthly"
+                               style="width: 100% !important;">
+                            <thead>
+                            <tr>
+                                <th>Agência</th>
+                                <th>Cotações</th>
+                                <th>OP's</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

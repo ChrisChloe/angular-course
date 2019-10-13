@@ -1,0 +1,180 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Desconto / Acréscimo
+            </h3>
+        </div>
+        <div id="adjustment">
+            <div class="panel-body">
+
+                <form ng-submit="addAdjustment(adjustment)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="adjustment-company" ng-init="adjustment.company=''">Companhia Aérea:</label>
+                            <ui-select ng-model="adjustment.company" id="adjustment-company" title="Busca por cartão" style="width:100px;width: 100%">
+                                <ui-select-match placeholder="Cia...">
+                                    <img ng-src="images/logo-{{ $select.selected.title | lowercase }}.png" title="{{ $select.selected.title }}" style="width:70px;"
+                                    />
+                                </ui-select-match>
+                                <ui-select-choices repeat="company in companies">
+                                    <div style="height:30px;">
+                                        <img ng-src="images/logo-{{ company.title | lowercase }}.png" title="{{ company.title }}" style="width:70px" />
+                                    </div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Aplicação:</label>
+                            <select class="form-control" ng-model="adjustment.type_application" ng-options="type.value as type.title for type in applicationTypes"
+                                ng-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label>Cálculo:</label>
+                            <select ng-change="clearValueField()" class="form-control" ng-model="adjustment.type_calculation" ng-options="type.value as type.title for type in calculationTypes"
+                                ng-required="true">
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Operação:</label>
+                            <select class="form-control" ng-model="adjustment.type" ng-options="type.value as type.title for type in adjustmentTypes"
+                                ng-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Tarifa:</label>
+                            <select class="form-control" ng-model="adjustment.type_fare" ng-options="type.value as type.title for type in fareTypes"
+                                ng-required="true"></select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Tipo de Voo:</label>
+                            <select class="form-control" ng-options="type.value as type.title for type in flightTypes" ng-model="adjustment.type_flight"
+                                ng-required="true"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="control-group">
+                            <div class="col-md-6">
+                                <label for="value">Valor</label>
+                                <input type="text" class="form-control" id="value" ng-model="adjustment.value" placeholder="R$" ui-money-mask style="transition: visibility 0s, opacity 0s linear;"
+                                    ng-if="!adjustment.type_calculation || adjustment.type_calculation == 'money'" ng-required="true"
+                                />
+                                <input type="text" class="form-control" ng-model="adjustment.value" placeholder="%" ui-percentage-mask ui-percentage-value
+                                    ng-change="limitAdjustmentValue(adjustment)" style="transition: visibility 0s, opacity 0s linear;"
+                                    ng-if="adjustment.type_calculation == 'percentage'" ng-required="true" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <br>
+                                <button type="submit" class="btn btn-success btn-md">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+
+                <br>
+                <h5 ng-if="adjustments.length > 0">Descontos/Acréscimos Existentes<span class="caret"></span></h5>
+                <hr>
+
+                <div ng-repeat="adjustment in adjustments | orderBy:'id'">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Companhia Aérea:</label>
+                            <br>
+                            <img ng-src="images/logo-{{ adjustment.company.title | lowercase }}.png" title="{{ adjustment.company.title }}" style="width:60px"
+                            />
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label>Aplicação:</label>
+                            <select class="form-control" ng-model="adjustment.type_application" ng-options="type.value as type.title for type in applicationTypes"
+                                ng-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label>Cálculo:</label>
+                            <select ng-change="clearValueField()" class="form-control" ng-model="adjustment.type_calculation" ng-options="type.value as type.title for type in calculationTypes"
+                                ng-required="true">
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="adjustment-type-{{$index}}">Operação</label>
+                            <select id="adjustment-type-{{$index}}" class="form-control" ng-options="type.value as type.title for type in adjustmentTypes"
+                                ng-model="adjustment.type" ng-required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label>Tarifa:</label>
+                            <select class="form-control" ng-options="type.value as type.title for type in fareTypes" ng-model="adjustment.type_fare"
+                                ng-required="true"></select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Tipo de Voo:</label>
+                            <select class="form-control" ng-options="type.value as type.title for type in flightTypes" ng-model="adjustment.type_flight"
+                                ng-required="true"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="control-group">
+                            <div class="col-md-6">
+                                <label for="adjustment-value-{{$index}}">Valor</label>
+                                <input type="text" name="adjustment-value-{{$index}}" id="adjustment-value-{{$index}}" class="form-control" id="value" ng-model="adjustment.value"
+                                    placeholder="R$" ui-money-mask style="transition: visibility 0s, opacity 0s linear;" ng-if="!adjustment.type_calculation || adjustment.type_calculation == 0 || adjustment.type_calculation === 'money'"
+                                    ng-required="true" />
+                                <input type="text" name="adjustment-value-{{$index}}" id="adjustment-value-{{$index}}" class="form-control" ng-model="adjustment.value"
+                                    placeholder="%" ui-percentage-mask ui-percentage-value ng-change="limitAdjustmentValue(adjustment)"
+                                    style="transition: visibility 0s, opacity 0s linear;" ng-if="adjustment.type_calculation == 'percentage'"
+                                    ng-required="true" />
+                            </div>
+                            <div class="col-md-6">
+                                <br/>
+                                <button class="btn btn-success btn-sm mt-05" ng-click="saveAdjustment(adjustment)">
+                                    <i class="fa fa-save"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm mt-05" title="Remover" mwl-confirm message="O desconto/acréscimo será removido, você tem certeza?"
+                                    confirm-text="Sim" cancel-text="Não" placement="left" on-confirm="removeAdjustment(adjustment)"
+                                    confirm-button-type="success" cancel-button-type="danger" cancel-button-type="default">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <hr>
+
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

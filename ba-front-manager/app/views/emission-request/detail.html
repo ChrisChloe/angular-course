@@ -1,0 +1,103 @@
+<div class="panel panel-white">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <div style="margin-bottom:25px" class="panel-heading">
+                    <h4>ID #{{request.id}}</h4>
+                </div> -->
+                <h4>PASSAGEIROS</h4>
+                <div>
+                    <table class="display table table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th style="padding:15px">ID</th>
+                                <th style="padding:15px">Nome</th>
+                                <th style="padding:15px">CPF</th>
+                                <th style="padding:15px">Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="passenger in request.passengers">
+                                <td>
+                                    <strong>#{{passenger.id}}</strong>
+                                </td>
+                                <td>{{ passenger.fullname }}</td>
+                                <td>{{ passenger.cpf ? passenger.cpf : '--' }}</td>
+                                <td>{{ passenger.type_title }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ul class="list-group">
+                        <li class="list-group-item disabled"><strong>Observação</strong></li>
+                        <li class="list-group-item">{{ request.observation ? request.observation : '-' }}</li>
+                    </ul>
+                    <div class="col-md-12">
+
+                        <p ng-if="request.hash">
+                            <strong>Token Busca: </strong>{{request.hash}}
+                            <button ng-click="copyToken('buscaaereo-' + request.id)" class="btn btn-success btn-xs"
+                                title="Copiar Buscaaereo">
+                                <i class="fa fa-copy"></i>
+                            </button>
+                        </p>
+
+                        <p ng-if="request.hash_in8">
+                            <strong>Token IN8: </strong>{{request.hash_in8}}
+                            <button ng-click="copyToken('in8-' + request.id)" class="btn btn-success btn-xs" title="Copiar IN8">
+                                <i class="fa fa-copy"></i>
+                            </button>
+                        </p>
+
+
+
+                        <input style="opacity: 0; position: absolute; z-index: -1" ng-model="request.hash" id="{{'buscaaereo-' + request.id}}">
+                        <input style="opacity: 0; position: absolute; z-index: -1" ng-model="request.hash_in8" id="{{'in8-' + request.id}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h4>HISTÓRICO</h4>
+                <table class="display table table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="padding:15px">ID</th>
+                            <th ng-if="request.logs.length > 0" style="padding:15px">Data</th>
+                            <th ng-if="request.logs.length > 0" style="padding:15px">Mensagem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-if="request.logs.length <= 0">
+                            <td><strong>Sem Histórico</strong></td>
+                        </tr>
+                        <tr ng-repeat="log in request.logs">
+                            <td>
+                                <strong>{{$index+1}}</strong>
+                            </td>
+                            <td>{{log.created_at | toDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                            <td>{{log.message}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!-- <div ng-repeat="log in request.logs">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4>{{$index + 1}}</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Criado em</h4>
+                            <p>{{ log.created_at }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Mensagem</h4>
+                            <p>{{ log.message }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>

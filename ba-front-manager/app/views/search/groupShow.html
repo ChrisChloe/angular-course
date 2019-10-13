@@ -1,0 +1,66 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">{{title}} #{{ SearchGroup.id }}</h4>
+        </div>
+        <div class="panel-body">
+            <h3>Dados Pesquisa</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Tipo:</strong> {{SearchGroup.type_trip_title}}</li>
+                        <li><strong>Adultos(ADT):</strong> {{SearchGroup.searches[0].adults}}</li>
+                        <li><strong>Crianças(CHD):</strong> {{SearchGroup.searches[0].children}}</li>
+                        <li><strong>Bebês(BB):</strong> {{SearchGroup.searches[0].babies}}</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Partida:</strong> {{SearchGroup.date_starting | toDate | date:'dd/MM/yyyy'}}</li>
+                        <li><strong>Chegada:</strong> {{SearchGroup.date_back | toDate | date:'dd/MM/yyyy'}} <span ng-if="!SearchGroup.date_back">--</span></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Origem: </strong> {{SearchGroup.origin.title}}
+                            (<strong>{{SearchGroup.origin.initials}}</strong>)
+                        </li>
+                        <li><strong>Destino:</strong> {{SearchGroup.destination.title}} (<strong>{{SearchGroup.destination.initials}}</strong>)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Usuário:</strong> <a ui-sref="app.user-edit(SearchGroup.user)">{{SearchGroup.user.name}}</a></li>
+                        <li ng-if="SearchGroup.user.agency"><strong>Agência:</strong> <a ui-sref="app.agency-edit(SearchGroup.user.agency)">{{SearchGroup.user.agency.title}}</a></li>
+                        <li><strong>Realizado:</strong> {{SearchGroup.created_at | toDate | date:'dd/MM/yy HH:mm'}}</li>
+                        <li><strong>Qtd. Cia:</strong> {{SearchGroup.count_search}}</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <br>
+            <!--<hr/>
+            <h3>Resultado</h3>
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="?#flights-list" data-toggle="tab">Voos de Ida</a></li>
+                <li ng-if="SearchGroup.flights_back.length"><a href="?#flights-back-list" data-toggle="tab">Voos de Volta</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="flights-list" class="tab-pane fade in active">
+                    <ba-table-flights flights="SearchGroup.flights"></ba-table-flights>
+                </div>
+                <div id="flights-back-list" class="tab-pane fade" ng-if="SearchGroup.flights_back.length">
+                    <ba-table-flights flights="SearchGroup.flights_back"></ba-table-flights>
+                </div>
+            </div> -->
+
+
+        </div>
+    </div>
+</div>

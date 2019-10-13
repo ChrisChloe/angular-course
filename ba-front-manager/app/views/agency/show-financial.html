@@ -1,0 +1,40 @@
+<div ng-controller="AgencyEditCtrl">
+
+    <div class="row">
+        
+        <div class="col-md-6">
+
+            <ng-include ng-show="isFinancial()" src="'views/agency/credits.html'" />
+
+            <ng-include ng-show="isFinancial()" src="'views/agency/debits.html'" />
+
+            <ng-include x ng-show="isFinancial()" src="'views/agency/paymentconfig.html'" />
+        </div>
+
+        <div class="col-md-6">
+
+            <ng-include ng-show="isFinancial()" src="'views/adjustment/form.html'" />
+            
+            <ng-include ng-show="isFinancial()" src="'views/coupon/form.html'" />
+            
+            
+        </div>
+    </div>
+
+    <!-- <div class='row' >
+        <div class="col-md-1">
+            <a class="btn btn-success" >Salvar</a>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-danger" ng-href="/#/agency/{{agency.id}}/edit">Voltar</a>
+        </div>
+    </div> -->
+
+    <div class="panel-footer" ng-show="isManager()">
+        <a  ui-sref="app.agency" class="btn btn-danger">Cancelar</a>
+        <button type="submit" class="btn btn-success" ng-click="save(agency)">Salvar</button>
+    </div>
+
+    <h1 ng-show="!isManager()" style="text-align: center"> Acesso não permitido </h1>
+
+</div>

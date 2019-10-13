@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">
+        Alteração Status <span class="text-success">{{refund.status_title}}</span>
+    </h4>
+</div>
+
+<div class="modal-body">
+    <form action="" method="post" name="statusRefund">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <div class="btn-group btn-group-radio-bold" style="width:100%">
+                        <br>
+                        <label class="btn btn-default"
+                               ng-model="refund.status"
+                               uib-btn-radio="0"
+                               style="width: 25%"
+                               required="true">
+                            Solicitado
+                        </label>
+                        <label class="btn btn-warning"
+                               ng-model="refund.status"
+                               uib-btn-radio="1"
+                               style="width: 25%"
+                               required="true">
+                            Pendente
+                        </label>
+                        <label
+                               class="btn btn-danger"
+                               ng-model="refund.status"
+                               uib-btn-radio="3"
+                               style="width: 25%"
+                               required="true">
+                            Arquivado
+                        </label>
+                        <label
+                               class="btn btn-success"
+                               ng-model="refund.status"
+                               uib-btn-radio="2"
+                               style="width: 25%"
+                               required="true">
+                            Reembolsado
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="close()">Fechar</button>
+    <button type="button" class="btn btn-success" ng-click="save(refund)">Salvar</button>
+</div>

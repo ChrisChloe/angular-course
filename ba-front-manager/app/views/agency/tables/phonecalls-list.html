@@ -1,0 +1,39 @@
+<ba-table ba-table-resource="AgencyCallResource" ba-table-resource-function="'getPhoneCalls'" ba-table-items="phonecalls" ba-table-filter-criteria="filterAgencyCallCriteria">
+    <ba-table-body>
+        <table class="display table table-striped table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>
+                        De
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Data
+                    </th>
+                    <th>
+                        Audio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="phonecall in phonecalls">
+                    <td><strong>{{ phonecall.branch }}</strong></td>
+                    <td>{{ phonecall.type === 'force' ? 'Realizada' : 'Recebida' }}</td>
+                    <td>{{ phonecall.date | date:'dd/MM/yy H:mm' }}</td>
+                    <td style="width: 45%;">
+                        <button ng-if="!phonecall.key" ng-click="downloadPhonecall(phonecall)" class="btn btn-success btn-xs">
+                            <i class="fa" ng-class="{'fa-play': !phonecall.downloadingAudio, 'fa-spinner': phonecall.downloadingAudio, 'fa-spin': phonecall.downloadingAudio}"></i></button>
+                        <audio style="width: 100%;" ng-if="phonecall.key" ng-src="{{phonecall.key | trusted}}" autoplay="autoplay" controls="controls"></audio>
+                    </td>
+                </tr>
+                <tr ng-if="phonecalls.length <= 0">
+                    <td colspan="5">
+                        <h5 class="text-center">Nenhuma chamada encontrada</h5>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ba-table-body>
+</ba-table>

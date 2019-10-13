@@ -1,0 +1,50 @@
+
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Cupons de Desconto</h4>
+        </div>
+        <div class="panel-body">
+            <div id="rootwizard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="?#release-tab" data-toggle="tab" ng-click="releaseTab = true">
+                            <i class="fa fa-play-circle m-r-xs"></i>Liberação
+                        </a>
+                    </li>
+                    <li role="presentation" class="">
+                        <a href="?#agency-tab" data-toggle="tab" ng-click="agencyTab = true">
+                            <i class="fa fa-home m-r-xs"></i>Agências
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="?#user-tab" data-toggle="tab" ng-click="userTab = true">
+                            <i class="fa fa-user m-r-xs"></i>Usuários
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a class="?#trash-tab" href="?#trash-tab" data-toggle="tab" ng-click="trashTab = true">
+                            <i class="fa fa-trash m-r-xs"></i>Lixeira
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="release-tab" >
+                        <div ng-include="'views/coupon/tables/release.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="agency-tab" ng-if="agencyTab" ng-controller="CouponAgencyCtrl">
+                        <div ng-include="'views/coupon/tables/agency.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="user-tab" ng-if="userTab" ng-controller="CouponUserCtrl">
+                        <div ng-include="'views/coupon/tables/user.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="trash-tab" ng-if="trashTab" ng-controller="CouponTrashCtrl">
+                        <div ng-include="'views/coupon/tables/trash.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

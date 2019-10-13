@@ -1,0 +1,41 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="'agenciesByStatus'" ba-table-items="agenciesByStatus">
+
+    <ba-table-header filter="filter">
+
+    </ba-table-header>
+    <ba-table-body>
+        <table id="data-table-emission" class="display table table-striped table-condensed text-center" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Qtd. Ativa</th>
+                    <th>Qtd. Inativa</th>
+                    <th>Qtd. Desativada</th>
+                    <th>Qtd. Prospecção</th>
+                    <th>Qtd. Cadastur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="agency in agenciesByStatus">
+                    <td>{{agency.state}}</td>
+                    <td>{{agency.ativa}}</td>
+                    <td>{{agency.inativa}}</td>
+                    <td>{{agency.desativada}}</td>
+                    <td>{{agency.prospecção}}</td>
+                    <td>{{agency.cadastur}}</td>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Estado</th>
+                    <th>Qtd. Ativa</th>
+                    <th>Qtd. Inativa</th>
+                    <th>Qtd. Desativada</th>
+                    <th>Qtd. Prospecção</th>
+                    <th>Qtd. Cadastur</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,56 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Emissões</h3>
+        </div>
+
+        <div id="content-credits">
+            <div class="panel-body">
+                <ba-table ba-table-resource="resource" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria"
+                    ba-table-disable-pagination="true">
+                    <ba-table-header filter="filter"></ba-table-header>
+                    <ba-table-body>
+                        <table id="data-table-payment" class="display table table-striped table-condensed table-hover"
+                            style="width: 100%; cellspacing: 0;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Op</th>
+                                    <th>Venda</th>
+                                    <th>Data da Venda</th>
+                                    <th>Agência</th>
+                                    <th>Valor</th>
+                                    <th>Criado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="emission in emissions">
+                                    <td><a ui-sref="app.emission-edit(emission)" target="_blank" title="Editar">{{emission.id
+                                            }}</a></td>
+                                    <td><a ui-sref="app.op-show(emission.passenger.op)" target="_blank">{{emission.passenger.op.id}}</a></td>
+                                    <td ng-bind="emission.sale "></td>
+                                    <td>{{emission.sale_date | toDate | date:'dd/MM/y HH:mm'}}</td>
+                                    <td ng-bind="emission.passenger.op.agency.title"></td>
+                                    <td ng-bind="emission.miles_price+emission.shipping_rate | currency:'R$'"></td>
+                                    <td>{{emission.created_at | toDate | date:'dd/MM/y HH:mm'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Op</th>
+                                    <th>Venda</th>
+                                    <th>Data da Venda</th>
+                                    <th>Agência</th>
+                                    <th>Valor</th>
+                                    <th>Criado</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </ba-table-body>
+                </ba-table>
+            </div>
+        </div>
+    </div>
+</div>

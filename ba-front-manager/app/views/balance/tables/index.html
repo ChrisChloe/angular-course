@@ -1,0 +1,98 @@
+<ba-table ba-table-resource="resource" ba-table-items="balances">
+
+    <ba-table-body>
+            <table id="data-table-balance" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emission_id">Emissão</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles">Milhas</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles_additional">Milhas a confirmar</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="buy_price">Compra</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="buy_price_additional">Compra a confirmar</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale_price">Preço Venda</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="balance in balances">
+                    <th scope="row">
+                        <a ui-sref="app.emission-show({id:balance.emission_id})">{{balance.emission_id}}</a>
+                    </th>
+                    <td>{{balance.miles | number}}</td>
+                    <td>
+                        <div ng-if="balance.miles_additional && (balance.status == 2 || balance.status == 4)">{{balance.miles_additional | number}}</div>
+                        <div ng-if="!balance.miles_additional || balance.status == 3">--</div>
+                    </td>
+                    <td>{{balance.buy_price | currency}}</td>
+                    <td>
+                        <div ng-if="balance.buy_price_additional && (balance.status == 2 || balance.status == 4)">{{balance.buy_price_additional | currency}}</div>
+                        <div ng-if="!balance.buy_price_additional || balance.status == 3">--</div>
+                    </td>
+                    <td>{{balance.sale_price | currency}}</td>
+                    <td>{{balance.status_title}}</td>
+                    <td class="col-md-2">
+                        <button type="button"
+                                ng-if="!balance.is_confirmed"
+                                class="btn btn-success btn-xs"
+                                title="Confirmar"
+                                mwl-confirm
+                                message="A entrada será confirmada, você tem certeza?"
+                                confirm-text="Sim"
+                                cancel-text="Não"
+                                placement="left"
+                                on-confirm="confirm(balance)"
+                                confirm-button-type="success"
+                                cancel-button-type="danger"
+                                cancel-button-type="default">
+                            <i class="fa fa fa-check"></i>
+                        </button>
+                        <div class="btn btn-xs btn-default" ng-if="balance.is_confirmed" style="border:0px;">
+                            <i class="fa fa fa-check text-success"></i>
+                        </div>
+                        <button type="button"
+                                ng-if="!balance.is_canceled"
+                                class="btn btn-danger btn-xs"
+                                title="Cancelar"
+                                mwl-confirm
+                                message="A entrada será cancelada e o débito desfeito, você tem certeza?"
+                                confirm-text="Sim"
+                                cancel-text="Não"
+                                placement="left"
+                                on-confirm="cancel(balance)"
+                                confirm-button-type="success"
+                                cancel-button-type="danger"
+                                cancel-button-type="default">
+                            <i class="fa fa fa-remove"></i>
+                        </button>
+                        <div class="btn btn-xs btn-default" ng-if="balance.is_canceled" style="border:0px;">
+                            <i class="fa fa fa-remove text-danger"></i>
+                        </div>
+                        <!--<a ui-sref="app.balance-edit(balance)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>-->
+                        <!--<button type="button" class="btn btn-info btn-xs" title="Ver estoque" ng-click="showStock(balance)">-->
+                        <button type="button" class="btn btn-info btn-xs" title="Ver estoque" ng-click="showStock(balance)" ng-if="balance.emission.stock_id">
+                            <i class="fa fa fa-book"></i>
+                        </button>
+                        <button type="button" class="btn btn-info btn-xs" title="Ver estoque" ng-click="showProvider(balance)" ng-if="!balance.emission.stock_id">
+                            <i class="fa fa fa-book"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emission_id">Emissão</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles">Milhas</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="miles_additional">Milhas a confirmar</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="buy_price">Compra</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="buy_price_additional">Compra a confirmar</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale_price">Preço Venda</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status">Status</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

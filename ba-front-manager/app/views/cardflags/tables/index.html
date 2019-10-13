@@ -1,0 +1,101 @@
+<ba-table ba-table-resource="resource" ba-table-items="cardflags" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+
+    </ba-table-header>
+
+
+    <ba-table-body>
+
+        <table id="data-table-agency" class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="interest_credit">Juros
+                            de crédito</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="interest_sight_credit">Juros
+                            de crédito a vista</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="interest_debit">Juros
+                            de débito</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="plots">Parcelas</ba-table-sort>
+                    </th>
+
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th style="min-width: 140px; max-width: 150px;">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cardflag in cardflags">
+                    <td scope="row">{{cardflag.id}}</td>
+                    <td>{{cardflag.name}}</td>
+                    <td>{{cardflag.interest_credit}}%</td>
+                    <td>{{cardflag.interest_sight_credit}}%</td>
+                    <td>{{cardflag.interest_debit}}%</td>
+                    <td>{{cardflag.plots}}</td>
+                    <td>{{cardflag.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                    <td>
+
+                        <a ui-sref="app.cardflags-show(cardflag)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                        <a ui-sref="app.cardflags-edit(cardflag)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="id">ID</ba-table-sort>
+                    </th>
+                    
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="name">Nome</ba-table-sort>
+                    </th>
+                    
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="interest_credit">Juros de crédito</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="interest_sight_credit">Juros
+                            de crédito a vista</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="interest_debit">Juros de débito</ba-table-sort>
+                    </th>
+                    
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="plots">Parcelas</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="created_at">Criado</ba-table-sort>
+                    </th>
+                    <th style="min-width: 140px; max-width: 150px;">Ação</th>
+                </tr>
+
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

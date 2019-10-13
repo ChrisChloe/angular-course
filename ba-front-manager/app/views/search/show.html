@@ -1,0 +1,66 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">{{title}} #{{ search.id }}</h4>
+        </div>
+        <div class="panel-body">
+            <h3>Dados Pesquisa</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>CIA:</strong> {{search.company.title}} (<strong>{{search.company.initials}}</strong>)</li>
+                        <li><strong>Tipo:</strong> {{search.type_trip_title}}</li>
+                        <li><strong>Adultos(ADT):</strong> {{search.adults}}</li>
+                        <li><strong>Crianças(CHD):</strong> {{search.children}}</li>
+                        <li><strong>Bebês(BB):</strong> {{search.babies}}</li>
+
+                        <li><strong>QTD. Voos:</strong> Ida {{search.departure_flight_amount}} / Volta {{search.return_flight_amount}}</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Partida:</strong> {{search.date_starting | toDate | date:'dd/MM/yyyy'}}</li>
+                        <li><strong>Chegada:</strong> {{search.date_back | toDate | date:'dd/MM/yyyy'}} <span ng-if="!search.date_back">--</span></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Origem: </strong> {{search.origin.title}}
+                            (<strong>{{search.origin.initials}}</strong>)
+                        </li>
+                        <li><strong>Destino:</strong> {{search.destination.title}} (<strong>{{search.destination.initials}}</strong>)
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12">
+                    <ul class="list-inline list-unstyled">
+                        <li><strong>Usuário:</strong> <a ui-sref="app.user-edit(search.user)">{{search.user.name}}</a></li>
+                        <li ng-if="search.user.agency"><strong>Agência:</strong> <a ui-sref="app.agency-edit(search.user.agency)">{{search.user.agency.title}}</a></li>
+                        <li><strong>Realizado:</strong> {{search.created_at | toDate | date:'dd/MM/yy HH:mm'}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr/>
+            <h3>Resultado</h3>
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="?#flights-list" data-toggle="tab">Voos de Ida</a></li>
+                <li ng-if="search.flights_back.length"><a href="?#flights-back-list" data-toggle="tab">Voos de Volta</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="flights-list" class="tab-pane fade in active">
+                    <ba-table-flights flights="search.flights"></ba-table-flights>
+                </div>
+                <div id="flights-back-list" class="tab-pane fade" ng-if="search.flights_back.length">
+                    <ba-table-flights flights="search.flights_back"></ba-table-flights>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

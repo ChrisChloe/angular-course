@@ -1,0 +1,84 @@
+<form ng-submit="save(wallet)" name="walletForm">
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-wallet">
+                            <label for="name">Nome</label>
+                            <input type="text"
+                                   ng-model="wallet.name"
+                                   id="name"
+                                   placeholder="Nome"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="analyst_user_id">Analista</label>
+                        <ui-select
+                                id="analyst_user_id"
+                                ng-model="wallet.analyst_user_id"
+                                theme="bootstrap"
+                                   style="width: 100%;" title="Selecione o analista responsável"
+                                   on-select="onSelectAnalystUser($item, $model)">
+                            <ui-select-match placeholder="Selecione o analista responsável...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh="listUsers($select.search)" repeat="user.id as user in users" refresh-delay="500">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div ng-bind="user.name" style="font-weight:bold;"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="width: 20%;float: left; padding: 5px;">
+                                        Email:
+                                        <strong ng-if="user.email">{{user.email}}</strong>
+                                    </div>
+                                </div>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="manager_user_id">Gerente</label>
+                        <ui-select id="manager_user_id"
+                                ng-model="wallet.manager_user_id"
+                                theme="bootstrap"
+                                style="width: 100%;" title="Selecione o gerente responsável"
+                                on-select="onSelectManagerUser($item, $model)">
+                            <ui-select-match placeholder="Selecione o gerente responsável...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices refresh="listUsers($select.search)" repeat="user.id as user in users" refresh-delay="500">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div ng-bind="user.name" style="font-weight:bold;"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="width: 20%;float: left; padding: 5px;">
+                                        Email:
+                                        <strong ng-if="user.email">{{user.email}}</strong>
+                                    </div>
+                                </div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.wallet" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

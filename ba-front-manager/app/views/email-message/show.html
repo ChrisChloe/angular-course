@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Mensagem #{{message.id}}</h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Anexos</strong><br>
+            <span ng-repeat="attachment in attachments">
+                <span>{{attachment.title}}</span>
+            <ba-btn-download-mail></ba-btn-download-mail>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Remetente</strong><br>
+            <a href="{{linkAddress}}" target="_blank">
+                <span>{{message.from_name}} - {{message.from_address}}</span>
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Recebido</strong><br>
+            <span>{{message.received_at | toDate | date:'dd/MM/yy HH:mm:ss'}}</span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Assunto</strong><br>
+            <span ng-if="message.op_id !=null"><a target="_blank" href="#/email-message?search={{message.op_id }}">{{message.subject}}</a></span>
+            <span ng-if="message.op_id ==null">{{message.subject}}</span>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <strong>Conteúdo</strong><br>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div ng-bind-html="message.text_html" class="box-mail-content"></div>
+        </div>
+    </div>
+</div>

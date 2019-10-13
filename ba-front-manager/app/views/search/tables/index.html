@@ -1,0 +1,96 @@
+<ba-table ba-table-resource="resource" ba-table-items="searches">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-control" id="region_id"
+                            ng-model="search.region"
+                            ng-options="s.value as s.title for s in region">
+                        <option value="">Regional</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <select class="form-control" id="group_id"
+                            ng-model="search.group"
+                            ng-options="group.id as group.name for group in groups">
+                        <option value="">Grupo</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control" id="status"
+                            ng-model="search.status"
+                            ng-options="s.value as s.title for s in status">
+                        <option value="">Status</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+            <table id="data-table-search" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="company.title">Cia</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="origin.initials">Origem</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="destination.initials">Destino</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="date_starting">Partida</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="date_back">Volta</ba-table-sort></th>
+                    <th>Passageiros</th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="user.agency.title">Agência</ba-table-sort></th>
+                    <th>Status</th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="search in searches" >
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.id}}</td>
+                    <td title="{{search.company.title}}" ng-class="{'alert alert-warning':search.has_ops}">
+                        <img ng-src="images/logo-{{search.company.title | lowercase}}.png" style="width:60px;"/>
+                    </td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.origin.initials}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.destination.initials}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.date_starting | toDate | date:'dd/MM/yy'}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{(search.date_back    | toDate | date:'dd/MM/yy') || '--'}}</td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">
+                        <ul class="list-unstyled">
+                            <li><strong>ADT:</strong>{{search.adults}}</li>
+                            <li><strong>CHD:</strong>{{search.children}}</li>
+                            <li><strong>INF:</strong>{{search.babies}}</li>
+                        </ul>
+                    </td>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">
+                        <span ng-if="search.user.agency">{{search.user.agency.title}}</span>
+                        <span ng-if="!search.user.agency" class="text-danger">{{search.user.name}}</span>
+                    </td>
+                    <th>{{search.status_title}}</th>
+                    <td ng-class="{'alert alert-warning':search.has_ops}">{{search.created_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                    <td class="col-md-2" ng-class="{'alert alert-warning':search.has_ops}">
+                        <a ui-sref="app.search-show(search)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,34 @@
+<div class="row" ng-if="!disablePagination">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">Mostrando</span>
+            <select ng-options="size as size for size in [5, 10,15,20,50,100,200]"
+                    class="form-control"
+                    style="width: 80px"
+                    ng-model="pagination.itemsPerPage"
+                    ng-change="showEntries(pagination.itemsPerPage)"></select>
+            <span class="input-group-addon" style="width: 100%">de {{pagination.totalItems}} registro(s)</span>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+        <div class="pull-right">
+            <ul uib-pagination
+                boundary-links="true"
+                total-items="pagination.totalItems"
+                items-per-page="pagination.itemsPerPage"
+                ng-model="pagination.currentPage"
+                ng-disabled="disabledPagination"
+                class="pagination-md"
+                previous-text="&lsaquo;"
+                next-text="&rsaquo;"
+                first-text="&laquo;"
+                last-text="&raquo;"
+                max-size="paginationMaxSize"
+                ng-change="pageChanged(pagination.currentPage)"></ul>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,72 @@
+<ba-table ba-table-resource="resource" ba-table-items="accounts_received" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+
+        <form ng-submit="filter(search)">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon3">Tipo</span>
+                    <select class="form-control" ng-model="search.type"
+                            ng-options="type.id as type.name for type in credit_types">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon3">Banco</span>
+                    <select class="form-control" ng-model="search.bank_id"
+                            ng-options="bank_account.id as bank_account.name + ' - ' + bank_account.account for bank_account in bank_accounts">
+                        <option value="">Selecione</option>
+                    </select>
+                    <div class="input-group-btn">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+            <table id="data-table-agency" class="display table table-condensed" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Conta</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Criado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="account_received in accounts_received">
+                    <th scope="row">{{account_received.id}}</th>
+                    <td>
+                        <a ui-sref="app.bank-account-show(account_received.bank_account)" target="_blank">
+                            {{account_received.bank_account.name + ' - ' + account_received.bank_account.account}}
+                        </a>
+                    </td>
+                    <td>{{account_received.observation}}</td>
+                    <td>{{account_received.type.name}}</td>
+                    <td>{{account_received.amount | currency }}</td>
+                    <td>{{account_received.created_at | toDate | date:'dd/MM/yy H:mm'}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Conta</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Criado</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        Motivo Da Troca Do Cartão
+    </h4>
+</div>
+
+<div class="modal-body">
+    <form name="formCardUse">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="type">Motivo</label>
+                    <select class="form-control"
+                            id="type"
+                            name="type"
+                            ng-model="card_use.type"
+                            ng-options="type.value as type.title for type in cardUseTypes"
+                            required>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="observation">Observação</label>
+                    <textarea class="form-control"
+                              id="observation"
+                              ng-model="card_use.observation"
+                              rows="5"
+                              style="width:260px;max-width:260px;"
+                              placeholder="Detalhe aqui o motivo"
+                              ng-required="card_use.type == 1"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" ng-click="close()" ng-disabled="sending">Não Trocar</button>
+    <button type="button" class="btn btn-success" ng-click="save(card_use)" ng-disabled="formCardUse.$invalid || sending">
+        <i class="fa fa-spinner fa-spin" ng-show="sending"></i>
+        <span ng-show="!sending">Trocar</span>
+    </button>
+</div>

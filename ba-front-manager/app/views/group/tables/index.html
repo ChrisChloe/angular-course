@@ -1,0 +1,58 @@
+<ba-table ba-table-resource="resource" ba-table-items="groups">
+
+    <ba-table-body>
+        <table id="data-table-group" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="description">Descrição</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_by">Criado por</ba-table-sort></th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="group in groups">
+                <th scope="row">{{group.id}}</th>
+                <td>{{group.name}}</td>
+                <td title="{{group.description}}">{{ group.description ? group.description.substring(0,15) + '...' : ''}}</td>
+                <td>{{group.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td>{{group.updated_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                <td>{{group.created_by}}</td>
+                <td class="col-md-3">
+                    <a ui-sref="app.group-show(group)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                    <a ui-sref="app.group-edit(group)" class="btn btn-xs btn-info " title="Editar"><i class="fa fa-edit"></i></a>
+                    <div class="btn btn-xs btn-danger  dropdown">
+                        <a type="button" class="dropdown-toggle"  data-toggle="dropdown" style="color:white;">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <ul class="custom-dropdown dropdown-menu dropdown-menu-right" role="menu">
+                            <li>
+                                <a ng-click="trash(group)">Excluir</a>
+                            </li>
+                            <li>
+                                <a>Cancelar</a>
+                            </li>
+                        </ul>
+                    </div> 
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="description">Descrição</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Modificado</ba-table-sort></th>
+                <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_by">Criado Por</ba-table-sort></th>
+                 <th>Ação</th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

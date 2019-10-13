@@ -1,0 +1,178 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                Extrato cartão #{{card.id}} | Saldo: {{card.balance | currency}}
+            </h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <ba-table ba-table-resource="resource" ba-table-resource-function="'emissions'" ba-table-items="emissions" ba-table-filter-criteria="filterCriteria" ba-table-on-change="changeCallback">
+
+                        <ba-table-header filter="filter">
+
+                            <div class="row">
+
+                                <form ng-submit="filter(search)">
+
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon2">De</span>
+                                            <input type="text" ng-model="search.from" class="form-control" ui-mask="99/99/9999" model-view-value="true" aria-describedby="sizing-addon2">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon3">Até</span>
+                                            <input type="text" ng-model="search.to" class="form-control" ui-mask="99/99/9999" model-view-value="true" aria-describedby="sizing-addon2">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="col-md-2">
+                                    <span>&nbsp;</span>
+                                    <button
+                                            type="button"
+                                            ng-disabled="!liquidate.count"
+                                            class="btn btn-md btn-success"
+                                            mwl-confirm
+                                            title="Liquidar"
+                                            message="Você tem certeza, {{liquidate.count | number}} entradas no total de {{liquidate.total | currency}}?"
+                                            confirm-text="Sim"
+                                            cancel-text="Não"
+                                            placement="left"
+                                            on-confirm="liquidateEmissions(liquidate.ids)"
+                                            confirm-button-type="success"
+                                            cancel-button-type="danger"
+                                            cancel-button-type="default">
+                                        Liquidar
+                                    </button>
+                                </div>
+                            </div>
+
+                        </ba-table-header>
+
+                        <ba-table-body>
+                            <table id="data-table-emission" class="display table table-striped table-condensed table-hover table-responsive" style="width: 100%; cellspacing: 0;">
+                                <thead>
+                                    <tr>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Data</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="sale">Venda</ba-table-sort></th>
+                                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipping_rate">Valor</ba-table-sort></th>
+                                        <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                                            <div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(emissions, selectedAll)"/></label>
+                                                </div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="emission in emissions">
+                                        <th>{{emission.created_at | toDate | date:'dd/M/yy HH:mm'}}</th>
+                                        <th><a ui-sref="app.emission-show(emission)">{{emission.sale}}</a></th>
+                                        <th>{{emission.shipping_rate + emission.baggage_price  | currency}}</th>
+                                        <th class="col-md-2">
+                                            <strong ng-if="emission.liquidated_at">
+                                                <button
+                                                        class="btn btn-md btn-danger"
+                                                        mwl-confirm
+                                                        title="Estornar"
+                                                        message="Você tem certeza, que deseja estornar {{emission.shipping_rate + emission.baggage_price | currency}}?"
+                                                        confirm-text="Sim"
+                                                        cancel-text="Não"
+                                                        placement="left"
+                                                        on-confirm="reverseEmissions([emission.id])"
+                                                        confirm-button-type="success"
+                                                        cancel-button-type="danger"
+                                                        cancel-button-type="default">
+                                                    Estornar
+                                                </button>
+                                            </strong>
+                                            <div class="checkbox" ng-if="!emission.liquidated_at">
+                                                <label>
+                                                    <input type="checkbox" ng-model="emission.selected"/>
+                                                </label>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="2"></th>
+                                        <th><h4>Total: {{total | currency}}</h4></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </ba-table-body>
+
+                    </ba-table>
+
+
+                        <!--<table id="data-table-card" cellspacing="0"
+                               class="display table table-striped table-condensed table-hover table-without-info" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Venda</th>
+                                <th>Valor</th>
+                                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                                    <div>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(emissions, selectedAll)"/></label>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="emission in emissions">
+                                <th>{{emission.created_at | toDate | date:'dd/M/yy HH:mm'}}</th>
+                                <th><a ui-sref="app.emission-show(emission)">{{emission.sale}}</a></th>
+                                <th>{{emission.shipping_rate | currency}}</th>
+                                <td class="col-md-2">
+                                    <strong ng-if="emission.liquidated_at">Liquidado</strong>
+                                    <div class="checkbox" ng-if="!emission.liquidated_at">
+                                        <label>
+                                            <input type="checkbox" ng-model="emission.selected"/>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="3"></th>
+                                <th><h4>Total: {{total | currency}}</h4></th>
+                                <th></th>
+                            </tr>
+                            </tfoot>
+                        </table>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,133 @@
+<div class="panel panel-white">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <a href="" data-toggle="collapse" data-target="#aditional-addresses" style="text-decoration: none;">
+                + Endereços Adicionais
+            </a>
+        </h3>
+    </div>
+
+    <div id="aditional-addresses" class="collapse">
+        <div class="panel-body" style="padding-top: 5px!important">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-show="aditionalAddresses.length < 2 && !showingAditionalAddresses" class="col-md-12">
+                        <button ng-click="newAddress()" type="button" class="btn btn-success btn-md">Adicionar Outro
+                            Endereço</button>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div ng-repeat="aditionalAddress in aditionalAddresses" class="animate-if">
+                        <form ng-submit="saveOrCreateAddress(aditionalAddress);">
+
+                            <h4 style="margin-top: 20px;">Endereço {{$index+1}}
+                                <button ng-if="!showingAditionalAddresses" type="button" ng-click="deleteThisAddress($index)"
+                                    class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                                <button ng-if="!showingAditionalAddresses && ((aditionalAddress.notSavedChanges && aditionalAddress.exists) || (!aditionalAddress.exists))"
+                                    type="submit" class="btn btn-success btn-xs">Salvar</button>
+                                <span ng-if="!showingAditionalAddresses && (aditionalAddress.notSavedChanges && aditionalAddress.exists)"
+                                    class="text-danger animate-if">* Alterações não salvas</span>
+                            </h4>
+
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label for="address-street">Tipo</label>
+                                        <select ng-disabled="showingAditionalAddresses || aditionalAddress.exists"
+                                            ng-change="verifyType($index, aditionalAddress.type)" class="form-control"
+                                            ng-model="aditionalAddress.type" ng-options="type.value as type.title for type in address_types">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label for="address-cep">CEP</label>
+                                        <div class="input-group">
+                                            <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                                type="text" class="form-control" id="address-cep" ng-model="aditionalAddress.zip_code"
+                                                placeholder="55870-00" required ui-br-cep-mask />
+                                            <span class="input-group-btn">
+                                                <button ng-disabled="!searchedCpfCnpj" type="button" class="btn btn-xs btn-success"
+                                                    title="Buscar CEP e preencher" ng-click="consultAditionalCep(aditionalAddress)">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div class="form-group">
+                                        <label for="address-street">Rua</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-street" ng-model="aditionalAddress.street"
+                                            placeholder="RUA DO PAISSANDU" ng-required="true" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <div class="form-group">
+                                        <label for="address-number">Numero</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-number" ng-model="aditionalAddress.number"
+                                            placeholder="557" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <!---->
+                                <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label for="address-complement">Complemento</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-complement" ng-model="aditionalAddress.complement"
+                                            placeholder="..." />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="address-city">Cidade</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-city" ng-model="aditionalAddress.city"
+                                            placeholder="RECIFE" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="address-neighborhood">Bairro</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-neighborhood" ng-model="aditionalAddress.district"
+                                            placeholder="PAISSANDU" required />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                    <div class="form-group">
+                                        <label for="address-uf">UF</label>
+                                        <input ng-change="detectChanges(aditionalAddress)" ng-disabled="showingAditionalAddresses"
+                                            type="text" class="form-control" id="address-uf" ng-model="aditionalAddress.state"
+                                            placeholder="PE" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

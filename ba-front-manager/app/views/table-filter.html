@@ -1,0 +1,19 @@
+<div class="row" ng-if="!disableSearch">
+    <div class="col-md-3">
+        <div ng-if="paginationTitle">
+            <h3>Total de {{pagination.totalItems}} {{paginationTitle}}</h3>
+        </div>
+    </div>
+    <div class="col-md-4 col-md-offset-5">
+        <form ng-submit="filter(search)">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<ba-table ba-table-resource="resource" ba-table-text-align="'left'" ba-table-items="remittance" ba-table-filter-criteria="filterCriteria" ba-table-disable-pagination="true">
+    <ba-table-header filter="filter"></ba-table-header>
+    <ba-table-body>
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(remittance[0].payments, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th>REF</th>
+                <th>{{remittance[0].payments_count}}</th>
+                <th>{{remittance[0].total_price | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Banco</th>
+                <th>Conta</th>
+                <th>Agência</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr id="{{payment.id}}" ng-repeat="payment in remittance[0].payments">
+                    <td>
+                        <div class="checkbox" ng-if="payment.payment_status_id != 3">
+                            <label>
+                                <input type="checkbox" ng-model="payment.selected" ng-disabled="canceling"/>
+                            </label>
+                        </div>
+                    </td>
+                    <td ng-bind="payment.reference"></td>
+                    <td ng-bind="payment.id"></td>
+                    <td ng-bind="payment.amount_paid | currency:'R$'"></td>
+                    <td ng-bind="payment.status.name"></td>
+                    <td><a target="blank" href="{{crmUrl + 'providers/edit/' + payment.person.cpf_cnpj}}">{{payment.person.name}}</a></td>
+                    <td ng-bind="payment.person.cpf_cnpj"></td>
+                    <td ng-bind="payment.bank_account.name"></td>
+                    <td ng-bind="payment.bank_account.account"></td>
+                    <td ng-bind="payment.bank_account.agency"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th style="margin-bottom:0px!important;padding-bottom:0px!important;">
+                    <div>
+                        <div class="checkbox">
+                            <label><input type="checkbox" ng-model="selectedAll" ng-click="selectAll(remittance[0].payments, selectedAll)"/></label>
+                        </div>
+                    </div>
+                </th>
+                <th>REF</th>
+                <th>{{remittance[0].payments_count}}</th>
+                <th>{{remittance[0].total_price | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Banco</th>
+                <th>Conta</th>
+                <th>Agência</th>
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="remittance_payments:remittance|payments.reference">REF</ba-table-sort></th>-->
+                <!--<th>{{remittance.payments_count}}</th>-->
+                <!--<th>{{remittance.total_price | currency:'R$'}}</th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="payment_status|payment_status.name">Status</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.name">Nome</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="people:person_id|people.cpf_cnpj">CPF</ba-table-sort></th>-->
+                <!--<th>Banco</th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person_bank_accounts|person_bank_accounts.account">Conta</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person_bank_accounts|person_bank_accounts.agency">Agência</ba-table-sort></th>-->
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

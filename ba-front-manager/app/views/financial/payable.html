@@ -1,0 +1,31 @@
+    <div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-body">
+            <div id="rootwizard" ng-controller="FinancialPayableCtrl" ng-init="listeners()">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Pagamentos a liquidar</h4>
+                </div>
+                <div class="row m-b-lg">
+                    <div class="col-md-6 col-md-offset-6">
+                        <!-- Button trigger modal -->
+                        <button style="margin-right: 10px"
+                                title="Para gerar um arquivo remessa, selecione as OP's que deseja incluir ou clique no botão'SELECIONAR TUDO'"
+                                type="button"
+                                ng-click="toggleRemittanceButton()"
+                                data-toggle="modal"
+                                data-target="#banksOpt"
+                                class="btn btn-danger pull-right">
+                            Gerar arquivo REMESSA
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-include="'views/financial/tables/payable.html'"></div>
+                        <div ng-include="'views/financial/modals/remittance.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

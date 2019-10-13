@@ -1,0 +1,62 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="resourceFunction" ba-table-items="agencies"
+    ba-table-filter-criteria="filterCriteria">
+
+
+    <ba-table-body>
+
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="agency.id">ID</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="agency.title">Nome</ba-table-sort>
+                    </th>
+                    <th>Status</th>
+                    <th>Valor Total</th>
+                    <th>Vencimento da Fatura</th>
+                    <th>Ver</th>
+                    <th>A faturar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{agency.id}}" class="agency-row" ng-repeat="agency in agencies">
+                    <td ng-bind="agency.id"></td>
+                    <td ng-bind="agency.title"></td>
+                    <td ng-bind="agency.status_title"></td>
+                    <td ng-bind="agency.total_amount | currency:'R$'"></td>
+                    <td ng-bind="agency.due_date_invoice | date:'dd/MM/yyyy'"></td>
+
+                    <td class="col-md-2">
+                        <button ng-disabled="!agency.emissions_to_invoice" ui-sref="app.agency-to-invoice(agency)"
+                            class="btn btn-info btn-xs" title="Ver"><i class="fa fa-search"></i></button ng-disabled="agency">
+                    </td>
+                    <td class="col-md-2">
+                        <a ng-disabled="!agency.emissions_to_invoice" ui-sref="app.emission-to-invoice(agency)" class="btn btn-info btn-xs"
+                            title="A faturar"><i class="fa fa-money"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="agency.id">ID</ba-table-sort>
+                    </th>
+                    <th>
+                        <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy"
+                            ba-table-sort-value="agency.title">Nome</ba-table-sort>
+                    </th>
+                    <th>Status</th>
+                    <th>Valor Total</th>
+                    <th>Vencimento da Fatura</th>
+                    <th>Ver</th>
+                    <th>A faturar</th>
+                </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

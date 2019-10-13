@@ -1,0 +1,159 @@
+<div ng-if="report.type == 'check-in'">
+    <div class="report-modal-header">
+        <div class="modal-report-title">Relatório de Embarques
+            <div class="fa fa-window-close modal-icon" ng-click="close()"></div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="modal-report-subtitle">Companhia:
+            <img ng-src="images/logo-{{ report.content.company.title | lowercase }}.png" title={{report.content.company.title}}
+                class="modal-image">
+        </div>
+        <br>
+        <div class="alert alert-danger" style="width: 40%;" ng-if="report.content.checkins.length == 0">
+            Não há embarques disponíveis.
+        </div>
+        <div ng-repeat="checkin in report.content.checkins">
+
+            <table class="modal-table">
+                <tr>
+                    <th class="th-text" colspan="3">OP: {{checkin.op.id}}</th>
+                </tr>
+                <tr>
+                    <th class="th-text">Agência</th>
+                    <th class="th-text">Passageiro</th>
+                    <th class="th-text">Emissão</th>
+                </tr>
+                <tr>
+                    <td class="td-text">
+                        <div class="row td-text-spacing"><strong>Nome:</strong> {{checkin.agency.title}} </div>
+                        <div class="row td-text-spacing"><strong>Email:</strong> {{checkin.agency.email}} </div>
+                        <div class="row td-text-spacing"><strong>Telefone:</strong> {{checkin.agency.phone}} </div>
+                    </td>
+                    <td class="td-text">
+                        <div class="row td-text-spacing"><strong>Nome:</strong> {{checkin.passenger.fullname}} </div>
+                        <div class="row td-text-spacing"><strong>CPF:</strong> {{checkin.passenger.cpf}} </div>
+                        <div class="row td-text-spacing"><strong>Telefone:</strong> {{checkin.passenger.phone}} </div>
+                        <div class="row td-text-spacing"><strong>Email:</strong> {{checkin.passenger.email}} </div>
+                        <div class="row td-text-spacing"><strong>Tipo</strong> {{checkin.passenger.type_code}} </div>
+                    </td>
+                    <td class="td-text">
+                        <div class="row td-text-spacing"><strong>Número:</strong> {{checkin.emission.id}} </div>
+                        <div class="row td-text-spacing"><strong>Embarque:</strong> {{checkin.flight.boarding}} </div>
+                        <div class="row td-text-spacing"><strong>Nº Venda:</strong> {{checkin.emission.sale}} </div>
+                        <div class="row td-text-spacing"><strong>Data da Venda:</strong> {{checkin.emission.sale_date}}
+                        </div>
+                        <div class="row td-text-spacing"><strong>Localizador:</strong> {{checkin.emission.e_ticket}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="th-text" style="background-color: lightgoldenrodyellow">{{checkin.description}}</td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+
+    </div>
+
+</div>
+
+<div ng-if="report.type == 'quotation-daily'">
+    <div class="report-modal-header">
+        <div class="modal-report-title">Relatório de Cotações
+            <div class="fa fa-window-close modal-icon" ng-click="close()"></div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div ng-if="content.agency != null">
+            <div class="modal-report-subtitle">Agência</div>
+            <div class="row" style="margin-top: 6px">
+                <div class="col-md-2">
+                    <p><strong>ID: </strong>{{report.content.agency.id}}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Nome: </strong>{{report.content.agency.title}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-report-subtitle">Relatório de Cotações Total</div>
+        <div class="row" style="margin-top: 6px">
+            <div class="col-md-6">
+                <p><strong>Total Cotações do Dia: </strong>{{report.content.daily_amount}}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Total Cotações Mensal: </strong>{{report.content.monthly_amount}}</p>
+            </div>
+        </div>
+
+        <div class="modal-report-subtitle">Relatório de Cotações Diário por Cia.</div>
+        <div>
+            <table class="modal-table">
+                <tr>
+                    <th class="th-text">Companhia</th>
+                    <th class="th-text">Quantidade</th>
+                    <th class="th-text">Tempo Médio</th>
+                </tr>
+                <tr ng-repeat="company in report.content.monthly_amount_per_company">
+                    <td class="th-text">
+                        <img ng-src="images/logo-{{ company.company | lowercase }}.png" title={{company.company}} class="modal-image">
+                    </td>
+                    <td class="th-text">
+                        <div class="row td-text-spacing">{{company.amount}}</div>
+                    </td>
+                    <td class="th-text">
+                        <div class="row td-text-spacing">{{company.average_time}}s</div>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+        <div class="modal-report-subtitle">Relatório de Cotações Mensal por Cia.</div>
+        <div>
+            <table class="modal-table">
+                <tr>
+                    <th class="th-text">Companhia</th>
+                    <th class="th-text">Quantidade</th>
+                    <th class="th-text">Tempo Médio</th>
+                </tr>
+                <tr ng-repeat="company in report.content.daily_amount_per_company">
+                    <td class="th-text">
+                        <img ng-src="images/logo-{{ company.company | lowercase }}.png" title={{company.company}} class="modal-image">
+                    </td>
+                    <td class="th-text">
+                        <div class="row td-text-spacing">{{company.amount}}</div>
+                    </td>
+                    <td class="th-text">
+                        <div class="row td-text-spacing">{{company.average_time}}s</div>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div ng-if="report.type == 'check-emission' ">
+    <div class="report-modal-header">
+        <div class="modal-report-title">Relatório de Verificação de Emissão
+            <div class="fa fa-window-close modal-icon" ng-click="close()"></div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="modal-report-subtitle">Emissão: {{report.content.emission.id}}</div>
+
+        <div class="modal-report-subtitle" style="margin-bottom: 5px;">Mensagens: </div>
+        <div ng-repeat="message in report.content.messages" class="row" style="margin-left: 0;">
+            <div class="col-md-6 alert" ng-class="{'alert-success':message.error == false, 'alert-danger':message.error == true}"
+                style="width: 40%;">
+                {{message.text}}
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,61 @@
+<ba-table ba-table-resource="resource" ba-table-items="contacts" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header>
+    </ba-table-header>
+    <ba-table-body>
+            <table id="data-table-contact" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="phone">Telefone</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Data</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Finalizado</ba-table-sort></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="contact in contacts" ng-click="obsDropdown(contact)" ng-class="{'pointer': contact.observation}">
+                    <td>{{contact.id}}  <i style="font-size:15px; margin-left: 3px" class="fa fa-comment text-success" ng-if="contact.observation"></i></td>
+                    <td>{{contact.name}}</td>
+                    <td ba-click-to-call>{{contact.phone}}</td>
+                    <td>{{contact.email}}</td>
+                    <td>{{contact.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                    <td>{{contact.updated_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                </tr>
+                <tr ng-repeat-end ng-if="contact.observation && contact.open">
+                    <td colspan="17">
+                            <div class="col-md-12">
+                                <div class="panel panel-white" style="margin-bottom:0!important;">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="list-inline list-unstyled" style="margin: 5px!important;">
+                                                    <li>
+                                                        <div><h4>Observação</h4></div>
+                                                        <p>{{contact.observation}}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Nome</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="phone">Telefone</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Email</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Data</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="updated_at">Finalizado</ba-table-sort></th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

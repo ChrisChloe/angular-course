@@ -1,0 +1,36 @@
+<form ng-submit="save(account_paid_type)" name="accountPaidForm">
+    <div class="panel panel-white">
+        <div class="panel-body">
+
+            <div class="panel-heading">
+                <h3 class="panel-title col-md-6">
+                    Dados do Tipo de débito
+                </h3>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <label for="name">Nome</label>
+                    <input placeholder="Nome"
+                           required
+                           id="name"
+                           class="form-control"
+                           ng-model="account_paid_type.name"/>
+                </div>
+                <div class="col-md-3">
+                    <label>Categoria (Opcional)</label>
+                    <select class="form-control" ng-model="account_paid_type.parent_id"
+                            ng-options="type.id as type.name for type in debit_types">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="col-md-12">
+                <br>
+                <a href="#/account-paid-type" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success pull-right">Salvar</button>
+            </div>
+        </div>
+    </div>
+</form>

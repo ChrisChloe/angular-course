@@ -1,0 +1,56 @@
+<table id="data-table-agency" class="display table table-condensed table-hover" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>Registrado em</th>
+            <th>Saldo Final</th>
+            <th>ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: #f5f5f5" ng-if="highestAmounts.length <= 0">
+            <td colspan="3">
+                <h5 class="text-center">Nenhuma movimentação encontrada no período selecionado</h5>
+            </td>
+        </tr>
+        <tr ng-repeat-start="statement in highestAmounts">
+            <td>
+                <strong>{{statement.created_at | toDate | date:'dd/MM/yy'}}</strong>
+            </td>
+            <td>{{statement.balance | currency}}</td>
+            <td>
+                <a class="btn btn-success btn-xs" data-toggle="collapse" data-target="#detailMovement-{{$index}}">
+                    <i class="fa fa-caret-down"></i>
+                </a>
+            </td>
+        </tr>
+        <tr style="background-color: #f5f5f5" ng-repeat-end>
+            <td colspan="12" style="padding: 0 30px 0 30px !important;">
+
+                <div id="detailMovement-{{$index}}" class="collapse row">
+                    <table id="data-table-agency" class="display table table-condensed" style="width: 100%;">
+                        <thead>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Registrado em</th>
+                            <th>Descrição</th>
+                        </thead>
+                        <tbody ng-repeat="day in daysIndex[$index] | orderBy:'-'">
+                            <td>
+                                <strong>{{day.type}}</strong>
+                            </td>
+                            <td>{{day.amount | currency}}</td>
+                            <td>{{day.created_at | toDate | date:'dd/MM/yy HH:mm:ss'}}</td>
+                            <td>{{day.observation}}</td>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </td>
+        </tr>
+
+
+        </tr>
+    </tbody>
+
+</table>

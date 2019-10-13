@@ -1,0 +1,119 @@
+<div class="page-title" style="margin: -20px 0 20px">
+    <h3>Área de Desenvolvedor</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-4 clearfix">
+        <!--OPS-->
+        <div class="col-xs-12">
+            <a class="pointer" ng-click="openPurge()">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">Limpar Cache</p>
+                            <span class="info-box-title">CloudFlare</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-cloud"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12">
+            <a ui-sref="app.web-system">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">Versões</p>
+                            <span class="info-box-title">Todos os Sistemas</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-bitbucket"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12">
+            <a ui-sref="#">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">Laravel 5.5</p>
+                            <span class="info-box-title">Back-end</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-terminal"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-12">
+            <a ui-sref="#">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">Angular</p>
+                            <span class="info-box-title">Front-end</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-terminal"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="col-md-8">
+        <div class="col-md-12">
+
+            <div class="panel panel-success">
+                <div class="panel-body">
+
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-md-5">
+                            <h3 class="panel-title">
+                                Equipe de tecnologia da informação
+                            </h3>
+                        </div>
+
+                    </div>
+                    <div class="dataTables_info_disable">
+                        <table class="display table datatable" style="width: 100% !important;">
+                            <thead class="btn-success">
+                                <tr>
+                                    <th class="col-md-3">Nome</th>
+                                    <th class="col-md-4">Cargo</th>
+                                    <th class="col-md-4">Telefone</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="employee in employees">
+                                    <td class="col-md-3">{{employee.name}}</td>
+                                    <td class="col-md-4">{{employee.role}}</td>
+                                    <td class="col-md-4">{{employee.contact}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table class="table">
+                            <thead class="btn-success">
+                                <tr>
+                                    <th class="col-md-3">Nome</th>
+                                    <th class="col-md-4">Cargo</th>
+                                    <th class="col-md-4">Telefone</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

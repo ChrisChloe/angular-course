@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <ba-table ba-table-resource="resource"
+                  ba-table-items="travel_markups"
+                  ba-table-filter-criteria="filterCriteria">
+
+            <ba-table-header filter="filter">
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="newPrice" ui-money-mask ng-disabled="!travelMarkupsSelected.length" placeholder="Atualizar Preços"/>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-success" type="button" ng-click="updatePrices(newPrice)" title="Salvar" ng-disabled="!travelMarkupsSelected.length">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-offset-6 col-md-4">
+                        <form ng-submit="filter(search)" style="width: 100%">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </ba-table-header>
+
+            <ba-table-body>
+
+                <table id="data-table-markup" class="table table-responsive table-hover table-striped"
+                       style="width: 100%; cellspacing: 0;">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-model="selectedAll" ng-click="selectAll()"></th>
+                        <th title="Origem">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="origin_id">Origem</ba-table-sort>
+                        </th>
+                        <th title="Destino">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="destination_id">Destino</ba-table-sort>
+                        </th>
+                        <th title="Valor">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="value">Preço</ba-table-sort>
+                        </th>
+                        <th title="Data até o Voo">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="shipment_limit">Dias até Voo</ba-table-sort>
+                        </th>
+                        <th title="Data de expiração">
+                            <ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="expiration">D Expiração</ba-table-sort>
+                        </th>
+                        <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="created_at">Criado</ba-table-sort></th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="markup in travel_markups">
+                        <td><input type="checkbox" ng-model="markup.selected"></td>
+                        <td>{{markup.origin.initials}}</td>
+                        <td>{{markup.destination.initials}}</td>
+                        <td>{{markup.value | currency}}</td>
+                        <td>{{markup.shipment_limit ? markup.shipment_limit : '∞'}}</td>
+                        <td>{{markup.expiration | toDate | date:'dd/MM/yyyy'}}<span ng-if="!markup.expiration">∞</span></td>
+                        <td>{{markup.created_at | toDate | date:'dd/MM/yy hh:mm'}}</td>
+                        <td class="col-md-2">
+                            <button class="btn btn-danger btn-xs" title="Lixeira" ng-click="trash(markup)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </ba-table-body>
+
+        </ba-table>
+
+    </div>
+</div>
+
+<hr/>
+
+<div class="row">
+    <div class="col-md-12">
+        <ng-include src="'views/travel-markup/form.html'"></ng-include>
+    </div>
+</div>

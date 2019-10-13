@@ -1,0 +1,41 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="quotation" ba-table-items="reports" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header>
+    </ba-table-header>
+    <ba-table-body>
+            <table id="data-table-report" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="total">Total Mensal</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Total do Dia</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Data</ba-table-sort></th>
+                    <th>Ações</th>
+                </tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="report in reports" ng-click="show(0, report)" style="cursor: pointer">
+                    <td>{{report.id}}</td>
+                    <td>{{report.content.monthly_amount}}</td>
+                    <td>{{report.content.daily_amount}}</td>
+                    <td>{{report.date}}</td>
+                    <td>
+                        <a class="btn btn-success btn-xs" ng-click="show(0, report)" title="Detalhes"><i class="fa fa-search"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="total">Total Mensal</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="email">Total do Dia</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="name">Data</ba-table-sort></th>
+                    <th>Ações</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

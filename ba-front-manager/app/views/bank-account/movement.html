@@ -1,0 +1,91 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Movimento Bancário Conta #{{bankId}}</h4>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <form ng-submit="dateFilter()">
+                    <div class="col-md-2">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon2">De</span>
+                            <input class="form-control" 
+                            data-provide="datepicker" 
+                            data-date-format="dd/mm/yyyy"
+                            data-language="pt-BR" 
+                            data-date-autoclose="true"
+                            data-date-end-date="d"
+                            ng-model="filter.start_date">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Até</span>
+                                <input class="form-control" 
+                                       data-date-end-date="d" 
+                                       data-provide="datepicker" 
+                                       data-date-format="dd/mm/yyyy" 
+                                       data-language="pt-BR" 
+                                       data-date-autoclose="true"
+                                       ng-model="filter.end_date"
+                                       ng-change="limitCorrection(filter)">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="input-group" >
+                            <button class="btn btn-success" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item text-center disabled">
+                            <strong>{{filteredStartDate == filteredEndDate ? ('No dia ' + filteredStartDate) : ('De ' + filteredStartDate + ' até ' + filteredEndDate)}}</strong>
+                        </li>
+                        <li class="list-group-item text-center">Saldo Inicial no Período Selecionado:
+                            <strong>{{movements.initial_balance | currency}}</strong>
+                        </li>
+                        <li class="list-group-item text-center">Saldo Final no Período Selecionado:
+                            <strong>{{movements.final_balance | currency}}</strong>
+                        </li>
+                        <li class="list-group-item text-center">Diferença:
+                            <strong>{{movements.final_balance - movements.initial_balance | currency}}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+
+
+            <div id="rootwizard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="?#table-tab1" data-toggle="tab">
+                            <i class="fa fa-table m-r-xs"></i>Tabela</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="?#timeline-tab2" data-toggle="tab">
+                            <i class="fa fa-line-chart m-r-xs"></i>Linha do Tempo</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active fade in" id="table-tab1">
+                        <div ng-include="'views/bank-account/movement/table.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="timeline-tab2">
+                        <div ng-include="'views/bank-account/movement/timeline.html'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<ba-table ba-table-resource="resource" ba-table-resource-function="resourceFunction" ba-table-items="reports" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+        <form ng-submit="filter(search)">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <button type="button" ng-click="hideColumns.today = !hideColumns.today" class="btn" ng-class="{'btn-success':!hideColumns.today}">D</button>
+                    <button type="button" ng-click="hideColumns.yesterday = !hideColumns.yesterday" class="btn" ng-class="{'btn-success':!hideColumns.yesterday}">D-1</button>
+                    <button type="button" ng-click="hideColumns.week = !hideColumns.week" class="btn" ng-class="{'btn-success':!hideColumns.week}">D-7</button>
+                    <button type="button" ng-click="hideColumns.fortnight = !hideColumns.fortnight" class="btn" ng-class="{'btn-success':!hideColumns.fortnight}">D-15</button>
+                    <button type="button" ng-click="hideColumns.total = !hideColumns.total" class="btn" ng-class="{'btn-success':!hideColumns.total}">Tudo</button>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Buscar" ng-model="search.search"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-8">
+                        <h5>Última Atualização: {{reports.last_update | toDate | date:'dd/MM/yy H:mm'}}</h5>
+                    </div>
+    
+                </div>
+            
+
+        </form>
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table id="data-table-agency" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+                <tr>
+                    <th colspan="3" class="text-center"></th>
+                    <th colspan="{{spanColumns}}" class="text-center alert-success">Cotações</th>
+                    <th colspan="{{spanColumns}}" class="text-center alert-info">Ops</th>
+                    <th colspan="{{spanColumns}}" class="text-center alert-warning">Emissões</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="agency_id">ID</ba-table-sort></th>
+                    <th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="title">Agência</ba-table-sort></th>
+
+                    <th title="Hoje" ng-show="!hideColumns.today" class="alert-success"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="searches_count_today">D</ba-table-sort></th>
+                    <th title="Ontem" ng-show="!hideColumns.yesterday" class="alert-success"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="searches_count_yesterday">D-1</ba-table-sort></th>
+                    <th title="Semana" ng-show="!hideColumns.week" class="alert-success"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="searches_count_week">D-7</ba-table-sort></th>
+                    <th title="Quinzena" ng-show="!hideColumns.fortnight" class="alert-success"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="searches_count_fortnight">D-15</ba-table-sort></th>
+                    <th title="Tudo" ng-show="!hideColumns.total" class="alert-success"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="searches_count_total">Tudo</ba-table-sort></th>
+
+                    <th title="Hoje" ng-show="!hideColumns.today" class="alert-info"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="ops_count_today">D</ba-table-sort></th>
+                    <th title="Ontem" ng-show="!hideColumns.yesterday" class="alert-info"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="ops_count_yesterday">D-1</ba-table-sort></th>
+                    <th title="Semana" ng-show="!hideColumns.week" class="alert-info"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="ops_count_week">D-7</ba-table-sort></th>
+                    <th title="Quinzena" ng-show="!hideColumns.fortnight" class="alert-info"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="ops_count_fortnight">D-15</ba-table-sort></th>
+                    <th title="Tudo" ng-show="!hideColumns.total" class="alert-info"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="ops_count_total">Tudo</ba-table-sort></th>
+
+
+                    <th title="Hoje" ng-show="!hideColumns.today" class="alert-warning"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emissions_count_today">D</ba-table-sort></th>
+                    <th title="Ontem" ng-show="!hideColumns.yesterday" class="alert-warning"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emissions_count_yesterday">D-1</ba-table-sort></th>
+                    <th title="Semana" ng-show="!hideColumns.week" class="alert-warning"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emissions_count_week">D-7</ba-table-sort></th>
+                    <th title="Quinzena" ng-show="!hideColumns.fortnight" class="alert-warning"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emissions_count_fortnight">D-15</ba-table-sort></th>
+                    <th title="Tudo" ng-show="!hideColumns.total" class="alert-warning"><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="emissions_count_total">Tudo</ba-table-sort></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="agency in reports" ng-click="openDetails(agency)"  style="cursor: pointer">
+                <th scope="row" ><span ng-class="{'fa fa-plus text-success':!agency.open, 'fa fa-minus text-danger':agency.open}"></span></th>
+                <th scope="row"><a ui-sref="app.agency-edit({id:agency.agency_id, title:agency.title})">{{agency.agency_id}}</a></th>
+                <td>{{agency.title}}</td>
+                <th class="alert-success" ng-show="!hideColumns.today" title="{{agency.searches_count_today + ' cotações da ' + agency.title + ' Hoje'}}">{{agency.searches_count_today}}</th>
+                <th class="alert-success" ng-show="!hideColumns.yesterday" title="{{agency.searches_count_yesterday + ' cotações da ' + agency.title + ' Ontem'}}">{{agency.searches_count_yesterday}}</th>
+                <th class="alert-success" ng-show="!hideColumns.week" title="{{agency.searches_count_week + ' cotações da ' + agency.title + ' na Semana'}}">{{agency.searches_count_week}}</th>
+                <th class="alert-success" ng-show="!hideColumns.fortnight" title="{{agency.searches_count_fortnight + ' cotações da ' + agency.title + ' na Quinzena'}}">{{agency.searches_count_fortnight}}</th>
+                <th class="alert-success" ng-show="!hideColumns.total" title="{{agency.searches_count_total + ' cotações da ' + agency.title + ' no Total'}}">{{agency.searches_count_total}}</th>
+
+                <th class="alert-info" ng-show="!hideColumns.today" title="{{agency.ops_count_today + ' ops da ' + agency.title + ' Hoje'}}">{{agency.ops_count_today}}</th>
+                <th class="alert-info" ng-show="!hideColumns.yesterday" title="{{agency.ops_count_yesterday + ' ops da ' + agency.title + ' Ontem'}}">{{agency.ops_count_yesterday}}</th>
+                <th class="alert-info" ng-show="!hideColumns.week" title="{{agency.ops_count_week + ' ops da ' + agency.title + ' na Semana'}}">{{agency.ops_count_week}}</th>
+                <th class="alert-info" ng-show="!hideColumns.fortnight" title="{{agency.ops_count_fortnight + ' ops da ' + agency.title + ' na Quinzena'}}">{{agency.ops_count_fortnight}}</th>
+                <th class="alert-info" ng-show="!hideColumns.total" title="{{agency.ops_count_total + ' ops da ' + agency.title + ' no Total'}}">{{agency.ops_count_total}}</th>
+
+                <th class="alert-warning" ng-show="!hideColumns.today" title="{{agency.emissions_count_today + ' emissões da ' + agency.title + ' Hoje'}}">{{agency.emissions_count_today}}</th>
+                <th class="alert-warning" ng-show="!hideColumns.yesterday" title="{{agency.emissions_count_yesterday + ' emissões da ' + agency.title + ' Ontem'}}">{{agency.emissions_count_yesterday}}</th>
+                <th class="alert-warning" ng-show="!hideColumns.week" title="{{agency.emissions_count_week + ' emissões da ' + agency.title + ' na Semana'}}">{{agency.emissions_count_week}}</th>
+                <th class="alert-warning" ng-show="!hideColumns.fortnight" title="{{agency.emissions_count_fortnight + ' emissões da ' + agency.title + ' na Quinzena'}}">{{agency.emissions_count_fortnight}}</th>
+                <th class="alert-warning" ng-show="!hideColumns.total" title="{{agency.emissions_count_total + ' emissões da ' + agency.title + ' no Total'}}">{{agency.emissions_count_total}}</th>
+
+            </tr>
+            <tr ng-repeat-end class="collapse" ng-class="{'in':agency.open}">
+                <td colspan="17">
+                    <h4>Funcionários</h4>
+                    <table id="data-table-user" class="display table table-responsive" style="width: 100%; cellspacing: 0;">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Último Login</th>
+                            <th>Última Busca</th>
+                            <th>Ação</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in agency.users">
+                            <th scope="row">{{user.id}}</th>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.last_login    | toDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                            <td>{{user.last_search   | toDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                            <td>{{user.last_emission | toDate | date:'dd/MM/yyyy HH:mm'}}</td>
+                            <td class="col-md-2">
+                                <a ui-sref="app.user-show(user)" class="btn btn-success btn-xs" title="Detalhes"><i class="fa fa-search"></i></a>
+                                <a ui-sref="app.user-edit(user)" class="btn btn-info btn-xs" title="Editar"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="!agency.users || agency.users.length <= 0">
+                            <th colspan="4" class="text-center">Nenhum funcionário encontrado.</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

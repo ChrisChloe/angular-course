@@ -1,0 +1,45 @@
+<div class="modal fade" id="banksOpt" tabindex="-1" role="dialog" aria-labelledby="banksOptLabel" ng-init="getRemittanceBanks()">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="banksOptLabel">Remessa</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon3">Banco</span>
+                            <select class="form-control" ng-model="remittance.remittance_bank_id" ng-options="bank.id as bank.name + ' - ' + bank.account for bank in remittance_banks">
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-t-xs">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon1">Vencimento</span>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="input-group m-t-xs">
+                             <label class="radio-inline"><input type="radio" ng-model="remittance.due_date" value="d0">D+0</label>
+                             <label class="radio-inline"><input type="radio" ng-model="remittance.due_date" value="d1">D+1</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer m-t-lg">
+                <button style="margin-right: 10px"
+                        title="Para gerar um arquivo remessa, selecione as OP's que deseja incluir ou clique no botão'SELECIONAR TUDO'"
+                        id="create-remittance" 
+                        class="btn btn-danger"
+                        ng-click="createRemittance()">
+                    Processar
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

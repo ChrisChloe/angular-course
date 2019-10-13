@@ -1,0 +1,72 @@
+<ba-table ba-table-resource="resource" ba-table-items="messages" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+
+        <div class="col-md-12">
+            <div class="row mailbox-header">
+                <div class="col-md-8" style="height: auto">
+                    <button class="btn btn-success" type="button" ng-click="refresh()" title="Recarregar listagem" ng-enable="refreshing">
+                        <i class="fa fa-refresh">
+
+                        </i>
+                    </button>
+                    <!--<h2 style="float: left;">Caixa de Entrada </h2><div style="padding-top: 10px">&nbsp;(emissao@buscaaereo.com.br)</div>-->
+                </div>
+                <div class="col-md-4">
+                    <form ng-submit="filter(search)">
+                        <div class="input-group">
+                            <input type="text" name="search" ng-model="search.search" class="form-control input-search" placeholder="Buscar...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div><!-- Input Group -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <div class="col-md-12">
+            <div class="mailbox-content">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th title="Email">
+                           Email
+                        </th>
+                        <th title="Assunto">
+                            Assunto
+                        </th>
+
+                        <th title="Resposta">
+                          Resposta
+                        </th>
+                        <th title="Data de Recebimento">
+                            Data
+                        </th>
+                        <th>Ação</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="message in messages" ng-class="{'unread':message.status == 1, 'read':message.status == 2}">
+                        <td ng-class="{'alert-danger':message.status==3}" class="hidden-xs"> <span title="{{message.from_name}}"><a href="{{message.link}}" target="_blank">{{message.name}}</a> </span></td>
+                        <td ng-class="{'alert-danger':message.status==3}">{{message.summary_subject | limitTo:40}}</td>
+                        <td ng-class="{'alert-danger':message.status==3}">{{message.summary_message | limitTo:20}}<span ng-if="message.text_plain.length >= 10">...</span></td>
+                        <td ng-class="{'alert-danger':message.status==3}">{{message.received_at | toDate | date:'dd/MM/yy HH:mm'}}</td>
+                        <td ng-class="{'alert-danger':message.status==3}">
+                            <button title="Abrir" class="btn btn-xs btn-success" ng-click="show(message)"><i class="fa fa-eye"></i></button>
+
+                            <span ng-if="message.status == 2" title="Op Liberada" class="text-success" style="font-size: medium"><i class="fa fa-check"></i></span>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </ba-table-body>
+
+</ba-table>

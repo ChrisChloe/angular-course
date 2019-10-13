@@ -1,0 +1,98 @@
+<table class="table table-responsive table-condensed table-striped table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Voo</th>
+        <th>Partida</th>
+        <th>Chegada</th>
+        <th>Preço Cia</th>
+        <th>Nosso Preço</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat-start="flight in flights"
+        data-toggle="collapse"
+        data-target="#flight-{{flight.id}}"
+        ng-click="flight.open = !flight.open;">
+
+        <td>
+            <span class="text-success" ng-class="{'fa fa-plus':!flight.open, 'fa fa-close':flight.open}"></span>
+        </td>
+
+        <td>
+            <img ng-src="images/logo-{{flight.company.title | lowercase}}.png" style="width:60px;"/><br>
+            Nº {{ flight.flight_code }}
+        </td>
+
+        <td>
+            {{flight.date_boarding | toDate | date:'dd/MM/yyyy'}}<br>
+            {{flight.boarding | toDate | date:'HH:mm'}}<br>
+            <span title="{{flight.origin.title}}">{{flight.origin.initials}}</span>
+        </td>
+
+        <td>
+            {{flight.date_boarding | toDate | date:'dd/MM/yyyy'}}<br>
+            {{flight.landing | toDate | date:'HH:mm'}}<br>
+            <span title="{{flight.destination.title}}">{{flight.destination.initials}}</span>
+        </td>
+
+        <td>
+            ADT: {{flight.adult_price | currency}}<br>
+            Milhas(Adulto):{{flight.adult_miles | number}}<br>
+            CHD: {{flight.child_price | currency}}  <br>
+            Milhas(Criança): {{flight.child_miles | number}}<br>
+        </td>
+
+        <td>
+            ADT: {{flight.adult_miles_price | currency}}  <br>
+            CHD: {{flight.child_miles_price | currency}}  <br>
+        </td>
+
+    </tr>
+
+    <tr ng-repeat-end id="flight-{{flight.id}}" class="collapse">
+        <td colspan="6">
+            <ul class="list-unstyled list-inline">
+                <li><strong>Voo</strong>: Nº{{flight.flight_code}}</li>
+                <li><strong>Paradas(s)</strong>: {{flight.connections.length - 1}}</li>
+                <li><strong>Taxa de Embarque</strong>: {{flight.shipping_rate | currency}}</li>
+                <li><strong>Milhas</strong>: ADT {{flight.adult_miles | number}}</li>
+                <li>CHD {{flight.child_miles | number}}</li>
+            </ul>
+
+            <br>
+
+            <ul class="list-unstyled  list-inline list-with-padding" ng-if="flight.connections && flight.connections.length">
+                <li ng-repeat-start="connection in flight.connections">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <strong>{{ connection.origin }}</strong><br>
+                            {{ connection.boarding | toDate | date:'HH:mm' }}
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="fa fa-plane" style="font-size: 1.5em;margin-top:10px"></i>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <strong>{{ connection.destination }}</strong><br>
+                            {{ connection.landing | toDate | date:'HH:mm' }}
+                        </div>
+                    </div>
+                </li>
+                <li ng-repeat-end ng-if="$index < flight.connections.length - 1">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            Espera
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <i class="fa fa-clock-o"></i><br>
+                            {{'2016-01-01 '+ connection.waiting | toDate | date:'HH:mm'}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </td>
+    </tr>
+    </tbody>
+</table>

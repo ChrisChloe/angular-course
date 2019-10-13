@@ -1,0 +1,175 @@
+<div class="col-md-12">
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h3 class="panel-title">Configuração de Pagamento</h3>
+        </div>
+        <div id="payment">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input bs-switch
+                                   ng-model="agency.allow_pagseguro"
+                                   ng-disabled="agency.allow_billed == 0"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Pagseguro"
+                                   switch-label-width="150"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"
+                                   class="col-md-4"/>
+                            <input bs-switch
+                                   ng-model="agency.allow_cielo"
+                                   type="checkbox"
+                                   switch-on-text="SIM"
+                                   switch-off-text="NÃO"
+                                   switch-label="Cielo"
+                                   switch-label-width="150"
+                                   switch-handle-width="50"
+                                   switch-on-color="success"
+                                   switch-off-color="danger"
+                                   ng-true-value="1"
+                                   ng-false-value="0"
+                                   class="col-md-4"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <label for="payment_type">Tipos de pagamento</label>
+                        <select type="text"
+                                class="form-control" id="payment_type"
+                                ng-model="agency.payment_type"
+                                ng-options="s.value as s.title for s in paymentTypes"
+                                require>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="service_charge">Taxa de emissão</label>
+                        <input type="text"
+                               class="form-control" id="service_charge"
+                               ng-model="agency.service_charge"
+                               placeholder="R$ 10,00"
+                               ui-money-mask
+                               ui-negative-number/>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="credit">Crédito Transferência Bancaria</label>
+                        <input type="text"
+                               ng-class="{'paymentPositive': agency.credit > 0, 'paymentNegative': agency.credit < 0}"
+                               class="form-control" id="credit"
+                               ng-model="agency.credit"
+                               placeholder="R$ 100,00"
+                               ui-money-mask
+                               ui-negative-number/>
+                        
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="credit_pagseguro">Limite de Crédito PagSeguro</label>
+                        <input type="text"
+                               ng-class="{'paymentPositive': agency.credit_pagseguro > 0, 'paymentNegative': agency.credit_pagseguro < 0}"
+                               class="form-control" id="credit_pagseguro"
+                               ng-model="agency.credit_pagseguro"
+                               placeholder="R$ 100,00"
+                               ui-money-mask
+                               ui-negative-number/>
+                    </div>
+
+                </div>
+                <!--<div class="row">-->
+                    <!--<div class="col-md-8">-->
+                        <!--<label for="credit_billet_near">Limite de Crédito de Boleto (Voos próximos)</label>-->
+                        <!--<input type="text"-->
+                               <!--ng-class="{'paymentPositive': agency.credit_billet_near > 0, 'paymentNegative': agency.credit_billet_near < 0}"-->
+                               <!--class="form-control" id="credit_billet_near"-->
+                               <!--ng-model="agency.credit_billet_near"-->
+                               <!--placeholder="R$ 100,00"-->
+                               <!--ui-money-mask-->
+                               <!--ui-negative-number/>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-4">-->
+                        <!--<label for="credit_billet_near_due">Vencimento (Voos próximos)</label>-->
+                        <!--<div class="input-group">-->
+                            <!--<span class="input-group-addon" id="sizing-addon2">D+</span>-->
+                            <!--<input type="number"-->
+                                   <!--min="1" max="30"-->
+                                   <!--class="form-control" id="credit_billet_near_due"-->
+                                   <!--ng-model="agency.credit_billet_near_due"-->
+                                   <!--placeholder="1"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="credit_billet_far">Limite de Crédito de Boleto</label>
+                        <input type="text"
+                               ng-class="{'paymentPositive': agency.credit_billet_far > 0, 'paymentNegative': agency.credit_billet_far < 0}"
+                               class="form-control" id="credit_billet_far"
+                               ng-model="agency.credit_billet_far"
+                               placeholder="R$ 100,00"
+                               ui-money-mask
+                               ui-negative-number/>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="credit_billet_far_due">Vencimento (Voos distantes)</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="sizing-addon2">D+</span>
+                            <input type="number"
+                                   min="1" max="30"
+                                   class="form-control" id="credit_billet_far_due"
+                                   ng-model="agency.credit_billet_far_due"
+                                   placeholder="1"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="credit_cielo">Limite de Crédito de Cielo</label>
+                        <input type="text"
+                               ng-class="{'paymentPositive': agency.credit_cielo > 0, 'paymentNegative': agency.credit_cielo < 0}"
+                               class="form-control" id="credit_cielo"
+                               ng-model="agency.credit_cielo"
+                               placeholder="R$ 100,00"
+                               ui-money-mask
+                               ui-negative-number/>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <label for="payment_observation">Opções de Pagamento</label>
+                      <textarea ng-model="agency.payment_observation"
+                                id="payment_observation"
+                                placeholder="Informações sobre opções de pagamento"
+                                class="form-control"
+                                rows="5"
+                                cols="390"
+                                style="min-width: 210px; resize: none; max-width:900px; margin: 0px 280px 0px 0px; width: 100%; height: 87px;"></textarea>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+

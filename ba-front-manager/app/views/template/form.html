@@ -1,0 +1,64 @@
+<form ng-submit="save(template)" name="templateForm">
+
+    <div class="col-md-12">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text"
+                                   ng-model="template.name"
+                                   id="name"
+                                   placeholder="Nome"
+                                   class="form-control"
+                                   required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea id="editorTemplateCreate" class="hidden" style="height: 400px;" ng-model="template.body"></textarea>
+                        <!-- <div text-angular
+                             ng-model="template.body"
+                             id="body">
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <h4>Criação automática de cupom</h4>
+                        <p>
+                            O código será gerado de acordo com tipo de email escolhido (Agência ou Usuário)
+                            caso seja de uma agência ficará disponível para uso por todos usuários da agência.
+                        </p>
+                        <p>Insira seguinte padrão: <strong ng-non-bindable>{{CUPOM(VALOR;TIPO;CODIGO;DIAS EXPIRAR)}}</strong></p>
+                        <dl>
+                            <dt>Exemplos:</dt>
+                            <dt>10% de desconto com código "BUSCAAAEREO" expirando em {{getCouponExpiration(1)}}</dt>
+                            <dd ng-non-bindable>{{CUPOM(10;%;BUSCAAAEREO;+1)}}</dd>
+                            <dt>R$50,00 de desconto com código "RBFN7645" expirando em {{getCouponExpiration(7)}}</dt>
+                            <dd ng-non-bindable>{{CUPOM(50;R$;RBFN7645;+7)}}</dd>
+                            <dt>R$100,00 de desconto com código auto gerado expirando em {{getCouponExpiration(60)}}</dt>
+                            <dd ng-non-bindable>{{CUPOM(100;R$;GERAR;+60)}}</dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.template" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

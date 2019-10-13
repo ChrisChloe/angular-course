@@ -1,0 +1,33 @@
+<ba-table ba-table-resource="resource" ba-table-items="readings" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header filter="filter">
+    </ba-table-header>
+
+    <ba-table-body>
+
+        <table class="display table table-condensed" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Registrado em </th>
+                    <th>Cartão</th>
+                    <th>Tipo </th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="reading in readings">
+                    <td>{{ reading.created_at | toDate | date:'dd/MM/yy H:mm' }}</td>
+                    <td><a ui-sref="app.card-show({id: reading.card_id})">{{ reading.card_titular }}</a></td>
+                    <td>{{ reading.card_type || 'NDA' }}</td>
+                    <td>
+                        <button ng-click="changeState(reading.transactions)" class="btn btn-success btn-xs" title="Detalhes">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </ba-table-body>
+
+</ba-table>

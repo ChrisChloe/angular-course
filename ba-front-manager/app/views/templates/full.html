@@ -1,0 +1,60 @@
+<!-- Inclusão de menu !-->
+<div ng-include="'views/chatbar.html'"></div>
+
+<!-- Inclusão do modal perfil (clicar imagem usuario) !-->
+<div ng-include="'views/profile.html'"></div>
+
+<main class="page-content content-wrap">
+    <!-- Inclusão de menu !-->
+    <div ng-include="'views/navbar.html'"></div>
+
+    <!-- Inclusão de sidebar !-->
+    <div ng-if="!isExecutive()" ng-include="'views/sidebar.html'"></div>
+    <div ng-hide="isExecutive() || CloseSidebar || screenSize > 767">
+        <div ng-include="'views/sidebarSmall.html'"></div>
+    </div>
+
+    <div class="page-inner">
+
+        <!-- Inclusão do breadcrumb !-->
+        <!--<div ng-include="'views/breadcrumb.html'"></div>-->
+
+        <div id="main-wrapper">
+            <div class="row">
+
+                <div ng-if="!isExecutive()">
+                    <ui-view></ui-view>
+                </div>
+                <div ng-if="isExecutive()">
+                    <div ng-controller="AgencyCreateCtrl">
+
+                        <div ng-include="'views/agency/form.html'"></div>
+                    </div>
+                </div>
+
+            </div><!-- Row -->
+        </div><!-- Main Wrapper -->
+
+        <!-- Inclusão do footer !-->
+        <div ng-include="'views/footer.html'"></div>
+
+        <!-- Loading Effect -->
+        <div class="loading-screen" ng-class="{'loading-screen-hide': loadingScreenHide}"></div>
+
+        <div class="dialing-screen" ng-class="{'loading-screen-hide': dialingScreenHide}">
+
+
+            <i style="font-size: 2em;" class="fa" ng-class="{'blinking': !phoneCallStarted, 'fa-volume-control-phone': phoneCallStarted, 'fa-phone': !phoneCallStarted, 'phone-call-started': phoneCallStarted}"></i>
+            <!-- <i ng-show="phoneCallStarted" style="font-size: 2em; transition: visibility 0s, opacity 0s linear;" class="text-success fa fa-volume-control-phone"></i> -->
+
+
+        </div>
+
+
+    </div><!-- Page Inner -->
+</main><!-- Page Content -->
+
+<!-- Inclusão do javascript !-->
+<div ng-include="'views/navbar-super.html'"></div>
+
+<div class="block-screen-overlay" ng-class="{'block-screen-overlay-hide': !blockScreen}"></div>

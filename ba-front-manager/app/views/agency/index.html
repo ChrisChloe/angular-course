@@ -1,0 +1,35 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        
+        <div class="panel-heading">
+            <h4 class="panel-title">Agências</h4>
+        </div>
+
+        <div class="panel-body">
+            <a href="" ui-sref="app.agency-create" class="btn btn-success m-b-sm">Nova Agência</a>
+            <div id="rootwizard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="?#agency-tab1" data-toggle="tab">
+                            <i class="fa fa-home m-r-xs"></i>Todas</a>
+                    </li>
+                    <li role="presentation" id="agency-tab-trash">
+                        <a href="?#agency-tab2" data-toggle="tab" ng-click="agencyTrashTab = true">
+                            <i class="fa fa-trash m-r-xs"></i>Lixeira</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active fade in" id="agency-tab1">
+                        <div ng-include="'views/agency/tables/index.html'"></div>
+                    </div>
+                    <div class="tab-pane fade in" id="agency-tab2" ng-if="agencyTrashTab">
+                        <div ng-controller="AgencyTrashCtrl">
+                            <div ng-include="'views/agency/tables/trash.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

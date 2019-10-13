@@ -1,0 +1,62 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">{{message.subject}}</h4>
+</div>
+<form ng-submit="save(message)" name="replyForm">
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-12">
+            <label for="address">Destino</label>
+            
+            <select class="form-control"
+                    id="address"
+                    name="address"
+                    ng-model="message.address"
+                    ng-required="true">
+                <option value="{{message.from_address}}">{{message.from_address}}</option>
+                <option value="{{financeiroAddres}}">{{financeiroAddres}}</option>
+                <option value="{{alteracaoAddres}}">{{alteracaoAddres}}</option>
+                <option value="{{rafaelaAddres}}">{{rafaelaAddres}}</option>
+                <option value="{{tatianeAddres}}">{{tatianeAddres}}</option>
+                
+            </select>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="reply">Resposta Padrão</label>
+            <select type="text" class="form-control" id="reply" name="reply"
+                    ng-model="reply"
+                    ng-init="message.reply=1"
+                    ng-options="reply as reply.title for reply in replys"
+                    ng-change="change(reply)">
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="subjectReply">Assunto</label>
+            <input type="text" class="form-control" id="subjectReply" name="subjectReply"
+                    ng-model="message.subject">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <label for="body">Mensagem</label>
+            <div text-angular
+                 ng-model="message.body"
+                 id="body">
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </div>
+</div>

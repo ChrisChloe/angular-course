@@ -1,0 +1,7 @@
+<!-- table-sort.html -->
+<button type="button" ng-disabled="disabledPagination" ng-class="{'text-align-center': textAlign == 'center', 'text-left': textAlign == 'left' || !textAlign, 'text-right': textAlign == 'right'}" ng-click="sort(sortvalue)" style="width:100%;color:inherit;" class="btn-link text-bold">
+    <span ng-transclude=""></span>
+    <span ng-show="orderby == sortvalue">
+        <i ng-class="{'fa fa-sort-asc':sortedby=='asc', 'fa fa-sort-desc':sortedby=='desc'}"></i>
+    </span>
+</button>

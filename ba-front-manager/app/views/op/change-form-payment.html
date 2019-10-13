@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Alterar forma de pagamento <strong>OP #{{op.id}}</strong></h4>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12">
+            <select ng-model="form_payment" ng-change="verifyIsValid()" class="form-control">
+                <option value="0">Selecione uma forma de pagamento</option>
+                <option value="1">Boleto</option>
+                <option value="5">Transferência Bancária</option>
+                <option value="6">Crédito da agência</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-xs-12"><hr></div>
+        <div class="col-xs-12 col-md-3 col-xs-offset-0 col-md-offset-9">
+            <button type="button" class="btn btn-success btn-md" ng-click="updateFormPayment()" id="confirm-button" ng-disabled="!isValidToChange"
+                    title="{{isValidToChange ? 'Confirmar alteração de forma de pagamento.' : 'Selecione uma forma de pagamento diferente.'}}">
+                <i class="fa fa-send"></i> {{btnValue}}
+            </button>
+        </div>
+    </div>
+</div>

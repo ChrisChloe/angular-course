@@ -1,0 +1,51 @@
+<ba-table ba-table-resource="resource" ba-table-items="return" ba-table-filter-criteria="filterCriteria" ba-table-disable-pagination="true">
+    <ba-table-header filter="filter"></ba-table-header>
+    <ba-table-body>
+        <table id="data-table-payment" class="display table table-striped table-condensed table-hover" style="width: 100%; cellspacing: 0;">
+            <thead>
+            <tr>
+                <th>REF</th>
+                <th>{{return[0].payments_count}}</th>
+                <th>{{return[0].total_paid | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Msg. Ret.</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Banco</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="payment in return[0].payments" ng-class="getPaymentStatusClass(return[0].bank_slug, payment)">
+                <td ng-bind="payment.reference"></td>
+                <td ng-bind="payment.id"></td>
+                <td ng-bind="payment.amount_paid | currency:'R$'"></td> 
+                <td ng-bind="payment.status.name"></td>
+                <td ng-bind="payment.remittance_return.return_messages"></td>
+                <td><a target="blank" href="{{crmUrl + 'providers/edit/' + payment.person.cpf_cnpj}}">{{payment.person.name}}</a></td>
+                <td ng-bind="payment.person.cpf_cnpj"></td>
+                <td ng-bind="payment.bank_account.name"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>REF</th>
+                <th>{{return[0].payments_count}}</th>
+                <th>{{return[0].total_paid | currency:'R$'}}</th>
+                <th>Status</th>
+                <th>Msg. Ret.</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Banco</th>
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="reference">REF</ba-table-sort></th>-->
+                <!--<th>{{return[0].payments_count}}</th>-->
+                <!--<th>{{return[0].total_paid | currency:'R$'}}</th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="status.name">Status</ba-table-sort></th>-->
+                <!--<th>Msg. Ret.</th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person.name">Nome</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="person.cpf_cnpj">CPF</ba-table-sort></th>-->
+                <!--<th><ba-table-sort ba-table-sort-dir="filterCriteria.sortedBy" ba-table-sort-by="filterCriteria.orderBy" ba-table-sort-value="bank.name">Banco</ba-table-sort></th>-->
+            </tr>
+            </tfoot>
+        </table>
+    </ba-table-body>
+</ba-table>

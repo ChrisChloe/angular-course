@@ -1,0 +1,96 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <h4 class="panel-title">Relatórios</h4>
+        </div>
+        <div class="panel-body">
+            <div id="rootwizard">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="?#all-tab" data-toggle="tab">
+                            <i class="fa fa-users m-r-xs"></i>Todas
+                        </a>
+                    </li>
+                    <li role="presentation" ng-click="psvTab = true">
+                        <a href="?#agency-tab" data-toggle="tab">
+                            <i class="fa fa-home m-r-xs"></i>PSV
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab-north" ng-click="northTab = true">
+                        <a href="?#agency-tab-north" data-toggle="tab">
+                            <i class="fa fa-arrow-up m-r-xs"></i>Norte
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab-northeast" ng-click="northeastTab = true">
+                        <a href="?#agency-tab-northeast" data-toggle="tab">
+                            <i class="fa fa-arrow-right m-r-xs"></i>Nordeste
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab-south" ng-click="southTab = true">
+                        <a href="?#agency-tab-south" data-toggle="tab">
+                            <i class="fa fa-arrow-down m-r-xs"></i>Sul
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab-southeast" ng-click="southeastTab = true">
+                        <a href="?#agency-tab-southeast" data-toggle="tab">
+                            <i class="fa fa-arrow-right m-r-xs rotate-southeast"></i>Sudeste
+                        </a>
+                    </li>
+                    <li role="presentation" id="tab-midwest" ng-click="midwestTab = true">
+                        <a href="?#agency-tab-midwest" data-toggle="tab">
+                            <i class="fa fa-circle m-r-xs"></i>Centro-Oeste
+                        </a>
+                    </li>
+                    <li class="pull-right" role="presentation" id="tab-agency-by-status" ng-click="agencyByStatusTab = true">
+                        <a href="?#agency-by-status" data-toggle="tab">
+                            <i class="fa fa-filter m-r-xs"></i>Agências por Status
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active fade in" id="all-tab">
+                        <div class="table-responsive" ng-controller="ReportAllCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in" id="agency-tab" ng-if="psvTab">
+                        <div class="table-responsive" ng-controller="ReportAgencyCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-tab-north" ng-if="northTab">
+                        <div class="table-responsive" ng-controller="ReportAgencyNorthCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-tab-northeast" ng-if="northeastTab">
+                        <div class="table-responsive" ng-controller="ReportAgencyNortheastCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-tab-south" ng-if="southTab">
+                        <div class="table-responsive" ng-controller="ReportAgencySouthCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-tab-southeast" ng-if="southeastTab">
+                        <div class="table-responsive" ng-controller="ReportAgencySoutheastCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-tab-midwest" ng-if="midwestTab">
+                        <div class="table-responsive" ng-controller="ReportAgencyMidwestCtrl">
+                            <div ng-include="'views/report/tables/index.html'"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="agency-by-status" ng-if="agencyByStatusTab">
+                        <div class="table-responsive" ng-controller="ReportAgencyByStatusCtrl">
+                            <div ng-include="'views/report/tables/agency-by-status.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

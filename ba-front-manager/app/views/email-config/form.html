@@ -1,0 +1,85 @@
+<form ng-submit="save(config)" name="configForm">
+
+    <div class="col-md-8">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text"
+                                   ng-model="config.name"
+                                   id="name"
+                                   placeholder="Nome"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="driver">Driver</label>
+                            <select ng-model="config.driver"
+                                    ng-options="s.value as s.title for s in [{value:'smtp',title:'SMTP'}]"
+                                    id="driver"
+                                    class="form-control"
+                                    required></select>
+                        <div class="form-group">
+                            <label for="name">Servidor</label>
+                            <input type="text"
+                                   ng-model="config.host"
+                                   id="host"
+                                   placeholder="Servidor"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Porta</label>
+                            <input type="text"
+                                   ng-model="config.port"
+                                   id="port"
+                                   placeholder="Porta"
+                                   class="form-control"
+                                   ui-number-mask="0"
+                                   required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Encriptação</label>
+                            <select ng-model="config.encryption"
+                                    ng-options="s.value as s.title for s in [{value:'tls',title:'TLS'}, {value:'',title:'Nenhuma'}]"
+                                    id="encryption"
+                                    class="form-control"
+                                    required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Usuário</label>
+                            <input type="text"
+                                   ng-model="config.username"
+                                   id="username"
+                                   placeholder="Usuário"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Senha</label>
+                            <input type="text"
+                                   ng-model="config.password"
+                                   id="password"
+                                   placeholder="Senha"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.email-config" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

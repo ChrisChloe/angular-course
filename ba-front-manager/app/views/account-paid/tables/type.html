@@ -1,0 +1,35 @@
+<ba-table ba-table-resource="resource" ba-table-items="account_paid_types" ba-table-filter-criteria="filterCriteria">
+
+    <ba-table-header>
+        <a href="" ui-sref="app.account-paid-type-create" class="btn btn-success m-b-sm pull-right">Nova Tipo de débito</a>
+    </ba-table-header>
+
+    <ba-table-body>
+
+            <table id="data-table-agency" class="display table table-condensed" style="width: 100%; cellspacing: 0;">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Criado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="account_paid_type in account_paid_types">
+                    <td>{{account_paid_type.id}}</td>
+                    <td>{{account_paid_type.name}}</td>
+                    <td>{{account_paid_type.created_at | toDate | date:'dd/MM/yy H:mm'}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Criado</th>
+                </tr>
+                </tfoot>
+            </table>
+
+    </ba-table-body>
+
+</ba-table>

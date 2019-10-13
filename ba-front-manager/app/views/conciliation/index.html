@@ -1,0 +1,68 @@
+<div class="col-md-12">
+
+    <div class="panel panel-white">
+
+        <div class="panel-heading">
+            <h4 class="panel-title">Conciliação</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <form ng-submit="submitOptions(options)">
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Banco</label>
+                            <select disabled class="form-control" ng-model="options.bank_id">
+                                <option value="1">Banco do Brasil</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <label>Data de Vencimento</label>
+                                <input  class="form-control"
+                                        ng-model="options.due_date"
+                                        data-provide="datepicker"
+                                        data-date-format="yyyy/mm"
+                                        data-language="pt-BR"
+                                        data-date-autoclose="true"
+                                        ng-model="search.min_date">
+                            </div>
+                        </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Nº do Cartão</label>
+                            <select class="form-control" ng-model="options.card_id" ng-options="type.id as type.card_number for type in cards">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Arquivo</label>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-info" ngf-select="fileSelected(options)"
+                                        ng-model="options.file" ngf-max-size="100MB" ngf-accept="'txt'"
+                                        name="file">
+                                        <i class="fa fa-upload"></i>
+                                    </button>
+                                </div>
+                                <input disabled title="{{options.file.name}}" type="text" class="form-control"
+                                    placeholder="Nenhum arquivo selecionado" ng-model="options.file.name" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 23px;">
+                        <button type="submit" class="btn btn-success"><i ng-class="{'fa-spin': waitingResponse, 'fa-spinner': waitingResponse}" class="fa"></i> Enviar</button>
+                    </div>
+                </form>
+            </div>
+            <div ng-include="'views/conciliation/tables/index.html'"></div>
+        </div>
+    </div>
+</div>

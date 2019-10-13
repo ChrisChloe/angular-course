@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h4 class="modal-title">Liquidar</h4>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-md-9">
+            <input class="form-control" required ng-model="invoice.amount" ui-money-mask>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-success" ng-click="liquidate(invoice.amount,invoice.release_date_of)">
+                <i class="fa fa-check-circle-o"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <label for="invoice-amount">Data de lançamento</label>
+            <input  class="form-control"
+                    data-provide="datepicker"
+                    data-date-format="dd/mm/yyyy"
+                    data-date-end-date="{{todayFilter}}"
+                    data-language="pt-BR"
+                    ng-model="invoice.release_date_of"
+                    required />
+        </div>
+    </div>
+
+</div>

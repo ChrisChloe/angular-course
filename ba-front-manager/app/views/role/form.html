@@ -1,0 +1,32 @@
+<form ng-submit="save(role)" name="roleForm">
+
+    <div class="col-md-6">
+        <div class="panel panel-white">
+            <div class="panel-heading clearfix">
+                <h4 class="panel-title">{{title}}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-role">
+                            <label for="name">Nome</label>
+                            <input type="text"
+                                   ng-model="role.name"
+                                   id="name"
+                                   placeholder="Nome"
+                                   class="form-control"
+                                   ng-required="true"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <a ui-sref="app.role" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+

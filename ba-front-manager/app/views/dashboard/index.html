@@ -1,0 +1,239 @@
+<div class="row">
+    <div class="col-lg-3 col-md-4">
+        <h3 class="text-center">BuscaAéreo</h3>
+        <!--OPS-->
+        <a ui-sref="app.search">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ searchCount }}</p>
+                            <span class="info-box-title">Qtd de Buscas (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <!--Buscas-->
+        <a ui-sref="app.op">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ opCount }}</p>
+                            <span class="info-box-title">Qtd de Ops (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <!--Embarques-->
+        <a ui-sref="app.check-in">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ boardingCount }}</p>
+                            <span class="info-box-title">Embarques (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-plane"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4">
+        <h3 class="text-center">Elomilhas</h3>
+        <!--OPS-->
+        <a ui-sref="app.search({search:'Elomilhas'})">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ eloSearches }}</p>
+                            <span class="info-box-title">Qtd de Buscas (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <!--Buscas-->
+        <a ui-sref="app.agency-show({id: 1279})">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ eloOps }}</p>
+                            <span class="info-box-title">Qtd de Ops (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+    <div class="col-lg-3 col-md-4">
+        <h3 class="text-center">AGR NOW</h3>
+        <!--OPS-->
+        <a ui-sref="app.search({search:'AGR NOW'})">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ agrSearches }}</p>
+                            <span class="info-box-title">Qtd de Buscas (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <!--Buscas-->
+        <a ui-sref="app.agency-show({id: 2258})">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ agrOps }}</p>
+                            <span class="info-box-title">Qtd de Ops (hoje)</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4">
+        <div ng-click="openInput = true">
+            <a class="pointer" ng-if="!openInput" style="width:100%!important">
+                <div class="col-xs-12">
+                    <div class="panel info-box panel-white panel-hover" style="margin-top: 50px;">
+                        <div class="panel-body">
+                            <div class="info-box-stats">
+                                <span class="info-box-title">Adicionar Outra Agência</span>
+                            </div>
+                            <div class="info-box-icon">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div ng-if="openInput">
+
+            <div class="col-xs-12">
+
+                <ui-select style="margin: 7px 0 7px 0;" ng-model="counter.search" title="Buscar Agência" required on-select="onSelectAgency(counter, $item)">
+                    <ui-select-match placeholder="Buscar Agência">
+                        {{$select.selected.title}}
+                    </ui-select-match>
+                    <ui-select-choices refresh="searchAgency($select.search)" repeat="agency.id as agency in agencies">
+
+                        <div style="height: 25px">
+                            <strong>{{agency.title}}</strong>
+                        </div>
+
+                    </ui-select-choices>
+                </ui-select>
+
+                <i ng-show="loading_agencies" class="fa fa-spinner" style="position: absolute;top: 33%; font-size: 18px; left: -2%;"></i>
+                <i ng-if="openInput && !loading_agencies" ng-click="resetCounter()" class="pointer fa fa-close" style="position: absolute;top: 33%; font-size: 18px; left: -2%;"></i>
+
+            </div>
+
+            <div ng-if="selectedAgency.title">
+
+                <!--Buscas-->
+                <a ng-disabled="!selectedAgency.title" ui-sref="app.search({search:selectedAgency.title})">
+                    <div class="col-xs-12">
+                        <div class="panel info-box panel-white panel-hover">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p class="counter">{{ fourthSearches }}</p>
+                                    <span class="info-box-title">Qtd de Buscas (hoje)</span>
+                                </div>
+                                <div class="info-box-icon">
+                                    <i ng-if="loadingSearches" class="fa fa-spinner"></i>
+                                    <i class="fa fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+
+                <!--OPS-->
+                <a ng-disabled="!selectedAgency.id" ui-sref="app.agency-show({id: selectedAgency.id})">
+                    <div class="col-xs-12">
+                        <div class="panel info-box panel-white panel-hover">
+                            <div class="panel-body">
+                                <div class="info-box-stats">
+                                    <p class="counter">{{ fourthOps }}</p>
+                                    <span class="info-box-title">Qtd de Ops (hoje)</span>
+                                </div>
+                                <div class="info-box-icon">
+                                    <i ng-if="loadingOps" class="fa fa-spinner"></i>
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row auto-emissions">
+    <h3 class="text-center">Emissões Automáticas <ba-new-feature expires="2018-10-12"></ba-new-feature></h3>
+
+    <div class="col-lg-2 col-md-2" ng-repeat="company in companies | orderBy:'title'">
+        <a ui-sref="app.company-edit(company)">
+            <div class="col-xs-12">
+                <div class="panel info-box panel-white panel-hover">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="title">{{company.title}}</p>
+                            <span class="info-box-title">Milhas:
+                                <span ng-class="{'danger-box-title':!company.auto_emission_miles, 'success-box-title':company.auto_emission_miles}">
+                                {{company.auto_emission_miles ? 'Liberada' : 'Bloqueada'}}
+                                </span>
+                            </span>
+                            <span class="info-box-title">Tarifa:
+                                <span ng-class="{'danger-box-title':!company.auto_emission_money, 'success-box-title':company.auto_emission_money}">
+                                 {{company.auto_emission_money ? 'Liberada' : 'Bloqueada'}}
+                                </span>
+                            </span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-check" ng-if="company.auto_emission_miles && company.auto_emission_money"></i>
+                            <i class="fa fa-exclamation" ng-if="(company.auto_emission_miles && !company.auto_emission_money) || (!company.auto_emission_miles && company.auto_emission_money)"></i>
+                            <i class="fa fa-times" ng-if="!company.auto_emission_miles && !company.auto_emission_money"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
