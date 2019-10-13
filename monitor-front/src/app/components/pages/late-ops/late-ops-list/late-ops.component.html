@@ -1,0 +1,74 @@
+<div class="panel">
+  <h4 class="panel-title">Ordens de Passagem Atrasadas</h4>
+
+  <div class="panel-body">
+
+    <div class="table-wrapper">
+
+      <div class="tableStyles">
+
+        <table class="display table table-condensed table-responsive-md">
+          <thead>
+            <th>#</th>
+            <th>Tipo de Pagamento</th>
+            <th>Preço</th>
+            <th>Status</th>
+            <th>Recebida em</th>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let data of tableData" class="pointer hover-row" (click)="openOpInspectManager(data.id)">
+              <td>{{data.id}}</td>
+              <td>{{data.payment_type_title}}</td>
+              <td>{{data.price}}</td>
+              <td>{{data.status_title}}</td>
+              <td>{{data.received_at | date:'dd/MM/yyyy HH:mm'}}</td>
+            </tr>
+
+            <tr *ngIf="!tableData || tableData.length <= 0">
+              <td colspan="6" class="text-center">
+                Nenhum Dado Encontrado
+              </td>
+            </tr>
+
+
+
+          </tbody>
+
+        </table>
+
+
+        <!-- <nav style="float: right">
+                <select [(ngModel)]="limitPerPage" (change)="limitChange(limitPerPage)" style="display: inline;">
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                  <option value="55">55</option>
+                </select>
+            
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" (click)="paginationChange(pagination.current_page - 1)"><</a> </li>
+            
+                  <li *ngIf="pagination.links.previous && pagination.links.next" class="page-item"><a class="page-link" href="#">{{pagination.current_page
+                      - 1}}</a></li>
+                  <li class="page-item active"><a class="page-link" href="#">{{pagination.current_page}}</a></li>
+            
+            
+                  <li class="page-item">
+                    <a class="page-link" (click)="paginationChange(pagination.current_page + 1)">></a>
+                  </li>
+                </ul>
+              </nav> -->
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>

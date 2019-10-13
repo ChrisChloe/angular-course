@@ -1,0 +1,9 @@
+<a>
+    <div class="card card-hover" [ngClass]="{'loading': status === 'Online', 'success-card': status === 'Online', 'danger-card': status === 'Offline', 'warning-card': status === 'Erro'}">
+        <h5 [hidden]="!status" class="card-title">{{cardTitle}}</h5>
+        <i class="fa background-icon" [ngClass]="{'fa-spinner': !status, 'fa-spin': !status}" [class]="cardIcon"></i>
+        <span style="font-weight: 400; font-size: 20px;">
+            {{status | uppercase}}
+        </span>
+    </div>
+</a>

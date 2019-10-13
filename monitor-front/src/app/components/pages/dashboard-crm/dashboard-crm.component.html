@@ -1,0 +1,51 @@
+<h3 class="page-title">Monitoramento CRM</h3>
+<h3 class="desktop-only" style="position: absolute;
+right: 5%;
+top: 28px;">{{currentTime | date:'dd/MM/yyyy HH:mm:ss'}}</h3>
+
+<div class="panel">
+  <div class="row counters-row">
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 loading">
+          <app-count-card [cardCategory]="'Aprovado'" [countCardIcon]="'fa-2x fa fa-check'" 
+          [cardCountValue]="5" [cardLastUpdate]="searchCountUpdated"></app-count-card>
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+          <app-count-card [cardCategory]="'Recusado'" [countCardIcon]="'fa-2x fa fa-times'"
+              [cardCountValue]="5" [cardLastUpdate]="opsCountUpdated"></app-count-card>
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+          <app-count-card [cardCategory]="'Em Análise'" [countCardIcon]="'fa-2x fa fa-search'" [cardCountValue]="5"
+              [cardLastUpdate]="lateOpsCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+          <app-count-card [cardCategory]="'Aguardando'" [countCardIcon]="'fa-2x fa fa-clock-o'"
+              [cardCountValue]="5" [cardLastUpdate]="lateOpsFinancialCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+          <app-count-card [cardCategory]="'Dados Pendentes'" [countCardIcon]="'fa-2x fa fa-list-ul'" 
+            [cardCountValue]="5" [cardLastUpdate]="loggedUsersCountUpdated"></app-count-card>
+      </div>
+  </div>
+  <div class="row counters-row">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 loading">
+        <app-count-card [cardCategory]="'Não Definido'" [countCardIcon]="'fa-2x fa fa-ellipsis-h'" 
+        [cardCountValue]="5" [cardLastUpdate]="searchCountUpdated"></app-count-card>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+        <app-count-card [cardCategory]="'Fraude'" [countCardIcon]="'fa-2x fa fa-ban'"
+            [cardCountValue]="5" [cardLastUpdate]="opsCountUpdated"></app-count-card>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+        <app-count-card [cardCategory]="'Desistente'" [countCardIcon]="'fa-2x fa fa-calendar-times-o'" [cardCountValue]="5"
+            [cardLastUpdate]="lateOpsCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+        <app-count-card [cardCategory]="'Finalizado'" [countCardIcon]="'fa-2x fa fa-check-square-o'"
+            [cardCountValue]="6" [cardLastUpdate]="lateOpsFinancialCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+        <app-count-card [cardCategory]="'Contato Pendente'" [countCardIcon]="'fa-2x fa fa-phone'" 
+          [cardCountValue]="5" [cardLastUpdate]="loggedUsersCountUpdated"></app-count-card>
+    </div>
+</div>
+</div>

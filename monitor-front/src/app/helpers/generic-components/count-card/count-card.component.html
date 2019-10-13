@@ -1,0 +1,52 @@
+<!-- <a [routerLink]="route">
+    <div class="card-count card" style="padding: 0!important">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-5 col-md-4">
+                    <div class="icon-big text-center"><i [class]="countCardIcon"></i></div>
+                </div>
+                <div class="col-7 col-md-8">
+                    <div class="numbers">
+                        <p class="card-category">{{cardCategory}}</p>
+                        <p class="card-title">
+                            <ng2-odometer [number]="cardCountValue"></ng2-odometer>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="count"><i class="fa fa-refresh"></i> {{cardLastUpdate | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
+        </div>
+    </div>
+</a> -->
+
+<div class="row text-center">
+    <div class="col">
+        <div class="counter">
+            <div style="position: absolute;
+                height: 240px;
+                width: 240px;
+                left: 50%;
+                margin-left: -120px;
+                border-radius: 100%;
+                z-index: 0;
+                top: -9px;"
+                [ngClass]="{
+                    'warning-counter': reactiveCounter && cardCountValue >= 5 && cardCountValue < 10,
+                    'danger-counter': reactiveCounter && cardCountValue >= 10 }">
+            </div>
+
+            <div class="card-icon">
+                <i [class]="countCardIcon" aria-hidden="true" [ngClass]="{'warning-icon': reactiveCounter && cardCountValue >= 5 && cardCountValue < 10,
+                  'danger-icon': reactiveCounter && cardCountValue >= 10}">
+                </i>
+            </div>
+            <h2 class="timer count-title count-number">
+                <ng2-odometer [format]="'d'" [number]="cardCountValue"></ng2-odometer>
+            </h2>
+            <p class="count-text">{{cardCategory}}</p>
+            <small>{{cardLastUpdate | date: 'HH:mm:ss'}}</small>
+        </div>
+    </div>
+</div>

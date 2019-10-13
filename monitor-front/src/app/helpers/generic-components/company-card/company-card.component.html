@@ -1,0 +1,19 @@
+<div class="card company-card">
+
+  <div class="row">
+      <div class="col-md-5" style="padding-right: 0">
+          <div class="company-logo {{company.title}}" [ngStyle]="{'background': getCiaLogo(company.title)}">
+          </div>
+      </div>
+      <div class="col-md-7">
+          <div class="company-info">
+              <h5 class="company-title"><span>{{company.name}}</span></h5>
+              <p>Tarifa:<span [ngClass]="{'text-danger': !company.auto_emission_money, 'text-success': company.auto_emission_money}">
+                      {{ company.auto_emission_money ? 'Ativada' : 'Desativada'}}</span></p>
+              <p>Milha:<span [ngClass]="{'text-danger': !company.auto_emission_miles, 'text-success': company.auto_emission_miles}">
+                      {{ company.auto_emission_miles ? 'Ativada' : 'Desativada'}}</span></p>
+          </div>
+      </div>
+
+  </div>
+</div>

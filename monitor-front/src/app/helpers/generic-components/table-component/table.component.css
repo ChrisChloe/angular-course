@@ -1,0 +1,27 @@
+.table-wrapper{
+    margin-top: 10px;
+}
+
+.tableStyles{
+    border-radius: 10px;
+    overflow: hidden;
+}
+thead { background-color: var(--darker-background-color); }
+.table>thead>th {
+    border: none;
+    font-weight: 500;
+}
+.table>tbody>tr>td {
+    background-color: var(--secondary-color);
+    border-color: var(--lighter-background-color);
+    font-weight: 300;
+}
+.table>tbody>tr:first-child>td { border: none; }
+
+.table {
+    width: 100%;
+}
+
+button {
+    margin-right: 2.5px;
+}

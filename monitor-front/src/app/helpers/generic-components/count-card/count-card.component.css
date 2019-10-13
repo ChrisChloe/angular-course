@@ -1,0 +1,117 @@
+/* .card-count .card-body {
+    padding: 15px 15px 0px; 
+  }
+  .card-count .card-body .numbers {
+    text-align: right;
+    font-size: 2em;
+   }
+  .card-count .card-body .numbers p {
+    margin-bottom: 0;
+   }
+  .card-count .card-body .numbers .card-category {
+    color: #9A9A9A;
+    font-size: 16px;
+    line-height: 1.4em;
+   }
+  
+  .card-count .card-footer {
+    padding: 0px 15px 15px;
+   }
+  .card-count .card-footer .count {
+    color: #9A9A9A;
+   }
+  .card-count .card-footer hr {
+    margin-top: 10px;
+    margin-bottom: 15px;
+   }
+  
+  .card-count .icon-big {
+    font-size: 3em;
+    min-height: 64px; 
+    color: rgb(115, 185, 115)!important;
+  }
+  .card-count .icon-big i {
+    line-height: 59px; 
+  }
+  
+  .card-footer {
+    padding: 8px 8px 8px!important;
+  }
+  .card-title {
+    color: var(--dark-font-color)!important;
+    font-size: 50px;
+  }
+  .card-category {
+    color: var(--font-subcolor)!important;
+  }
+
+  a{ text-decoration: none; } */
+
+.counter {
+  padding: 20px 0;
+  border-radius: 100%;
+  box-shadow: none;
+}
+
+.warning-counter { 
+  animation: warning-alert 1.5s infinite;
+}
+
+.danger-counter { 
+  animation: danger-alert 1.5s infinite;
+}
+
+.count-title {
+    font-size: 70px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.count-text {
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.fa-2x {
+    margin: 0 auto;
+    float: none;
+    display: table;
+    color: var(--primary);
+}
+
+.card-icon{ 
+  display: flex;
+  vertical-align: middle;
+  justify-content: center;
+  transition: all 500ms;
+}
+
+.warning-icon {
+  color: var(--warning)!important;
+}
+
+.danger-icon {
+  color: var(--danger)!important;
+}
+
+@keyframes warning-alert {
+  0% { box-shadow: none; }
+
+  50% { box-shadow: 0 2px 86px 5px var(--warning); }
+
+  100% { box-shadow: none; }
+}
+
+
+@keyframes danger-alert {
+  0% { box-shadow: none; }
+
+  50% { box-shadow: 0 2px 86px 5px var(--danger); }
+
+  100% { box-shadow: none; }
+}

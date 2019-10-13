@@ -1,0 +1,130 @@
+<div class="row">
+
+  <div class="col-md-12 map-panel">
+    <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" [disableDefaultUI]="false" [zoomControl]="false">
+      <agm-marker-cluster imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+
+        <agm-marker *ngFor="let login of tableData" [latitude]="login.lat" [longitude]="login.lng">
+
+          <agm-info-window>
+            Acesso em: <strong>{{login.created_at | date:'dd/MM/yyyy HH:mm'}}</strong>
+          </agm-info-window>
+
+        </agm-marker>
+
+      </agm-marker-cluster>
+    </agm-map>
+  </div>
+
+
+  <div class="centralize-panel">
+
+    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+
+      <div class="panel">
+
+        <h4 class="panel-title"><button routerLink=".." class="return-btn btn btn-primary"><i class="fa fa-arrow-left"></i></button>
+          Usuário #{{userId}}</h4>
+
+
+        <div class="table-wrapper">
+
+
+          <!-- <form *ngIf="tableMetaData" [formGroup]="filterForm" (submit)="filterList()">
+            <div class="tableFilters row">
+    
+    
+              <div class="col-md-3 mb-3">
+                <input type="text" class="form-control" placeholder="Buscar" formControlName="search">
+              </div>
+    
+              <div class="col-md-3 mb-3">
+                <select type="text" class="custom-select" formControlName="health_insurance">
+                  <option value="" disabled selected>Plano de Saúde</option>
+                  <option *ngFor="let filter of tableMetaData.filterConfig.health_insurances" [value]="filter.id">{{filter.name}}</option>
+                </select>
+              </div>
+    
+              <div class="col-md-3 mb-3">
+                <button class="btn full-width-mobile btn-primary" type="submit"><i class="fa fa-search"></i></button>
+              </div>
+    
+    
+            </div>
+          </form> -->
+
+          <div class="tableStyles">
+
+
+            <table class="display table table-condensed table-responsive-md">
+              <thead>
+                <th *ngFor="let tableHead of tableHeaders"><a class="pointer" (click)="changeSort(tableHead)">{{tableHead.title}}
+                    <i class="fa" [ngClass]="{'fa-caret-up': tableHead.sorted === 'asc', 'fa-caret-down': tableHead.sorted === 'desc'}"></i>
+                  </a>
+                </th>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let data of tableData">
+                  <td>{{data.id}}</td>
+                  <td>{{data.created_at}}</td>
+                  <td>{{data.ip}}</td>
+                </tr>
+
+                <tr *ngIf="!tableData || tableData.length <= 0">
+                  <td colspan="6" class="text-center">
+                    Nenhum Dado Encontrado
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+
+            </table>
+
+
+          </div>
+
+          <div *ngIf="tableMetaData" class="row tablePagination">
+
+
+            <div class="input-group col-xl-2 col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Limite</label>
+              </div>
+              <select [(ngModel)]="selectedSize" (change)="limitChange(selectedSize)" class="custom-select" id="inputGroupSelect01">
+                <option *ngFor="let pageSize of pageSizeOptions" [value]="pageSize">{{pageSize}}</option>
+              </select>
+            </div>
+
+
+
+            <div class="btn-group col-xl-4 col-lg-8 col-md-8 col-sm-12 col-12" role="group" aria-label="Basic example">
+              <button type="button" [disabled]="tableMetaData.current_page === 1" class="btn btn-secondary" (click)="paginationChange(tableMetaData.current_page - 1)">
+                <i class="fa fa-angle-left"></i>
+              </button>
+              <button type="button" class="btn btn-primary">{{tableMetaData.current_page}}</button>
+              <button type="button" [disabled]="tableMetaData.current_page === tableMetaData.total_pages" class="btn btn-secondary"
+                (click)="paginationChange(tableMetaData.current_page + 1)">
+                <i class="fa fa-angle-right"></i>
+              </button>
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+</div>

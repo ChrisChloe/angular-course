@@ -1,0 +1,73 @@
+.company-card {
+    padding: 0!important;
+    border: 0!important;
+  }
+  
+  .company-logo {
+    height: 98px;
+    height: 100%;
+    background-position: center!important;
+    background-size: contain!important;
+    background-repeat: no-repeat!important;
+    min-height: 100px;
+  }
+  .company-logo.Gol {
+    background-color: #e26c29!important;
+  }
+  .company-logo.TAM {
+    background-color: #290088!important;
+  }
+  .company-logo.Azul {
+    background-color: #0b1142!important;
+  }
+  .company-logo.Avianca {
+    background-color: #ed1c24!important;
+  }
+  
+  
+  .company-logo img {
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+  }
+  
+  .company-info {
+    padding: 10px 0;
+  }
+  
+  .company-card p,
+  .company-card h5 {
+    margin: 0;
+    color: #373f48!important;
+  }
+  .company-card h5{
+    margin-bottom: 8px;
+  }
+  .company-card h5>span {
+    font-size:15px;
+    color: #373f48!important;
+    font-weight: 600!important;
+    border-bottom: 2px solid #373f48;
+    padding: 0 5px;
+    margin-bottom: 5px!important;
+  }
+  
+  .company-card .col-md-6 {
+    padding-right: 0;
+  }
+  
+  @media (max-width: 767px) {
+    .company-info {
+      padding: 15px;
+    }
+    .company-logo {
+      width: 96%;
+    }
+  }
+  
+  @media (max-width: 575px){
+    .company-logo {
+      width: 97.2%;
+    }
+  }

@@ -1,0 +1,51 @@
+<h3 class="page-title">Painel de Monitoramento</h3>
+<h3 class="desktop-only" style="position: absolute;
+right: 5%;
+top: 28px;">{{currentTime | date:'dd/MM/yyyy HH:mm:ss'}}</h3>
+
+
+<div class="panel">
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 loading">
+            <app-count-card [cardCategory]="'Cotações'" [countCardIcon]="'fa-2x fa fa-shopping-cart'" [cardCountValue]="searchCount"
+                [cardLastUpdate]="searchCountUpdated"></app-count-card>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+            <app-count-card [cardCategory]="'Ordens de Passagem'" [countCardIcon]="'fa-2x fa fa-ticket'"
+                [cardCountValue]="opsCount" [cardLastUpdate]="opsCountUpdated"></app-count-card>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+            <app-count-card [cardCategory]="'OPS com Atraso'" [countCardIcon]="'fa-2x fa fa-clock-o'" [cardCountValue]="lateOpsCount"
+                [cardLastUpdate]="lateOpsCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6 col-12">
+            <app-count-card [cardCategory]="'OPS com Atraso Financeiro'" [countCardIcon]="'fa-2x fa fa-money'"
+                [cardCountValue]="lateOpsFinancialCount" [cardLastUpdate]="lateOpsFinancialCountUpdated" [route]="'/home/late-ops'" [reactiveCounter]="true"></app-count-card>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+            <app-count-card [cardCategory]="'Usuários Logados'" [countCardIcon]="'fa-2x fa fa-users'" [cardCountValue]="loggedUsersCount"
+                [cardLastUpdate]="loggedUsersCountUpdated"></app-count-card>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div *ngFor="let company of companies" class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <app-company-card [company]="company"></app-company-card>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 loading">
+        <app-status-card [cardTitle]="'BuscaAéreo'" [cardIcon]="'fa-plane'" [status]="buscaAereoStatus"></app-status-card>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <app-status-card [cardTitle]="'Manager'" [cardIcon]="'fa-desktop'" [status]="managerStatus"></app-status-card>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <app-status-card [cardTitle]="'Crawler'" [cardIcon]="'fa-globe'" [status]="crawlerStatus"></app-status-card>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+        <app-status-card [cardTitle]="'CRM'" [cardIcon]="'fa-clipboard'" [status]="crmStatus"></app-status-card>
+    </div>
+</div>
