@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Object Literals</title>
+</head>
+<body>
+<script>
+    const first = 'snickers';
+    const last = 'bos';
+    const age = 2;
+    const breed = 'King Charles';
+    const dog = {
+        first,
+        last,
+        age,
+        breed
+    };
+
+    console.log(dog);
+
+    const modal = {
+        create(selector) {
+
+        },
+        open(content) {
+
+        },
+        goodbye(goodbye) {
+
+        }
+    }
+
+    const key = 'pocketColor';
+    const value = '#ffc60';
+
+    const tShirt = {
+        [key]: value,
+        [`${key}Opposite`]: invertColor(value)
+    };
+
+    const keys = ['size', 'color', 'weight'];
+    const values = ['medium', 'red', 100];
+
+    const shirt = {
+        [keys.shift()]: values.shift(),
+        [keys.shift()]: values.shift(),
+        [keys.shift()]: values.shift()
+    }
+    console.log(shirt);
+</script>
+</body>
+</html>

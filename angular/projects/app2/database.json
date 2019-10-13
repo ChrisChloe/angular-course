@@ -1,6 +1,8 @@
 {
   "offers": [
     {
+    "data": [
+      {
       "id": 1,
       "category": "restaurant",
       "title": "Super Burger",
@@ -132,7 +134,9 @@
         }
       ]
     }
-  ],
+  ]
+  }
+],
   "how-to-use": [
     {
       "id": 1,
@@ -158,6 +162,7 @@
       "id": 6,
       "description": "Não é necessário agendar. Sujeito à fila."
     }
+
   ],
   "location": [
     {

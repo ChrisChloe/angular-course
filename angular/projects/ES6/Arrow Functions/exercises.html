@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Arrow Function Exercise</title>
+</head>
+<body>
+    <ul>
+        <li data-time="5:17"> Flexbox Video</li>
+        <li data-time="8:22"> Flexbox Video</li>
+        <li data-time="3:34"> React Video</li>
+        <li data-time="5:23"> Flexbox Video</li>
+        <li data-time="7:24"> React Video</li>
+        <li data-time="6:46"> Flexbox Video</li>
+        <li data-time="11:51"> Flexbox Video</li>
+        <li data-time="7:27"> Flexbox Video</li>
+        <li data-time="10:07"> Flexbox Video</li>
+        <li data-time="5:52"> Flexbox Video</li>
+        <li data-time="9:13"> React Video</li>
+        <li data-time="7:58"> Flexbox Video</li>
+        <li data-time="2:37"> Flexbox Video</li>
+        <li data-time="8:20"> Flexbox Video</li>
+        <li data-time="5:50"> Flexbox Video</li>
+    </ul>
+    
+<script>
+    // Exercise 1 
+    const items = Array.from(document.querySelectorAll('[data-time]'));
+    
+    const filtered = items
+        .filter(item => item.textContent.includes('Flexbox'))
+        .map(item => item.dataset.time)
+        .map(timeCode => {
+            const parts = timeCode.split(':').map(part => parseFloat(part));
+            return parts[0] * 60 + parts[1];
+        })
+        .reduce((runningTotal, seconds) => runningTotal + seconds,0)
+
+    console.log(`Total runtime is ${filtered} seconds`);
+
+    // Exercise 2
+    const numbers = [3,62,234,7,23,74,23,76,92];
+    const greater = numbers.filter(number => number > 70 );
+    console.log(greater); 
+
+</script>   
+</body>
+</html>

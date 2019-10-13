@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Destructuring Objects</title>
+</head>
+<body>
+    <script>
+        const person = {
+            first: 'David',
+            last: 'Chris',
+            country: 'USA',
+            links: {
+                social: {
+                    twitter: 'https://twitter.com/wesbos',
+                    facebook: 'https://facebook.com/wesbos.developer',
+                },
+                web: {
+                    blog: 'https://wesbos.com'
+                }
+            },
+            city: 'Strawberry',
+            twitter: '@chrisdavid'
+        };
+
+        const { first, last } = person;
+        const { twitter, facebook } = person.links.social;
+
+        const { w: width = 400, h: height = 500 } = { w: 800 }
+    </script>
+</body>
+</html>

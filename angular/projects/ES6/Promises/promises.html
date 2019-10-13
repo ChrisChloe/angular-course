@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Promises</title>
+</head>
+<body>
+<script>
+    const postsPromise = fetch('http://wesbos.com/wp-json/wp/v2/posts');
+    postsPromise
+        .then(data => data.json())
+        .then(data => { console.log(data) })
+        .catch((err) => {
+            console.error(err);
+        });
+
+    const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject(Error('Err chris is dead'));
+        }, 1000);
+    });
+
+    p
+    .then(data => {
+        console.log(data);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+
+</script>
+</body>
+</html>

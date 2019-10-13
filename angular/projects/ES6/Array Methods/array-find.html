@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Array .find() and .findIndex()</title>
+</head>
+<body>
+<script>
+    const cats = [
+        {name: 'Bob', age: 2},
+        {name: 'Evan', age: 5},
+        {name: 'Slink', age: 4}
+    ];
+
+    const name = 'Slink';
+    const cat = cats.find(cat => cat.name === name);
+    const catIndex = cats.findIndex((cat) => cat.name === name);
+    console.log(cat);
+    console.log(catIndex);
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Spread Operator</title>
+</head>
+<body>
+<script>
+    const featured = ['Deep Dish', 'Pepperoni', 'Hawaiian'];
+    const specialty = ['Meatzza', 'Spciy Mama', 'Marguerita'];
+
+    const pizzas = [...featured, ...specialty];
+    const fridayPizzas = [...pizzas];
+
+    console.log(fridayPizzas);
+
+    const deepDish = {
+        pizzaName: 'Deep Dish',
+        size: 'Medium',
+        ingredients: ['Marinara', 'Italian Sausage', 'Dough', 'Cheese']
+    };
+</script>
+</body>
+</html>

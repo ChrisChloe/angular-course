@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Testing Spreads</title>
+    <style>
+    body {
+        min-height: 100vh;
+        font-family: sans-serif;
+        background: blueviolet;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        color: black;
+        text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+    }
+
+    .jump span {
+        display: inline-block;
+        transition: transform 0.2s;
+        cursor: pointer;
+    }
+    .jump span:hover {
+        transform: translateY(-20px) rotate(10deg) scale(2);
+    }
+    </style>
+</head>
+<body>
+    <h2 class="jump">Fuck Off!</h2>
+<script>
+    const heading = document.querySelector('.jump');
+    heading.innerHTML = spanWrap(heading.textContent);
+
+    function spanWrap(letter) {
+        return [...letter].map(letter => `<span>${letter}</span>`).join('');
+    }
+</script>
+</body>
+</html>

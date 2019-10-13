@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Classes</title>
+</head>
+<body>
+<script>
+    class Dog {
+        constructor(name, breed) {
+            this.name = name;
+            this.breed = breed;
+        }
+        bark() {
+            console.log(`Bork Bork! My name is ${this.name}`)
+        }
+        cuddle() {
+            console.log(`I love you owner!`);
+        }
+        static info() {
+            console.log('Dogs suck');
+        }
+        get description() {
+            return `${this.name} is a ${this.breed} type of dog`
+        }
+        set nicknames(value) {
+            this.nick = value.trim();
+        }
+        get nicknames() {
+            return this.nick;
+        }
+    }
+
+    const snickers = new Dog('Snickers', 'King Charles');
+    const sunny = new Dog('Sunny', 'Golden Doodle');
+
+
+</script>
+</body>
+</html>

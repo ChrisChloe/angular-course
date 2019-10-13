@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Destructuring Functions</title>
+</head>
+<body>
+<script>
+    let inRing = 'Hulk Hogan';
+    let onSide = 'The Rock';
+    console.log(inRing, onSide);
+    [inRing, onSide] = [onSide, inRing];
+    console.log(inRing, onSide);
+
+
+    function tipCalc({ total, tip = 0.15, tax = 0.13 } = {}) {
+        return total + (tip * total) + (tax * total);
+    }
+
+    const bill = tipCalc({ total: 200, tip: 0.20 });
+    console.log(bill);
+
+</script>
+</body>
+</html>

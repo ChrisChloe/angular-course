@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Arrow Functions</title>
+</head>
+<body>
+<script>
+    const names = ['bob', 'chris', 'lux'];
+    
+    const fullNames = names.map(function(name) {
+        return `${name} bos`;
+    });
+
+    const fullNames2 = names.map((name) => {
+            return `${name} bos`;
+        });
+
+     const fullNames3 = names.map(name => {
+        return `${name} bos`;
+    });
+
+    const fullNames4 = names.map(name => `${name} bos`);
+    
+    const fullNames5 = names.map(() => `Check it Out`);
+
+    console.log(fullNames5);
+
+    const sayMyName = (name) => { alert(`Hello ${name}!`)};
+
+    sayMyName('David');
+
+    const race = '100m Dash';
+    const winners = ['Hunter Gath', 'Singa Song', 'Imda Bes'];
+
+    const win = winners.map((winner,i) => 
+        ({name: winner, race, place: i + 1}))
+
+    const ages = [23.43,65,87,100,43];
+
+    const old = ages.filter(age => age >= 60);
+
+</script>
+</body>
+</html>

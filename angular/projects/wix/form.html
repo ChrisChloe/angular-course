@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+            background: transparent;
+        }
+        :root {
+            --custom-primary-color: #141414;
+            --custom-primary-color-hover: #000000;
+            --custom-secondary-color: #363636cb;
+            --custom-secondary-color-hover: #2e2e2ee1;
+        
+            --custom-background-color: #f5f5f5;
+            --custom-background-color-hover: #ffffff;
+            --custom-font-color: #363636;
+            --custom-font-color-hover: #272727;
+            --custom-invert-font-color: #ffffff;
+            --custom-disabled: #afafaf;
+        }
+        
+        label {
+            color: var(--custom-primary-color);
+            font-weight: 600;
+            margin: 0;
+        }
+        .form-control {
+            background-color: var(--custom-background-color);
+            border: 2px solid var(--custom-primary-color);
+            border-radius: 0;
+            box-shadow: 3px 3px var(--custom-primary-color);
+            color: var(--custom-primary-color);
+            font-weight: 600;
+            line-height: 1.5;
+            padding-right: 30px;
+        }
+        .form-control:hover,
+        .form-control:focus {
+            background-color: var(--custom-background-color-hover);
+            border-color: var(--custom-primary-color-hover);
+            box-shadow: 3px 3px var(--custom-primary-color-hover);
+            color: var(--custom-font-color-hover);
+        }
+        .form-control:disabled {
+            background-color: var(--custom-disabled);
+        }
+        .form-control:disabled:hover {
+            background-color: var(--custom-disabled);
+            cursor: not-allowed;
+        }
+        .airport-list {
+            border: 2px solid var(--custom-primary-color);
+            border-radius: 0;
+            margin: 0 16px;
+            max-height: 300px;
+            overflow-y: scroll;
+            min-width: -webkit-fill-available;
+        }
+        .airport-list li:hover {
+            background-color: var(--custom-secondary-color);
+            color: var(--custom-invert-font-color);
+        }
+        .btn-search {
+            background-color: var(--custom-primary-color);
+            border-radius: 0;
+            color: var(--custom-invert-font-color);
+            font-weight: 600;
+            width: 100%;
+        }
+        .btn-search:hover {
+            background-color: var(--custom-primary-color-hover);
+            color:white;
+        }
+        .btn-search i {
+            margin-right: 5px;
+        }
+        .c-select {
+            display: inline-block;
+            max-width: 100%;
+            padding-right: .75rem \9;
+            vertical-align: middle;
+            background-image:none\9;
+            -webkit-appearance: none; 
+            -moz-appearance: none;
+            appearance: none;
+            background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAsVBMVEUAAAA2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Nja6e/lhAAAAOnRSTlMAAQMEBQYLDQ8bHiAhKy0uQERHXV9gYWdpa2yTl5ianZ6jpKmrrK2ur7CxsrbMz93g4/Dy8/T29/j+5pl9uAAAAcBJREFUeNrt08lOgkEQReGCX3ECHEBRcBbFGUVAqfd/MCGBNKzu6tCa1F325jtJpS0Wi8VisVgsFovFYn9kxf5xo1Zel1auNY73C0urvv74dOPezjr4nd54pv28VucPpfbI5xuc8P7JYKGN2iWb7cKXdgPfoXyzrJ3bdEe+stsy6t+uaodm258uCkDfP7bszF0UAH7aqV27KEB9v7J3FwWo7+82dFGA+j60NxcFqO9vdumiAPX90louClDfW1bpiwLU71fMDiaiAPQnBzZdx0UB5nvHZiu6ogDzu4XJAtrXBbSvC2hfFzD+ffJlAe3rAtrXBYTPFmifLdA+W6B9tkD7XIH2H5IPFWifLdA+W6B9tkD7bIH2wQLtb5ixBdpnC7TPFWi/l3yoQPtsgfbZAu2zBdpnC7TPFmifLdA+W6B9rkD7j8mHCrTPFmifLlA+XyB8vkD4fIHwwQLt5yx4Sj5ewPupIKefCnhfF2ifLdA+W6B9tkD7dIHycxY8C58rSH6eguTnKUh+zoLnTbMMBcInC4TPF9yt/H/hI2t9Lfhhu2Q5tvvyPeO/X/Ys14p6s1kvLBaLxWKxWCwWi8Vi/3q/RuarJE+jn8oAAAAASUVORK5CYII=) no-repeat right 0.75rem center;
+            background-position-x: 23px;
+            background-size: 13px;
+            background-position-x: 94%;
+        }
+        .select-calendar-icon {
+            position: absolute;
+            font-size: 18px;
+            top: 28px;
+            right: 27px;
+            color: var(--custom-primary-color);
+        }
+        .select-marker-icon {
+            position: absolute;
+            top: 28px;
+            right: 25px;
+            font-size: 21px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            color: var(--custom-primary-color);
+        }
+        @media screen and (min-width: 991px) {
+            .btn-search {
+                margin-top: 24px;
+            }
+        }
+        
+        /* react datepicker */
+        .react-datepicker {
+            background-color: var(--custom-background-color)!important;
+            border: 1px solid var(--custom-primary-color)!important;
+            border-radius: 0!important;
+            font-size: 1.3rem!important;
+        }
+        .react-datepicker-popper {
+            transition: ease .1s;
+        }
+        .react-datepicker__navigation--next {
+            border-left-color: var(--custom-primary-color)!important;
+        }
+        .react-datepicker__navigation--previous {
+            border-right-color: var(--custom-primary-color)!important;
+        }
+        .react-datepicker__month-container {
+            float: left!important;
+            width: 80vw!important;
+            max-width: 270px!important;
+        }
+        .react-datepicker-time__header, .react-datepicker__current-month {
+            font-size: 1.6rem!important;
+        }
+        .react-datepicker__header {
+            border-radius: 0!important;
+            border-bottom: 1px solid var(--custom-primary-color)!important;
+        }
+        .react-datepicker__day-name {
+            margin: auto!important;
+            width: 12%!important;
+        }
+        .react-datepicker__day {   
+            width: 13%!important;
+            margin: auto!important;   
+            padding: 5px;
+        }
+        .react-datepicker__day:hover {
+            border-radius: 0!important;
+            background-color: var(--custom-secondary-color)!important;
+            color: var(--custom-invert-font-color);
+        }
+        .react-datepicker__day--selected,
+        .react-datepicker__day--keyboard-selected {
+            border-radius: 0!important;
+            background-color: var(--custom-primary-color)!important;
+        }
+        .date-back .react-datepicker-popper[data-placement^=top]{
+            transform: translate3d(-11px, -220px, 0px)!important;
+            right: 0px!important;
+            left: unset!important;
+        }
+        .date-back .react-datepicker-popper[data-placement^=bottom] {
+            transform: translate3d(-11px, 72px, 0px)!important;
+            right: 0px!important;
+            left: unset!important;
+        }
+        .date-back .react-datepicker__triangle {
+            position: absolute!important;
+            right: 50px!important;
+            left: unset!important;
+        }
+        /* end - react datepicker */
+        </style>
+</head>
+<body>
+    <agency-token hidden>$2y$10$tAGdBCCC2ajl7uoWCStQI.SIfh/zENevEsDqs92DAEpsfd8kXn1Zu</agency-token> 
+    <div id="root"></div>
+    <script src='https://eudesroger7.github.io/public/bundle.js'></script>
+</body>
+
+</html>

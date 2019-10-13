@@ -44,5 +44,8 @@ export class OfferService {
     .pipe(retry(1), map((response: Response) => response.json()));
 
   }
+  public getUsers() {
+    return this.http.get(`${URL_API}/offers`);
+}
 
 }
