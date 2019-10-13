@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="https://elomilhas.com.br/wp-content/themes/elomilhastheme/assets/images/favicon/favicon.ico" type="image/x-icon"/>
+
+    <title>Indicação | Buscaaereo</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/libs/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/libs/animate.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/libs/font-awesome.css" />
+
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.css">
+</head>
+
+<body>
+    
+    <div id="fullpage">
+        <section class="vertical-scrolling" style="background:url('assets/img/Tela_01_Background.png'); z-index: -2;background-size: cover;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5"  style="height: 100vh;">
+                        <img src="assets/img/AgenciaParceira.png" alt="" style="z-index: 2" class="img-responsive ">
+                    </div>
+                    <div class="col-md-7 persons hidden-sm" style="height: 100vh;padding: 0!important;">
+                        <img src="assets/img/Tela_01_Pessoas.png" alt="" style="z-index: 2;position: absolute; bottom: 0;" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <canvas id="canvas1"></canvas>
+        </section>
+
+        <section class="vertical-scrolling" style="background: linear-gradient(#ffeb01, #ffe401); overflow: hidden;">
+            <img src="assets/img/dots.png" alt="" class="dots spin">
+            <div class="row text-center toogle-mobile">
+                <a class="">Clique para indicar uma agência</a>
+
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="content_form">
+                                <div class="row">
+                                    <div class="col-md-6" id="indicate-form">
+
+                                        <!-- form   -->
+                                        <div class="_container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="cont">
+                                                        <div class="box"></div>
+                                                        <div class="container-forms">
+                                                            <div class="container-form">
+                                                                <div class="form-item log-in">
+                                                                    <div class="table">
+                                                                        <div class="table-cell">
+                                                                           
+                                                                            <h5>Agência parceira</h5>
+                                                                            <input id="indicate-name"  required name="Name"  placeholder="Nome"  type="text" />
+                                                                            <input id="indicate-email" required name="Email" placeholder="Email" type="email" />
+                                                                           
+                                                                            <h5>Agência indicada</h5>
+                                                                            <input id="indicate-name-indicated" required name="Name"  placeholder="Nome"      type="text" />
+                                                                            <input id="indicate-phone-indicated" required name="Phone" placeholder="Telefone" type="tel" data-mask="(99) 99999-9999"/>
+                                                                            <input id="indicate-email-indicated" required name="Email" placeholder="Email"    type="email" />
+                                                                        
+                                                                            <a class="btn" id="indicate-btn" >Enviar</a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- endform  -->
+
+                                    </div>
+
+                                    <div class="col-md-6 front"  id="indicated-form">
+
+                                        <div class="circle_"></div>
+
+                                        <!-- form   -->
+                                        <div class="container log-in">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="cont">
+                                                        <div class="box"></div>
+                                                        <div class="container-forms">
+                                                            <div class="container-form">
+                                                                <div class="form-item sign-up">
+                                                                    <div class="table">
+                                                                        <div class="table-cell">
+
+                                                                            <h5>Agência indicada</h5>
+
+                                                                            <input id="indicated-name-indicated"  required name="Username" placeholder="Nome"     type="text" />
+                                                                            <input id="indicated-email-indicated" required name="Username" placeholder="Email"    type="email" />
+                                                                            <input id="indicated-phone-indicated" required name="Password" placeholder="Telefone" type="tel" data-mask="(99) 99999-9999" />
+                                                                            
+                                                                            <h5>Agência parceira</h5>
+                                                                            <input id="indicated-name" required name="Username" placeholder="Nome"  type="text" />
+                                                                            <input id="indicated-email" required name="Password" placeholder="Email" type="email" />
+
+                                                                            <a class="btn" id="indicated-btn" >Enviar</a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- endform  -->
+                                       
+                                        <div class=" row text-center to-move">
+
+                                            <a class="toogle-circle">Clique aqui se você é uma agência indicada</a>
+
+                                        </div>
+
+                                        <div class="row to-move">
+
+                                            <img src="assets/img/row1.png" alt="" class="img-responsive img-diminut">
+
+                                            <!-- <div style="position: relative">
+
+                                                <img src="assets/img/row2.png" alt="" class="img-responsive img-diminut">
+                                                <img src="assets/img/Detalhe_Texto_Junto.png" alt="" class="detail to-animate animated" id="detail-pulse">
+
+                                            </div> -->
+
+                                        </div>
+
+                                        <div id="separate" class="row to-move" style="width: 90%; margin-left: 5%;">
+
+                                            <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                                                <img id="img1" src="assets/img/ÍconeRoxo_ComTexto.png" class="animated " alt="">
+                                                <div style="padding:20px"></div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                                                <img id="img2" src="assets/img/ÍconeAmarelo_ComTexto.png" class="animated " alt="">
+                                                <div style="padding:20px"></div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                                                <img id="img3" src="assets/img/ÍconeAzul_ComTexto.png" class="animated " alt="">
+                                                <div style="padding:20px"></div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <section class="scroll-bottom">
+                    <a href="#thirdSection" id="toThirdSection"><span></span></a>   
+                </section>
+        </section>
+
+        <section class="vertical-scrolling" style="background: linear-gradient(#ffe401, #ff9c01);">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 hidden-msm">
+                        <img src="assets/img/regulamento.png" alt=""  class="img-responsive" style="padding-right: 30px;border-right: 3px solid #462e46">
+                    </div>
+                    <div class="col-md-8 text-left" style="padding-right: 50px;">
+                        <p class="regras bold dark subtitle" >ALÉM DE JÁ CONTAR COM OS MELHORES PREÇOS DO MERCADO, AGORA VOCÊ GANHA DESCONTO POR SER NOSSA PARCEIRA, SEJA REALIZANDO SUA PRIMEIRA EMISSÃO OU INDICANDO NOVAS AGÊNCIAS.</p>
+                        <p class="regras extra pink title" >QUER SABER COMO VAI SER?</p>
+                        <p class="regras extra pink dark title" >SE VOCÊ É UMA <br> <span class="regras extra pink" >AGÊNCIA PARCEIRA:</span>  </p>
+                        <ul>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> INDIQUE UMA AGÊNCIA;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> AGUARDE A VALIDAÇÃO DA INDICAÇÃO;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> AGUARDE A PRIMEIRA EMISSÃO DA AGÊNCIA;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> RECEBA SEU VOuCHER DE DESCONTO.</li>
+                        </ul>
+                        <p class="regras extra pink title" >SE VOCÊ É UMA <br> <span class="regras extra pink dark" >AGÊNCIA INDICADA:</span>  </p>
+                        <ul>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> REALIZE SEU CADASTRO;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> AGUARDE O CONTATO DO NOSSO COMERCIAL PARA FINALIZAÇÃO DO CADASTRO;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> REALIZE SUA PRIMEIRA EMISSÃO COM SEU VOUCHER DE DESCONTO;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> COMECE A INDICAR AGÊNCIAS PARCEIRAS PARA GANhaR MAIS.</li>
+                        </ul>
+                        <p class="regras extra pink dark title">REGRAS:</p>
+                        <ul>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> O DESCONTO DE NOVA AGÊNCIA É VÁLIDO EXCLUSIVAMENTE PARA A PRIMEIRA EMISSÃO;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> O CADASTRO DA NOVA AGÊNCIA deve ser feito EXCLUSIVAMENTE por este website;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> o voucher para agência parceira só será disponibilizado caso a Agência indicada cite quem a indicou no formulário presente neste website;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> para receber o voucher de desconto por indicação é necessário que a agência indicada realize a primeira emissão na ferramenta busca aéreo;</li>
+                            <li class="regras bold dark"><span class="star">&#9733;</span> só será disponibilizado 01 (um) voucher de desconto por indicação, ou seja, para cada agência indicada que realizar emissão.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row footer ">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+                                    <a target="_blank" href="https://www.facebook.com/buscaaereo" class="icon"> <i class="fa fa-facebook"></i></a>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3  text-center">
+                                    <a target="_blank" href="https://www.instagram.com/busca.aereo" class="icon"> <i class="fa fa-instagram"></i></a>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3  text-center">
+                                    <a target="_blank" href="https://www.linkedin.com/company/buscaaereo" class="icon"> <i class="fa fa-linkedin"></i></a>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-3  text-center">
+                                    <a target="_blank" href="https://twitter.com/buscaaereo" class="icon"> <i class="fa fa-twitter"></i></a>
+                                </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        
+    </div>
+
+    <div class="notify">
+        INDICAÇÃO EFETUADA COM SUCESSO!
+    </div>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="assets/js/libs/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.6.6/jquery.fullPage.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/contact.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<div class="col-xxl-7">
+  <nb-card class="card">
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="Operações Normais">
+        <nb-card class="inner-card">
+          <nb-card-body>
+            <form>
+              <div class="form-group row">
+                <label for="name">Alíquota</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Ex. Plano XYZ"
+                />
+              </div>
+
+              <div class="form-group row">
+                <label for="portion">Retido Fonte</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="portion"
+                  placeholder="Ex.R$50,00"
+                />
+              </div>
+
+              <div
+                class="form-group row"
+                style="display: flex; justify-content: flex-end;"
+              >
+                <button type="submit" class="btn btn-primary" style="cursor: pointer;">Confirmar</button>
+              </div>
+            </form>
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <nb-tab tabTitle="Day Trade" [lazyLoad]="true">
+        <nb-card class="inner-card">
+          <nb-card-body>
+            <form>
+              <div class="form-group row">
+                <label for="name">Alíquota</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Ex. Plano XYZ"
+                />
+              </div>
+
+              <div class="form-group row">
+                <label for="portion">Retido Fonte</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="portion"
+                  placeholder="Ex.R$50,00"
+                />
+              </div>
+              <div
+                class="form-group row"
+                style="display: flex; justify-content: flex-end;"
+              >
+                <button type="submit" class="btn btn-primary" style="cursor: pointer;">Confirmar</button>
+              </div>
+            </form>
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card>
+</div>

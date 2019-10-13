@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="manifest.json">
+    <title>Busca Aéreo – ferramenta de busca de passagens aéreas por milhas</title>
+    <meta name="description" content="Quer aumentar os lucros e resultados do seu negócio? Conheça o Busca Aéreo: atendimento personalizado na emissão de passagens aéreas com desconto.">
+    <meta name="keywords" content="busca aereo, passagens, milhas, voos, comprar passagens aereas,
+     passagens aereas com milhas, passagens por milhas, descontos passagens aereas, latam,
+      gol, avianca, azul, viagens, precos passagens aereas, passagens com descontos,
+       vendas de passagens, parceria busca aereo, viagens com milhas">
+    <link rel="shortcut icon" href="assets/img/favicon/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/jquery.ui.datepicker.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/datatable/css/jquery.datatables.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/datatable/css/jquery.datatables_themeroller.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/essentials.min.css">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/components.css">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/app.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/custom.min.css">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/loading-bar.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/welcome-style.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/carousel.min.css">
+
+    <!-- Inclusão do css !-->
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- build:css css/style.css -->
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/datepicker-pt-BR.min.js"></script>
+    <script type="text/javascript" src="assets/js/carousel.min.js"></script>
+    <script type="text/javascript" src="assets/js/blockInspect.min.js"></script>
+    <script type="text/javascript" src="assets/js/loadScript.min.js"></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PZGKMNN');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+<body>
+<!--<noscript>-->
+<!--</noscript>-->
+
+<div id="root"></div>
+<!--<script src="bundle.js"></script>-->
+<% if (htmlWebpackPlugin.files.chunks.bundle.entry) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks.bundle.entry %>"></script>
+<% } %>
+<script type="text/javascript">
+
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        if ($(window).width() > 768){
+
+            if (scroll > 371) {
+                if ($('#resumo-pedido').hasClass('orderSummaryOpened')) {
+                    $('html, body').addClass('smooth');
+                }
+                $('.busca-loading-bar').addClass('fixarLoad');
+                $('#resumo-pedido').addClass('fixarResumo');
+
+            } else {
+                $('.busca-loading-bar').removeClass('fixarLoad');
+                $('#resumo-pedido').removeClass('fixarResumo');
+                if ($('#resumo-pedido').hasClass('orderSummaryOpened')) {
+                    $('html, body').removeClass('smooth');
+                }
+
+            }
+
+            if (scroll > 536) {
+
+                if ($('#resumo-pedido').hasClass('orderSummaryOpened')) {
+                    $('#tabs').addClass('fixarTable selected_flight');
+                    $('.result-voo').addClass('posicionarTable');
+                } else {
+                    $('#tabs').addClass('fixarTable');
+                    $('.result-voo').addClass('posicionarTable');
+                }
+
+                $('.result-voo-header').addClass('fixarTable-header');
+                $('.result-voo-body').addClass('posicionarTable-body');
+
+            } else {
+                $('#tabs').removeClass('fixarTable');
+                $('.result-voo').removeClass('posicionarTable');
+
+                $('.result-voo-header').removeClass('fixarTable-header');
+                $('.result-voo-body').removeClass('posicionarTable-body');
+            }
+
+        }
+    });
+
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/5a4e869b4b401e45400bdf00/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    You need to enable JavaScript to run this app.
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZGKMNN" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

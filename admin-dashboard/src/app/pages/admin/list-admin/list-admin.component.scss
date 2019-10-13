@@ -1,0 +1,16 @@
+.input-group-addon {
+  background-color: whitesmoke;
+  font-size: 16px !important;
+  line-height: 35px;
+  border-right: 2px solid #dadfe6 !important;
+  border-left: none !important;
+}
+
+:host /deep/ ng2-st-tbody-edit-delete {
+  display: flex !important;
+  height: 0 !important;
+}
+
+:host /deep/ ng2-st-tbody-custom a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+  color: #5dcfe3;
+}

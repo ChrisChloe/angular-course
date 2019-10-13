@@ -1,0 +1,3 @@
+User-Agent: *
+Disallow:
+Sitemap: https://buscaaereo.com.br/sitemap.xml

@@ -1,0 +1,5 @@
+@media (max-width: 991px) {
+    .col-md-1-2 {
+        width: 14.28%;
+    }
+}

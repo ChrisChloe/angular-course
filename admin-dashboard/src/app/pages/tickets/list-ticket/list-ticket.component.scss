@@ -1,0 +1,55 @@
+nb-card {
+  border-radius: 15px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.card-hover :hover {
+  transition: border-color 0.7s;
+  border-color: black;
+}
+
+nb-card-footer {
+  font-family: Exo;
+}
+
+label {
+  display: inline-block !important;
+  width: 45px;
+}
+
+select {
+  border-radius: 10px !important;
+  height: 30px !important;
+  width: 120px;
+  padding: 0 0.525rem !important;
+}
+
+.header {
+  padding: 5px;
+  border-bottom: solid 0.5px #e0dcdc;
+}
+
+.subheader {
+  padding: 5px;
+  border-bottom: solid 0.5px #e0dcdc;
+}
+
+.filter-row {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.status-label {
+  float: right;
+  margin-top: -7px;
+  font-weight: 700;
+}
+
+.message-text {
+  margin-top: 5px;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 15px;
+  color: #a7a3a3;
+}

@@ -1,0 +1,52 @@
+#box-voo-ida-resumo,
+#box-voo-volta-resumo {
+    margin-top: 10px;
+}
+
+#box-voo-ida-resumo img,
+#box-voo-volta-resumo img {
+    width: 60px;
+    margin: 3px 0;
+}
+
+#box-voo-ida-resumo {
+    position: relative;
+    left: -410px;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 1s ease-in-out; /** Firefox **/
+    -o-transition: all 1s ease-in-out; /** Opera **/
+}
+
+#box-voo-volta-resumo {
+    position: relative;
+    right: -410px;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 1s ease-in-out; /** Firefox **/
+    -o-transition: all 1s ease-in-out; /** Opera **/
+}
+
+.move-to-left{
+    transform: translate(-410px,0);
+    -webkit-transform: translate(-410px,0); /** Chrome & Safari **/
+    -o-transform: translate(-410px,0); /** Opera **/
+    -moz-transform: translate(-410px,0); /** Firefox **/
+}
+
+.move-to-right{
+    transform: translate(410px,0);
+    -webkit-transform: translate(410px,0); /** Chrome & Safari **/
+    -o-transform: translate(410px,0); /** Opera **/
+    -moz-transform: translate(410px,0); /** Firefox **/
+}
+
+@media (max-width: 991px) {
+    .b-btn-success{
+        font-size: 13px!important;
+        padding: 25.5px 0px!important;
+    }
+    #btn-opcoes{
+        margin-top: 50px!important;
+    }
+}

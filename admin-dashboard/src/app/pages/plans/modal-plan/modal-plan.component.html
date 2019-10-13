@@ -1,0 +1,92 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class=" modal-body row">
+  <div class="col-md-12">
+    <form [formGroup]="planForm" (submit)="updatePlan()">
+      <div class="row">
+        <div class="form-group col-md-8">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            name="name"
+            placeholder="Ex. Plano XYZ"
+          >
+          <ng-container *ngIf="name.invalid && name.touched">
+            <p class="error-message" *ngIf="!!name.errors.required">
+              Nome é obrigatório!
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="amount">Parcela</label>
+          <input
+            type="text"
+            class="form-control"
+            id="amount"
+            prefix="R$"
+            mask="coma_separator.2"
+            formControlName="amount_per_payment"
+            name="amount_per_payment"
+            placeholder="Ex.R$50,00"
+          >
+          <ng-container *ngIf="amount.invalid && amount.touched">
+            <p class="error-message" *ngIf="!!amount.errors.required">
+              Parcela é obrigatória!
+            </p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="period">Período de Teste</label>
+          <div id="period" class="input-group full-width">
+            <input
+              onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+              type="number"
+              min="0"
+              max="365"
+              class="form-control"
+              formControlName="trial_period_duration"
+              name="trial_period_duration"
+              placeholder="Ex.15"
+            >
+            <div class="input-group-addon">Dias</div>
+            <ng-container *ngIf="trial.invalid && trial.touched">
+              <p class="error-message" *ngIf="!!trial.errors.required">
+                Período de Teste é obrigatório!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="radios">Recorrência</label>
+          <div id="radios">
+            <nb-radio-group class="row" style="margin-left:0;" formControlName="period" name="period">
+              <nb-radio [value]="'monthly'">
+                Mensal
+              </nb-radio>
+              <nb-radio [value]="'yearly'">
+                Anual
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-3">
+          <button type="submit" [disabled]="!planForm.valid" class="btn btn-primary" style="cursor: pointer;">Confirmar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

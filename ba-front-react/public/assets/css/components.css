@@ -1,0 +1,22 @@
+/*FLIGHT*/
+@import url("components/flightHeader.css") ;
+@import url("components/flightList.css");
+@import url("components/flightSkeleton.css");
+
+/*ORDER*/
+@import url("components/orderSummary.css");
+@import url("components/orderReview.css");
+
+/*SEARCH*/
+@import url("components/formSearch.css");
+@import url("components/searchingStatusBar.css");
+@import url("components/modalTimeOut.css");
+@import url("components/companySkeleton.css");
+@import url("components/modalHomeSearch.css");
+
+/*SEGMENTATION*/
+@import url("components/segment.css");
+@import url("components/segmentList.css");
+
+/*HOME*/
+@import url("components/homeOut.css");

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<![endif]-->
+<meta name="description" content="Pesquisa de avalição Busca Aéreo." />
+<meta name="author" content="Busca Aéreo" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="icon" href="https://elomilhas.com.br/wp-content/themes/elomilhastheme/assets/images/favicon/favicon.ico" type="image/x-icon" />
+<title>Pesquisa Busca Aéreo</title>
+
+<link rel="stylesheet" type="text/css" href="css/animate.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="css/owl.carousel.css" />
+<link rel="stylesheet" type="text/css" href="css/owl.theme.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/d3_style.css" />
+<link rel="stylesheet" type="text/css" href="css/reset.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-44849819-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag()
+	{dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-44849819-1');
+</script>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css' />
+</head>
+<body class="cms_index" >
+	<style type="text/css">
+	.form-control {
+		display: unset;
+	}
+</style>
+<div id="header">
+	<div class="mainnav">
+		<div class="container">
+			<div class="logo col-md-2 col-sm-8 col-xs-8" style="margin-top: -20px;"></div>
+			<div class="col-md-12 visible-nav">
+				<a id="offcanvas_toggler" class="hidden-sm visible-xs visible-nav" href="#"><i class="fa fa-bars"></i></a>
+				<div class="main_navigation">
+					<ul class="visible-sm  visible-xl  visible-lg visible-md">
+						<li><a href="https://buscaaereo.com.br/">IR PARA O SITE</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container teste" style="width: 90%;" id="pesquisa" ng-controller="indexCtrl">
+	<div class="row">
+		<form id="contact-form" name="contact-form" action="#" ng-controller="FormCtrl" ng-submit="submitForm()">
+					
+			<div class="col-md-6 col-md-offset-3" >
+				<h2 class="text-center"> Fale sobre o Busca Aéreo </h2>
+				<div class="line"></div>
+					<div class="row">
+
+						<div class="form-group col-sm-12">
+							<div class="space"></div>
+							<label for="email"> Informe seu E-mail. </label>
+							<input type="email" id="email" class="form-control" ng-model="form.email" placeholder="Seu email" name="email-address" required>
+						</div>
+						
+						<div class="form-group col-sm-4">
+								<div class="space-sm"></div>
+								
+							<label for="tempoCliente">Há quanto tempo  você é cliente do Busca Aéreo?</label>
+							<select id="tempoCliente" name="tempoCliente" class="form-control" required>
+								<option value=""> Selecione </option>
+								<option value="1-6 meses"> 1-6 meses </option>
+								<option value="6-12 meses"> 6-12 meses </option>
+								<option value="1-2 anos"> 1-2 anos </option>
+								<option value="2 anos ou mais"> 2 anos ou mais </option>
+								<option value="Redes Sociais"> Redes Sociais </option>
+							</select>
+						</div>
+
+						<div class="form-group col-sm-8">
+
+								<div class="space-sm"></div>
+								
+							<label for="avl-atendimento"> Quão bem você é atendido quando entra em contato conosco para resolução de problemas? </label>
+							<select id="avl-atendimento" name="avlatendimento" class="form-control" required>
+								<option value=""> Selecione </option>
+								<option value="Extremamente bem"> Extremamente bem </option>
+								<option value="Muito bem"> Muito bem </option>
+								<option value="Bem"> Bem </option>
+								<option value="Ligeiramente bem"> Ligeiramente bem </option>
+								<option value="Nada bem"> Nada bem </option>
+							</select>
+						</div>
+
+						<div class="form-group col-sm-12">
+							<div class="space-sm"></div>
+							<label for="conheceuBusca">Primeiramente, conte-nos como você conheceu o Busca Aéreo.</label>
+							<select id="conheceuBusca" name="conheceuBusca" class="form-control" required>
+								<option value=""> Selecione </option>
+								<option value="Contato telefônico do setor comercial"> Contato telefônico do setor comercial </option>
+								<option value="Pesquisa no Google"> Pesquisa no Google </option>
+								<option value="Indicação de outro profissional de turismo"> Indicação de outro profissional de turismo </option>
+								<option value="E-mail Marketing"> E-mail Marketing </option>
+								<option value="Redes Sociais"> Redes Sociais </option>
+								<option value="Em feiras ou eventos do setor"> Em feiras ou eventos do setor </option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class=space-sm></div>
+					<label> Em comparação com os nossos concorrentes, avalie: </label>
+					<div class=space-sm></div>
+					<div class="row">
+						<div class="col-md-3 col-sm-3 form-group">
+							<label for="agi-emissao" style="font-weight: normal !important"> Emissão:
+								<select name="agi-emissao" id="agiemissao" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-3 col-sm-3 form-group">		
+							<label for="qld-atendimento" style="font-weight: normal !important"> Atendimento:
+								<select id="qld-atendimento" name="qldatendimento" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+
+
+						<div class="col-md-4 col-sm-4 form-group">
+							<label for="frm-pgmt" style="font-weight: normal !important"> Formas de pagamento:
+								<select id="frm-pgmt" name="frmpgmt" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-3 col-sm-3 form-group">
+							<label for="preco" style="font-weight: normal !important"> Preço:
+								<select id="preco" name="preco" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-4 col-sm-4 form-group">
+							<label for="fnc-site" style="font-weight: normal !important"> Funcionalidade do site:
+								<select id="fnc-site" name="fncsite" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+
+					</div>
+
+					<div>				
+						<div class=space-sm></div>
+						<label> Que tipo de notícias/informes você gostaria de receber do Busca Aéreo? </label>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Mudanças de horário de funcionamento" id="check1" name="check[]">
+							<label style="font-weight: normal !important" class="form-check-label" for="check1">
+								Mudanças de horário de funcionamento
+							</label>
+						</div>
+
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Treinamentos" id="check2" name="check[]">
+							<label style="font-weight: normal !important" class="form-check-label" for="check2">
+								Treinamentos
+							</label>
+						</div>
+
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Mudanças de horário de funcionamento" id="check3" name="check[]">
+							<label style="font-weight: normal !important" class="form-check-label" for="check3">
+								Atualizações na plataforma
+							</label>
+						</div>
+
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Mudanças de horário de funcionamento" id="check4" name="check[]">
+							<label style="font-weight: normal !important" class="form-check-label" for="check4">
+								Dicas de marketing para agências de viagens
+							</label>
+						</div>
+
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="Mudanças de horário de funcionamento" id="check5" name="check[]" >
+							<label style="font-weight: normal !important" class="form-check-label" for="check5">
+								Dicas de como alavancar vendas
+							</label>
+						</div>
+						<div class=space></div>
+					</div>
+			</div>
+
+			<div class="col-md-6 col-md-offset-3">
+				<h2 class="text-center"> Fale sobre o nosso atendimento </h2>
+				<div class="line"></div>
+				<div id="avaliation-form">
+					<p>Conte-nos sobre a sua relação com os representantes Busca Aéreo.</p>
+					<label> Avalie a eficiência dos nossos setores e responda: </label>
+					<p> Considere 1 como péssimo e 5 como excelente </p>
+					<div class="space-sm"></div>
+					<div class="row">
+						<div class="col-md-3 col-sm-6 form-group">
+							<label for="emissao-atend" style="font-weight: normal !important"> Emissão:
+								<select name="emissaoatend" id="emissao-atend" class="form-control"  required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+		
+						<div class="col-md-3 col-sm-6 form-group">
+							<label for="comercial-atend" style="font-weight: normal !important"> Comercial:
+								<select name="comercialatend" id="comercial-atend" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+		
+						<div class="col-md-3 col-sm-6 form-group">
+							<label for="financeiro-atend" style="font-weight: normal !important"> Financeiro:
+								<select id="financeiroatend" name="financeiro-atend" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+		
+		
+						<div class="col-md-3 col-sm-6 form-group">
+							<label for="alteracao-atend" style="font-weight: normal !important"> Alteração:
+								<select name="alteracaoatend" id="alteracao-atend" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="1"> 1 </option>
+									<option value="2"> 2 </option>
+									<option value="3"> 3 </option>
+									<option value="4"> 4 </option>
+									<option value="5"> 5 </option>
+								</select>
+							</label>
+						</div>
+					</div>
+		
+					<div class="space-sm"></div>
+		
+		
+					<label> Como você avalia a nossa equipe de vendas a respeito das seguintes afirmações: </label>
+					<div class="space-sm"></div>
+					<div class="row">
+						<div class="col-md-6 col-sm-6 form-group">
+							<label for="avl-equipe-simpatico" style="font-weight: normal !important"> O agente de vendas foi simpático e prestativo:
+								<select name="avlequipesimpatico" id="avl-equipe-simpatico" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="Concordo"> Concordo </option>
+									<option value="Não concordo nem discordo"> Não concordo nem discordo </option>
+									<option value="Discordo"> Discordo </option>
+								</select>
+		
+							</label>					
+						</div>
+						
+						<div class="col-md-6 col-sm-6  form-group">
+							<label for="avl-equipe-atencioso" style="font-weight: normal !important"> O agente de vendas é atencioso sempre que preciso de sua ajuda:
+								<select name="avlequipeatencioso" id="avl-equipe-atencioso" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="Concordo"> Concordo </option>
+									<option value="Não concordo nem discordo"> Não concordo nem discordo </option>
+									<option value="Discordo"> Discordo </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-6 col-sm-6  form-group">
+							<label for="avl-equipe-materiais" style="font-weight: normal !important"> O agente de vendas forneceu os materiais informativos necessários:
+								<select name="avlequipemateriais" id="avl-equipe-materiais" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="Concordo"> Concordo </option>
+									<option value="Não concordo nem discordo"> Não concordo nem discordo </option>
+									<option value="Discordo"> Discordo </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-6 col-sm-6  form-group">
+							<div class="space-sm"></div>
+							<label for="avl-equipe-profissional" style="font-weight: normal !important"> O agente de vendas foi profissional:
+								<select name="avlequipeprofissional" id="avl-equipe-profissional" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="Concordo"> Concordo </option>
+									<option value="Não concordo nem discordo"> Não concordo nem discordo </option>
+									<option value="Discordo"> Discordo </option>
+								</select>
+							</label>
+						</div>
+
+						<div class="col-md-12 form-group">
+							<label for="avl-equipe-informado" style="font-weight: normal !important"> O agente de vendas estava bem informado sobre os serviços oferecidos:
+								<select name="avlequipeinformado" id="avl-equipe-informado" class="form-control" required>
+									<option value=""> Selecione </option>
+									<option value="Concordo"> Concordo </option>
+									<option value="Não concordo nem discordo"> Não concordo nem discordo </option>
+									<option value="Discordo"> Discordo </option>
+								</select>
+							</label>
+						</div>
+
+						
+					</div>
+					<div class="row">
+						<div class=" col-md-6 form-group">
+								<div class="space-sm"></div>
+								
+							<label>Há algo que você gostaria de destacar sobre o setor comercial?</label>
+							<input type="text" name="destacarComercial" class="form-control" required/>
+						</div>
+
+						<div class="col-md-6 form-group">
+								<div class="space-sm"></div>
+								
+							<label>Há algo que você gostaria de destacar algo sobre outro setor? Qual?</label>
+							<input type="text" name="destacarSetor" class="form-control" required/>
+		
+						</div>
+					</div>
+		
+		
+				</div>
+			</div>
+
+			<div class="col-md-6 col-md-offset-3">
+				<div class="space-sm"></div>
+				<h2 class="text-center"> Avaliação geral </h2>
+				<div class="line"></div>
+				<div id="avaliation">
+					<p> Fale-nos como se sente em relação ao Busca Aéreo, considere 1 como péssimo e 5 como excelente.</p>
+					<div class="row">
+						<div class="col-md-6">
+								<div class="space-sm"></div>
+								
+							<label for="avl-experiencia">Como você avalia a sua experiência com o Busca Aéreo?</label>
+							<select name="avlexperiencia" id="avl-experiencia" class="form-control" required>
+								<option value=""> Selecione </option>
+								<option value="1"> 1 </option>
+								<option value="2"> 2 </option>
+								<option value="3"> 3 </option>
+								<option value="4"> 4 </option>
+								<option value="5"> 5 </option>
+							</select>
+						</div>
+		
+		
+						<div class="col-md-6">
+								<div class="space-sm"></div>
+								
+							<label for="rcmd-busca"> Você recomendaria o Busca Aéreo para outras agências? </label>
+							<select id="rcmd-busca" name="rcmdbusca" class="form-control" required>
+								<option value=""> Selecione </option>
+								<option value="Sim"> Sim </option>
+								<option value="Não"> Não </option>
+								<option value="Talvez"> Talvez </option>
+							</select>
+						</div>
+		
+		
+						<div class="col-md-12">
+							<div class="space-sm"></div>
+							<label>Deixe aqui críticas, elogios, comentários e sugestões.</label>
+							<input type="text" name='criticas' class="form-control" id="avl-criticas"/>
+						</div>
+					</div>
+					<div class="space"></div>
+					<center><button type="submit" id="valid-form" class="btn btn-send">Enviar</button></center>
+					<div class="space"></div>
+				</div>
+				
+			</div>
+		
+		</form>
+	</div>
+</div>
+
+
+<div id="footer">
+	<div class="container">
+		<div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 coppyright"> &copy; 2017. Todos os direitos reservados.</div>
+		<div class="social col-lg-6 col-md-6 col-sm-4 col-xs-4">
+			<ul class="social_links">
+				<li><a href="https://www.facebook.com/buscaaereo"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="https://www.youtube.com/channel/UC0rIxwJZGwQY9XkbwjPOu0Q"><i class="fa fa-youtube"></i></a></li>
+				<li><a href="https://www.linkedin.com/company/buscaaereo"><i class="fa fa-linkedin"></i></a></li>
+				<li><a href="https://www.instagram.com/busca.aereo/"><i class="fa fa-instagram"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="modal-thanks">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+			<div class="modal-title">Obrigado!</div>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  <p>Obrigado por responder a esse formulário.
+				O compromisso do Busca Aéreo é sempre com a satisfação de todos os clientes. Por isso, o seu feedback será analisado para que possamos sempre, e cada vez, mais entregar a você um serviço com selo de excelência.</p>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+<div class="offcanvas_menu">
+		<a href="#" class="close_offcanvas"><i class="fa fa-remove"></i></a>
+		<div class="offcanvas_inner">
+			<div class="sp_module">
+				<h3 class="sp_module_title">Busca Aéreo</h3>
+				<div class="sp_module_content">
+					<ul class="nav menu">
+							<li><a href="https://buscaaereo.com.br/">IR PARA O SITE</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvas_overlay"></div>
+
+
+<script type="text/javascript" src="js/coatFlow.js"></script>
+<script type="text/javascript" src="js/subscriptions.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script type="text/javascript">
+	startFlowSwitcher();
+</script>
+<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="js/js-functions.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="js/carousel-3d.js"></script>
+<script type="text/javascript" src="js/jquery.carouFred.js"></script>
+<script src="js/contact-me.js"></script>
+
+
+
+</body>
+</html>

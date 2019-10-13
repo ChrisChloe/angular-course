@@ -1,0 +1,61 @@
+.fixarTable-header{
+    width: 990px!important;
+    position: fixed !important;
+    top: 54px !important;
+    padding-top: 0.4%!important;
+    z-index: 25 !important;
+    background-color: #FFFFFF;
+}
+
+.fixarTable-header.loading{
+    width: 990px!important;
+    position: fixed !important;
+    top: 84px !important;
+    padding-top: 0.4%!important;
+    z-index: 25 !important;
+    background-color: #FFFFFF;
+}
+
+.fixarTable-header.selected_flight,
+.fixarTable-header.loading.selected_flight{
+    width: 990px!important;
+    position: fixed !important;
+    top: 206px !important;
+    padding-top: 0.4%!important;
+    z-index: 25 !important;
+    background-color: #FFFFFF!important;
+}
+
+@media (max-width: 1199px){
+    .fixarTable-header.loading.selected_flight,
+    .fixarTable-header.selected_flight,
+    .fixarTable-header.loading,
+    .fixarTable-header{
+        width: 933px!important;
+    }
+}
+
+@media (max-width: 991px) {
+    .fixarTable-header.loading.selected_flight,
+    .fixarTable-header.selected_flight,
+    .fixarTable-header.loading,
+    .fixarTable-header{
+        width: 721px!important;
+    }
+
+    .fixarTable-header.selected_flight{
+        top: 323px!important;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 990px){
+    .fixarTable-header.loading.selected_flight,
+    .fixarTable-header.selected_flight,
+    .fixarTable-header.loading,
+    .fixarTable-header{
+        width: 725px!important;
+    }
+    .fixarTable{
+        width: 730px!important;
+    }
+}

@@ -1,0 +1,35 @@
+@import '../../../@theme/styles/themes.scss';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+  .solar-card nb-card-header {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  @include media-breakpoint-down(sm) {
+    ngx-traffic {
+      display: none;
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+    /deep/ nb-card.large-card {
+      height: nb-theme(card-height-medium);
+    }
+  }
+}
+
+.input-group-addon {
+  background-color: whitesmoke;
+  font-size: 16px !important;
+  line-height: 35px;
+  border-right: 2px solid #dadfe6 !important;
+  border-left: none !important;
+}
+
+.error-message {
+  color: #ff6b83;
+  margin-top: 0.5rem;
+}

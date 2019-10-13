@@ -1,0 +1,24 @@
+#btn-buscar-voos {
+    margin: 19px 0 0 0;
+    background-color: #FF761A;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    padding: 11px 30px;
+    -khtml-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#btn-buscar-voos:hover {
+    background-color: #FB8A3F;
+}
+
+
+@media (max-width: 425px) {
+    #btn-buscar-voos {
+        padding: 10px 0px;
+    }
+}

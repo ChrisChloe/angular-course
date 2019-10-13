@@ -1,0 +1,17 @@
+<nb-chat title="{{ticket?.subject}}" class="header" status="active" size="xxlarge">
+  <nb-chat-message *ngFor="let msg of messages"
+                   [type]="msg.files.length ? 'file' : 'text' "
+                   [message]="msg.content"
+                   [reply]="currentUser.name == msg.name ? true : false"
+                   [sender]="msg.name"
+                   [date]="msg.created_at"
+                   [files]="msg.files"
+                   [quote]=""
+                   [avatar]=""
+                   >
+</nb-chat-message>
+
+<nb-chat-form class="form" (send)="sendMessage($event)" [dropFiles]="true">
+</nb-chat-form>
+</nb-chat>
+

@@ -1,0 +1,22 @@
+.sobre{
+    width:100%;
+    background-size:cover;background-position-y:15%
+}
+.sobre h1,.sobre p{
+    color:#FFF
+}
+.sobre p{
+    font-size:15px;line-height:28px
+}
+.sobre p:first-child{
+    margin-top:20px
+}
+.sobre p span{
+    font-size:18px
+}
+
+@media (max-width: 480px) {
+    .sobre {
+        margin-bottom: 30px!important;
+    }
+}

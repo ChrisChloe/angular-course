@@ -1,0 +1,33 @@
+<div class="header">
+  <h4>Lista de Tickets</h4>
+</div>
+<div class="subheader">
+  <div class="row">
+    <div class="col-md-6 filter-row">
+      <label>Status: </label>
+      <select class="form-control input-select" placeholder="Small Input">
+        <option value="">Aberto</option>
+        <option value="">Fechado</option>
+        <option value="">Em Análise</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="card-hover" *ngFor="let ticket of tickets">
+  <nb-card routerLinkActive="router-link-active"  (click)="openTicket(ticket.id)">
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-7">{{ticket.subject}}</div>
+        <div class="col-md-5"><button nbButton size="xsmall" class="status-label">{{ticket.status}}</button></div>
+      </div>
+      <div class="message-text" >{{ticket.messages[0].content}}</div>
+    </nb-card-header>
+    <nb-card-footer>
+      <div class="row">
+        <span class="col-md-6"><strong>Usuário:</strong> {{ticket.creator_user}} </span>
+        <span class="col-md-6"><strong>Data:</strong> {{ticket.created_at | date: 'dd/MM/yyyy hh:mm'}} </span>
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</div>
+

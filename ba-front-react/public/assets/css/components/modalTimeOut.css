@@ -1,0 +1,83 @@
+.modal-timeout-footer::after{
+    width: 0!important;
+    height: 0!important;
+    border-bottom: 20px solid #fff!important;
+    border-left: 20px solid transparent!important;
+    right: 48%!important;
+    bottom: 80px!important;
+    position: absolute!important;
+    transform: rotate(225deg)!important;
+}
+
+.modal-border{
+    border-radius: 5px!important;
+}
+
+.modal-radius{
+    border-radius: 10px!important;
+}
+
+.btn-shadown{
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1)!important;
+    padding: 5px 25px!important;
+    border-radius: 25px!important;
+    background: #178B9A!important;
+    color: #ffffff!important;
+}
+
+.modal-timeout-footer{
+    padding: 20px 15px!important;
+}
+
+.modal-radius h2,
+.modal-radius h3{
+    color: #ffffff!important;
+}
+
+.modal-timeout-body,
+.modal-timeout-alert-body{
+    padding:    40px 15px!important;
+}
+.modal-timeout-alert-body{
+    background: #fb8a3f!important;
+
+}
+.modal-timeout-body {
+    background: #fb593f!important;
+}
+
+.padding-default{
+    padding: 10px 0px!important;
+}
+
+.timeout-img img{
+    width: 64px!important;
+}
+
+.modal-timeout {
+    width: 50%!important;
+    margin-left: 25%!important;
+    margin-top: 20% !important;
+
+}
+
+
+@media (max-width: 768px) and (min-width: 426px) {
+    .modal-timeout {
+        margin-top: 30% !important;
+        width: 80%!important;
+        left: 10% !important;
+    }
+}
+
+@media (max-width: 425px) {
+    .modal-timeout {
+        margin-top: 30% !important;
+        width: 100%!important;
+        left: 0 !important;
+    }
+    .modal-timeout-body h2{
+        margin-top: 5px !important;
+        font-size: 1em !important;
+    }
+}

@@ -1,0 +1,9 @@
+@media (max-width: 768px){
+    #loading-bar-spinner {
+        left: 0!important;
+    }
+
+    .spinner{
+        margin-right: 0!important;
+    }
+}

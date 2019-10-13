@@ -1,0 +1,40 @@
+<div class="header-container" [class.left]="position === 'normal'" [class.right]="position === 'inverse'">
+  <div class="logo-containter">
+    <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
+    <div class="logo" (click)="goToHome()">Admin | <span>Renda Variável</span></div>
+  </div>
+</div>
+
+<div class="header-container">
+
+</div>
+
+<div class="header-container">
+  <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+    <nb-action *nbIsGranted="['view', 'user']">
+      <nb-user (click)="openDropdown()" [name]="user.name" [picture]="" style="cursor:pointer;"></nb-user>
+      <div [className]="dropdown == true ? 'dropdown-content-expanded' : 'dropdown-content'">
+        <a>Perfil</a>
+        <a (click)="logout()">Sair</a>
+      </div>
+    </nb-action>
+    <div class="dropdown">Something</div>
+    <nb-action class="control-item" icon="nb-notifications"></nb-action>
+    <nb-action class="control-item email-text text-success">
+      <a (click)="toggleTicketSidebar()" class="btn btn-outline-secondary btn-with-icon" style="transition: background-color 0.5s;">
+        <i class="nb-email"></i>
+        <span>Tickets: {{ticketQty}}</span>
+      </a>
+    </nb-action>
+    <nb-action>
+      <div class="mx-3">
+        <div class="">IBOVESPA</div>
+        <div class="text-danger">-0,39%</div>
+      </div>
+      <div class="mx-3">
+        <div>Taxa CDI</div>
+        <div>6,40% <span style="font-size:0.7rem;">14/02</span></div>
+      </div>
+    </nb-action>
+  </nb-actions>
+</div>

@@ -1,0 +1,275 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class=" modal-body row">
+  <div class="col-md-12">
+    <form [formGroup]="userForm" (submit)="updateUser()">
+      <div class="row">
+        <div class="form-group col-md-7">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            name="name"
+            placeholder="Ex. John Doe"
+          >
+          <ng-container *ngIf="name.invalid && name.touched">
+            <p class="error-message" *ngIf="!!name.errors.required">
+              Nome é obrigatório!
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-md-5">
+          <label for="portion">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+            name="email"
+            placeholder="Ex. john@mail.com"
+          >
+          <ng-container *ngIf="email.invalid && email.touched">
+            <p class="error-message" *ngIf="!!email.errors.required">
+              Email é obrigatório!
+            </p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="cpf">CPF</label>
+          <input
+            class="form-control"
+            id="cpf"
+            mask="000.000.000-00"
+            formControlName="cpf"
+            name="cpf"
+            placeholder="Ex. 999.999.999-99"
+          >
+          <ng-container *ngIf="cpf.invalid && cpf.touched">
+            <p class="error-message" *ngIf="!!cpf.errors.required">
+              CPF é obrigatório!
+            </p>
+            <p class="error-message" *ngIf="!!cpf.errors.minlength">
+              CPF deve ter 11 dígitos!
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="phone">Telefone</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="phone"
+              formControlName="phone"
+              [dropSpecialCharacters]="false"
+              mask="(00)00000-0000"
+              name="phone"
+              placeholder="Ex.(99)99999-9999"
+            >
+            <ng-container *ngIf="phone.invalid && phone.touched">
+              <p class="error-message" *ngIf="!!phone.errors.required">
+                Telefone é obrigatório!
+              </p>
+              <p class="error-message" *ngIf="!!phone.errors.minlength">
+                Telefone deve ter 11 dígitos!
+              </p>
+            </ng-container>
+          </div>
+        <div class="form-group col-md-3">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            name="password"
+            >
+            <ng-container *ngIf="password.invalid && password.touched">
+              <p class="error-message" *ngIf="!!password.errors.required">
+                Senha é obrigatória!
+              </p>
+              <p class="error-message" *ngIf="!!password.errors.minlength">
+                Senha deve ter no mínimo 8 caracteres!
+              </p>
+            </ng-container>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cei_password">Senha CEI</label>
+          <input
+            type="password"
+            class="form-control"
+            id="cei_password"
+            formControlName="cei_password"
+            name="cei_password"
+            >
+            <ng-container *ngIf="cei.invalid && cei.touched">
+              <p class="error-message" *ngIf="!!cei.errors.required">
+                Senha CEI é obrigatória!
+              </p>
+            </ng-container>
+        </div>
+      </div>
+      <h6>Endereço</h6>
+      <div formGroupName="address">
+        <div class="row">
+          <div class="form-group col-md-5">
+            <label for="street">Rua</label>
+            <input
+              type="text"
+              class="form-control"
+              id="street"
+              formControlName="street"
+              name="street"
+              placeholder="Ex. John Doe"
+            >
+            <ng-container *ngIf="street.invalid && street.touched">
+              <p class="error-message" *ngIf="!!street.errors.required">
+                Rua é obrigatória!
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="number">Número</label>
+            <input
+              type="text"
+              class="form-control"
+              id="number"
+              formControlName="number"
+              mask="00000"
+              name="number"
+              placeholder="Ex. 111"
+            >
+            <ng-container *ngIf="number.invalid && number.touched">
+              <p class="error-message" *ngIf="!!number.errors.required">
+                Número é obrigatório!
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="complement">Complemento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="complement"
+              formControlName="complement"
+              name="complement"
+              placeholder="Ex. B12"
+            >
+          </div>
+          <div class="form-group col-md-3">
+            <label for="district">Bairro</label>
+            <input
+              type="text"
+              class="form-control"
+              id="district"
+              formControlName="district"
+              name="district"
+              placeholder="Ex. Centro"
+            >
+            <ng-container *ngIf="district.invalid && district.touched">
+              <p class="error-message" *ngIf="!!district.errors.required">
+                Bairro é obrigatório!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-2">
+            <label for="zip_code">CEP</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zip_code"
+              formControlName="zip_code"
+              mask="00000-000"
+              name="zip_code"
+              placeholder="Ex.99999-999"
+            >
+            <ng-container *ngIf="zip_code && zip_code.touched">
+              <p class="error-message" *ngIf="!!zip_code.errors?.required">
+                CEP é obrigatório!
+              </p>
+              <p class="error-message" *ngIf="!!zip_code.errors?.minlength">
+                CEP deve ter 8 dígitos!
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="state">País</label>
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              formControlName="country"
+              name="country"
+              placeholder="Ex. BR"
+            >
+            <ng-container *ngIf="country.invalid && country.touched">
+              <p class="error-message" *ngIf="!!country.errors.required">
+                País é obrigatório!
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="state">Estado</label>
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              formControlName="state"
+              name="state"
+              placeholder="Ex. PE"
+            >
+            <ng-container *ngIf="state.invalid && state.touched">
+              <p class="error-message" *ngIf="!!state.errors.required">
+                Estado é obrigatório!
+              </p>
+            </ng-container>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="city">Cidade</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              formControlName="city"
+              name="city"
+              placeholder="Ex. Recife"
+            >
+            <ng-container *ngIf="city.invalid && city.touched">
+              <p class="error-message" *ngIf="!!city.errors.required">
+                Cidade é obrigatória!
+              </p>
+            </ng-container>
+          </div>
+        </div>
+    </div>
+    <h5>Status</h5>
+    <div class="form-group row">
+      <div style="margin-left:15px;">
+        <nb-radio-group class="row" style="margin-left:0;" formControlName="user_status_id" name="user_status_id">
+          <nb-radio class="btn btn-secondary" [value]="'ATIVO'">Ativo
+          </nb-radio>
+          <nb-radio class="btn btn-secondary status-btn" [value]="'SUSPENSO'">Suspenso
+          </nb-radio>
+          <nb-radio class="btn btn-secondary status-btn" [value]="'BLOQUEADO'">Bloqueado
+          </nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+
+      <div class="form-group row">
+        <div class="col-md-3">
+          <button type="submit" [disabled]="!userForm.valid"  class="btn btn-primary" style="cursor: pointer;">Confirmar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+.modal-backfrop {
+    position: fixed;
+    z-index: 999999;
+    background: rgba(0,0,0,0.6);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal-financial-container {
+    z-index: 999999;
+    background-color: #0A7280;
+    width: 350px;
+    height: 320px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -175px;
+    margin-left: -170px;
+    color: #fff;
+    padding: 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.modal-financial-container .panel-heading,
+.modal-financial-container .panel-body {
+    margin-top: 10px;
+}
+
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #fff;
+    background: transparent;
+    border: none;
+}
+
+.btn-submit {
+    margin: 19px 0 0 0;
+    background-color: #FF761A;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    padding: 11px 30px;
+    -khtml-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 450px) {
+    .modal-financial-container {
+        width: 94%;
+        height: auto;
+        left: 0;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+}

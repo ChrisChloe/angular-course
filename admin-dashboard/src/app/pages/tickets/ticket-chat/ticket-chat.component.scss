@@ -1,0 +1,17 @@
+nb-card-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+nb-chat {
+  width: 500px;
+}
+
+.header {
+  font-family: Exo;
+  font-size: large;
+  font-weight: 600;
+  width: 100%;
+}

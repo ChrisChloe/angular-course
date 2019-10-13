@@ -1,0 +1,368 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class=" modal-body row">
+  <div class="col-md-12">
+    <form [formGroup]="brokerForm" (submit)="updateBroker()">
+      <h5>Dados</h5>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            name="name"
+            placeholder="Ex. Invest Broker"
+          >
+        </div>
+        <div class="form-group col-md-6">
+          <label for="cnpj">CNPJ</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="cnpj"
+            mask="00.000.000/0000-00"
+            formControlName="cnpj"
+            name="cnpj"
+            placeholder="00.000.000/0001-00"
+          >
+        </div>
+      </div>
+      <h5>Taxas</h5>
+      <div formGroupName="rates">
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="hb_vista">Home Broker - Vista</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_vista"
+            formControlName="hb_vista"
+            name="hb_vista"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="hb_vista_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_vista_rate"
+            formControlName="hb_vista_rate"
+            name="hb_vista_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+        <div class="form-group col-md-4">
+          <label for="hb_fractional">Home Broker - Fracionário</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_fractional"
+            formControlName="hb_fractional"
+            name="hb_fractional"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="hb_fractional_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_fractional_rate"
+            formControlName="hb_fractional_rate"
+            name="hb_fractional_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="hb_options">Home Broker - Opções</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_options"
+            formControlName="hb_options"
+            name="hb_options"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="hb_options_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_options_rate"
+            formControlName="hb_options_rate"
+            name="hb_options_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+        <div class="form-group col-md-3">
+          <label for="hb_future">Home Broker - Futuros</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_future"
+            formControlName="hb_future"
+            name="hb_future"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="hb_future_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_future_rate"
+            formControlName="hb_future_rate"
+            name="hb_future_rate"
+            prefix=" %"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="hb_mini">Home Broker - Mini</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_mini"
+            formControlName="hb_mini"
+            name="hb_mini"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="hb_mini_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="hb_mini_rate"
+            formControlName="hb_mini_rate"
+            name="hb_mini_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+        <div class="form-group col-md-3">
+          <label for="m_vista">Mesa - Vista</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_vista"
+            formControlName="m_vista"
+            name="m_vista"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="m_vista_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_vista_rate"
+            formControlName="m_vista_rate"
+            name="m_vista_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="m_fractional">Mesa - Fracionário</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_fractional"
+            formControlName="m_fractional"
+            name="m_fractional"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="m_fractional_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_fractional_rate"
+            formControlName="m_fractional_rate"
+            name="m_fractional_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+        <div class="form-group col-md-3">
+          <label for="m_options">Mesa - Opções</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_options"
+            formControlName="m_options"
+            name="m_options"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="m_options_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_options_rate"
+            formControlName="m_options_rate"
+            name="m_options_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-3">
+          <label for="m_mini">Mesa - Mini</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_mini"
+            formControlName="m_mini"
+            name="m_mini"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="m_mini_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="m_mini_rate"
+            formControlName="m_mini_rate"
+            name="m_mini_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+        <div class="form-group col-md-3">
+          <label for="custody">Custódia</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="custody"
+            formControlName="custody"
+            name="custody"
+            prefix="R$"
+            mask="coma_separator.2"
+            placeholder="Ex. R$ 10,50"
+          >
+        </div>
+        <div class="form-group col-md-2">
+          <label for="custody_rate">%</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="custody_rate"
+            formControlName="custody_rate"
+            name="custody_rate"
+            prefix="%"
+            mask="coma_separator.2"
+            placeholder="Ex. 0,5%"
+          >
+        </div>
+      </div>
+    </div>
+      <h5>Serviços Oferecidos</h5>
+      <div formGroupName="services">
+      <div class="form-group row">
+        <div class="col-sm-3">
+          <div class="form-check">
+            <nb-checkbox formControlName="home_broker">Home Broker</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="platform">Plataforma</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="mobile">Mobile</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="community_online">Comunidade Online</nb-checkbox>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-check">
+            <nb-checkbox formControlName="integrated_td">Tesouro Direto Integrado</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="simulators">Simuladores</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="loans">Empréstimos</nb-checkbox>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-check">
+            <nb-checkbox formControlName="recommendations">Recomendações</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="reviews">Análises</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="rent">Aluguel</nb-checkbox>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-check">
+            <nb-checkbox formControlName="news">Notícias</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="educational">Educacional</nb-checkbox>
+          </div>
+          <div class="form-check">
+            <nb-checkbox formControlName="term">Termo</nb-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <button type="submit" class="btn btn-primary" style="cursor: pointer;">Confirmar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

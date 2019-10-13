@@ -1,0 +1,162 @@
+.skeleton-preview{
+    border-radius: 25px;
+    background-image: linear-gradient(90deg, #e2e2e2 0px, #e8e8e8 40px, #e2e2e2 80px);
+    animation: shine 1.6s infinite linear;
+    background-size: 600px;
+}
+
+.p0-25-light{
+    padding:0 40px;
+}
+
+.p0-30-light{
+    padding:0 40px;
+}
+
+.p0-35-light{
+    padding:0 40px;
+}
+
+.p0-50-light{
+    padding:0 50px;
+}
+
+.p2-15-light{
+    padding:0 50px;
+}
+
+.p6-40-light{
+    padding:0 50px;
+}
+
+.p0-40-dark{
+    padding:0 40px;
+    background-image: linear-gradient(90deg, #d4d4d4 0px, #e8e8e8 40px, #d4d4d4 80px);
+}
+
+.p-top{
+    padding-top: 20px!important;
+}
+
+@keyframes shine {
+    0% {
+        background-position: -100px;
+    }
+    40%, 100% {
+        background-position: 140px;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .p0-40-dark {
+        padding: 0px 35px;
+    }
+
+    .p2-15-light,
+    .p0-25-light{
+        padding: 0px 25px;
+    }
+
+    .p0-35-light {
+        padding: 0 30px;
+    }
+
+    .p0-30-light{
+        padding:0 35px;
+    }
+
+    .p0-35-light-logo {
+        padding: 0 20px!important;
+    }
+
+    .p6-40-light{
+        padding:0 25px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .p0-40-dark {
+        padding: 0px 35px;
+    }
+
+    .p2-15-light,
+    .p0-25-light{
+        padding: 0px 25px;
+    }
+
+    .p0-35-light {
+        padding: 0 30px;
+    }
+
+    .p0-30-light{
+        padding:0 35px;
+    }
+
+    .p0-35-light-logo {
+        padding: 0 20px!important;
+    }
+
+    .p6-40-light{
+        padding:0 25px;
+    }
+
+}
+
+@media (max-width: 425px) {
+    .p0-40-dark {
+        padding: 0px 35px;
+    }
+
+    .p2-15-light,
+    .p0-25-light{
+        padding: 0px 25px;
+    }
+
+    .p0-35-light {
+        padding: 0 30px;
+    }
+
+    .p0-35-light-logo {
+        padding: 0 20px!important;
+    }
+}
+
+@media (max-width: 375px) {
+    .p0-40-dark {
+        padding: 0px 29px;
+    }
+
+    .p2-15-light,
+    .p0-25-light{
+        padding: 0px 20px;
+    }
+
+    .p0-35-light {
+        padding: 0 25px;
+    }
+
+    .p0-35-light-logo {
+        padding: 0 15px!important;
+    }
+}
+
+@media (max-width: 320px) {
+    .p0-40-dark {
+        padding: 0px 29px;
+    }
+
+    .p2-15-light,
+    .p0-25-light{
+        padding: 0px 20px;
+    }
+
+    .p0-35-light {
+        padding: 0 22px;
+    }
+
+    .p0-35-light-logo {
+        padding: 0 10px!important;
+    }
+}
